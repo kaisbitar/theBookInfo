@@ -1,0 +1,11 @@
+td {
+    width: 121px;
+    padding-right: 52px;
+}
+td.numberCell{
+    text-align: center;
+}
+table#the_sura {
+    margin: 71px;
+    
+}
