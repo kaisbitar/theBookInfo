@@ -24,7 +24,7 @@
 
         
         $verses = $fullSura->fullSura;
-
+ 
         $verseObject = pross_verses($verses);
 
         // $verseWords = $verse->verse;
