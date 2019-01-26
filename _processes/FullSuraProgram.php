@@ -1,25 +1,30 @@
 <?php
 
-include_once('../_classes/fullSuraClass.php');
-include_once('../_classes/verseClass.php');
-include_once('../_classes/wordClass.php');
-include_once('../_classes/lettersClass.php');
+include_once '../_classes/FullSura.php';
+include_once '../_classes/Verse.php';
+include_once '../_classes/Word.php';
+include_once '../_classes/Letter.php';
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 $suraName = 'الفاتحة';
     //$text = 'بسم الله الرحمن الرحيم,الحمد لله رب العلمين,الرحمن الرحيم,ملك يوم الدين,إياك نعبد وإياك نستعين,اهدنا الصرط المستقيم,صرط الذين أنعمت عليهم غير المغضوب عليهم ولا الضالين';
     // $text = 'بسم الله الرحمن الرحيم,الحمد لله رب العلمين,الرحمن الرحيم,ملك يوم الدين,إياك نعبد وإياك نستعين,اهدنا الصرط المستقيم,صرط الذين أنعمت عليهم غير المغضوب عليهم ولا الضالين';
     //$text='abc, abcd, abcde, abcdef';
    $myfile = file_get_contents("../الفاتحة.txt"); 
    $text = $myfile;//echo $text;
-if (isset($text)) {
 
+// $text = 'بسم الله الرحمن الرحيم,الحمد لله رب العلمين,الرحمن الرحيم,ملك يوم الدين,إياك نعبد وإياك نستعين,اهدنا الصرط المستقيم,صرط الذين أنعمت عليهم غير المغضوب عليهم ولا الضالين';
+//$text='abc, abcd, abcde, abcdef';
+//$myfile = file_get_contents("../البقرة.txt");
+// $text = $myfile;//echo $text;
+if (isset($text)) {
     $fullSura = new fullSura($text);
 
     $suraObject = prepareSuraJSON($fullSura);
     $suraObject->suraName = $suraName;
-
 
     $verses = $fullSura->fullSura;
     $verseObject = pross_verses($verses);
@@ -30,7 +35,6 @@ if (isset($text)) {
        // var_dump($verses[$i]);
 
     echo $jsonObject;
-
 } else {
     echo 'Full Sura Not Provided';
 }
@@ -58,12 +62,12 @@ function pross_verseWords($verses)
     }
     return $processedWords;
 }
+
 function pross_verses($verses)
 {
     $verseObject = new \stdClass();
 
     for ($i = 0; $i < sizeof($verses); $i++) {
-
         $verse = new verse($verses[$i], $i);
         $verseJSON = new \stdClass();
         $wordsJSON = new \stdClass();
@@ -71,8 +75,10 @@ function pross_verses($verses)
         $verseJSON = prepareVerseJSON($verse, $verseIndex);
         $verseObject->$verseIndex = $verseJSON;
     }
+
     return $verseObject;
 }
+
 function prepareVerseJSON($verse, $i)
 {
     $verseNumberOfWords = $verse->calculateVerseWords();
@@ -98,11 +104,4 @@ function prepareSuraJSON($fullSura)
     $sura->VerseIndex = $fullSura->breakToVerses();
 
     return $sura;
-
 }
-
-
-
-
-
-?>

@@ -14,8 +14,8 @@
     <button id = "withIntro_button">With Intro</button>
     <table id="the_sura">
         <thead>
-            
-            <tr> 
+
+            <tr>
               <td class="verses_count">Number of Verses</td>
               <td class="verses_words_count">Number of Words</td>
               <td class="verses_letters_count">Number of Letters</td>
@@ -29,7 +29,7 @@
     <table id="the_sura">
         <thead>
             <tr>
-            
+
               <td class="verses_count">Number of Verses</td>
               <td class="verses_words_count">Number of Words</td>
               <td class="verses_letters_count">Number of Letters</td>
