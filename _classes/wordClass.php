@@ -5,20 +5,27 @@
 
         public $verse;
         public $verse_number;
-        function __construct( $verse ) { //when building the database consider passing ($sura_number, $verse_numbe, $word_number)as index for verse
+        function __construct( $verse, $verse_number ) { //when building the database consider passing ($sura_number, $verse_numbe, $word_number)as index for verse
             
             $this->verse = $verse;
+            $this->verse_number = $verse_number;
         }   
 
         function indexTheWords(){
-            $verse = $this->verse ;
-            $wordCount =  array();
-            for($i = 0; $i < sizeof($verse); $i++){
-                $wordIndex = $i + 1;
-                $wordCount [($wordIndex)] = $verse[$i];
+            $verse = $this->verse ;//var_dump($verse);
+            $verse_number = $this->verse_number;
+            $verseArray =  array();
+            $wordsIndex = array();
+            $verseArray = explode(' ', $verse);
+            for($i = 0; $i < sizeof($verseArray); $i++){
+               $wordsIndex["Verse"] = $i+1;
+               $numberOfLetters = strlen($verseArray[$i])/2;
+               $wordsIndex["lettersCount"] = $numberOfLetters;
+               $wordsIndex["Word"] = $verseArray[$i];
+               
             }
-
-            return $wordCount;
+           
+             return $wordsIndex;
         }
 
         function breakToLetters($wordsIndex){

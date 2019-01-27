@@ -8,11 +8,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $suraName = 'الفاتحة';
-$text = 'بسم الله الرحمن الرحيم,الحمد لله رب العلمين,الرحمن الرحيم,ملك يوم الدين,إياك نعبد وإياك نستعين,اهدنا الصرط المستقيم,صرط الذين أنعمت عليهم غير المغضوب عليهم ولا الضالين';
+    //$text = 'بسم الله الرحمن الرحيم,الحمد لله رب العلمين,الرحمن الرحيم,ملك يوم الدين,إياك نعبد وإياك نستعين,اهدنا الصرط المستقيم,صرط الذين أنعمت عليهم غير المغضوب عليهم ولا الضالين';
     // $text = 'بسم الله الرحمن الرحيم,الحمد لله رب العلمين,الرحمن الرحيم,ملك يوم الدين,إياك نعبد وإياك نستعين,اهدنا الصرط المستقيم,صرط الذين أنعمت عليهم غير المغضوب عليهم ولا الضالين';
     //$text='abc, abcd, abcde, abcdef';
-    //$myfile = file_get_contents("../البقرة.txt"); 
-   // $text = $myfile;//echo $text;
+   $myfile = file_get_contents("../الفاتحة.txt"); 
+   $text = $myfile;//echo $text;
 if (isset($text)) {
 
     $fullSura = new fullSura($text);
@@ -22,31 +22,41 @@ if (isset($text)) {
 
 
     $verses = $fullSura->fullSura;
-
     $verseObject = pross_verses($verses);
-
-    $suraObject->verse = $verseObject;        
+    $suraObject->verse = $verseObject;    
+    $wordObject = pross_verseWords($verses);
+    $suraObject->words = $wordObject;
     $jsonObject = json_encode($suraObject);
+       // var_dump($verses[$i]);
+
     echo $jsonObject;
 
 } else {
     echo 'Full Sura Not Provided';
 }
 
-function pross_verseWords($verseWords)
+function pross_verseWords($verses)
 {
-
-    for ($j = 0; $j < sizeof($wordsArray); $j++) {
-
-        $words = new words($wordsArray);
-        $wordsIndex = $words->indexTheWords();
-        var_dump($words);
-        echo '<br>';
-        $word[$i + 1] = $wordsIndex;
-        $singleWord = $wordsIndex;
-
+    $processedWords = array();
+    $wordsContainer = array();
+    $indexedWords = array();
+    $wordObject = new \stdClass();
+    for ($i = 0; $i < sizeof($verses); $i++){
+        $wordsArray = $verses[$i];
+        for ($j = 0; $j < sizeof($wordsArray); $j++) {
+            $wordsString = explode(" ", $wordsArray);
+            for($z = 0; $z < sizeof($wordsString); $z++){
+                $words = new words($wordsString[$z], $i);
+                $wordsIndex = $words->indexTheWords();
+                $indexedWords [$z] = $wordsIndex;
+                $verseNumber = $i+1;
+            }
+            $wordObject->$verseNumber = $indexedWords;
+            $wordsContainer [$j] = $indexedWords;
+        } 
+        $processedWords[$i] = $wordsContainer;
     }
-    return $singleWord;
+    return $processedWords;
 }
 function pross_verses($verses)
 {
