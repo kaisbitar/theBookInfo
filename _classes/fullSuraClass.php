@@ -32,10 +32,12 @@
                 $lettersCount = 0;
                 $fullSura = $this->fullSura;
             for($i=0; $i < sizeof($fullSura); $i++){
-                    $verse = explode(" ", $fullSura[$i]);var_dump($verse);
+                    $verse = explode(" ", $fullSura[$i]);
+                    //var_dump($verse);
                     for($j=0; $j < sizeof($verse); $j++){
-                    $numberOfLetters = strlen($verse[$j]);    var_dump($numberOfLetters);
-                    echo $verse[$j];echo '  '; echo ($numberOfLetters/2);echo '<br>';
+                    $numberOfLetters = strlen($verse[$j]);   
+                    // var_dump($numberOfLetters);
+                    // echo $verse[$j];echo '  '; echo ($numberOfLetters/2);echo '<br>';
                     // 
                         $lettersCount = $lettersCount + ($numberOfLetters/2);
                     }

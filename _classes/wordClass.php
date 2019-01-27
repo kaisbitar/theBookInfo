@@ -19,7 +19,7 @@
             $verseArray = explode(' ', $verse);
             for($i = 0; $i < sizeof($verseArray); $i++){
                $wordsIndex["Verse"] = $i+1;
-               $numberOfLetters = strlen($verseArray[$i])/2;
+               $numberOfLetters = mb_strlen($verseArray[$i]);
                $wordsIndex["lettersCount"] = $numberOfLetters;
                $wordsIndex["Word"] = $verseArray[$i];
                

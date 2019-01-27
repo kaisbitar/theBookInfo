@@ -22,7 +22,7 @@
         function calculateVerseLetters(){
             $verse = $this->verse;
             $verse = implode("", $verse);
-            $verseLetters = strlen($verse)/2;
+            $verseLetters = mb_strlen($verse);
             return $verseLetters;
         }
         
