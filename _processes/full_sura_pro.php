@@ -43,7 +43,7 @@ function pross_verseWords($verses)
     $wordObject = new \stdClass();
     for ($i = 0; $i < sizeof($verses); $i++){
         $wordsArray = $verses[$i];
-        for ($j = 0; $j < sizeof($wordsArray); $j++) {
+        for ($j = 0; $j < strlen($wordsArray); $j++) {
             $wordsString = explode(" ", $wordsArray);
             for($z = 0; $z < sizeof($wordsString); $z++){
                 $words = new words($wordsString[$z], $i);
