@@ -6,22 +6,24 @@ use App\Verse;
 
 class Word extends Verse
 {
-    public $verse;
+    public $word;
     public $verse_number;
 
-    public function __construct($verse)
+    public function __construct($word)
     {
         //when building the database consider passing ($sura_number, $verse_numbe, $word_number)as index for verse
-        $this->verse = $verse;
+        $this->word = $word;
     }
 
     public function indexTheWords()
     {
-        $verse = $this->verse;
+        $word = $this->word;
         $wordCount = array();
-        for ($i = 0; $i < strlen($verse); $i++) {
-            $wordIndex = $i + 1;
-            $wordCount[($wordIndex)] = $verse[$i];
+
+        $lettersArray = preg_split('//u', $word, -1, PREG_SPLIT_NO_EMPTY);
+        
+        foreach ($lettersArray as $index => $letter) {
+            $wordCount[$index + 1] = $letter;
         }
 
         return $wordCount;

@@ -51,13 +51,12 @@ class CalculatorController extends Controller
 
         for ($i = 0; $i < sizeof($verses); $i++) {
             $wordsArray = $verses[$i];
-
             for ($j = 0; $j < strlen($wordsArray); $j++) {
                 $wordsString = explode(" ", $wordsArray);
 
                 for ($z = 0; $z < sizeof($wordsString); $z++) {
-                    $words = new Word($wordsString[$z], $i);
-                    $wordsIndex = $words->indexTheWords();
+                    $word = new Word($wordsString[$z]);
+                    $wordsIndex = $word->indexTheWords();
                     $indexedWords[$z] = $wordsIndex;
                     $verseNumber = $i + 1;
                 }
