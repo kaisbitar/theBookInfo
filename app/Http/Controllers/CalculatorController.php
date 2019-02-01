@@ -28,6 +28,10 @@ class CalculatorController extends Controller
 
     public function get()
     {
+        $this->fullSura->numberOfVerses = $this->fullSura->calculateNumberOfVerses();
+        $this->fullSura->numberOfWords = $this->fullSura->calculateNumberOfWords();
+        $this->fullSura->numberOfLetters = $this->fullSura->calculateNumberOfLetters();
+
         $this->fullSura->verses = $this->processVerses($this->fullSura->suraFile);
         $this->fullSura->words = $this->processVerseWords($this->fullSura->suraFile);
 

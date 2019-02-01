@@ -31,14 +31,13 @@ class FullSura extends Model
 
     public function calculateNumberOfVerses()
     {
-        $fullSura = $this->fullSura;
-        return sizeof($fullSura);
+        return sizeof($this->suraFile);
     }
 
     public function calculateNumberOfLetters()
     {
         $lettersCount = 0;
-        $fullSura = $this->fullSura;
+        $fullSura = $this->suraFile;
 
         for ($i = 0; $i < sizeof($fullSura); $i++) {
             $verse = explode(" ", $fullSura[$i]);
@@ -55,7 +54,7 @@ class FullSura extends Model
     public function calculateNumberOfWords()
     {
         $wordsCount = 0;
-        $fullSura = $this->fullSura;
+        $fullSura = $this->suraFile;
 
         for ($i = 0; $i < sizeof($fullSura); $i++) {
             $verse = $fullSura[$i];
