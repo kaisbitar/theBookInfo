@@ -17,7 +17,8 @@ class CalculatorController extends Controller
     {
         $file = 'الفاتحة';
 
-        $suraFile = File::get(storage_path('الفاتحة'));
+        $suraFile = File::get(storage_path($file));
+       // dd($suraFile);
         if (!isset($suraFile)) {
             return response()->json(["error" => "Sura file not found"]);
         }
@@ -39,9 +40,9 @@ class CalculatorController extends Controller
         // dd($this->fullSura->toArray());
 
         foreach ($this->fullSura as $row) {
-            if (!mb_check_encoding($row, 'UTF-8')) {
-                return response()->json(["error" => "File is malformed"]);
-            }
+            // if (!mb_check_encoding($row, 'UTF-8')) {
+            //     return response()->json(["error" => "File is malformed"]);
+            // }
         }
         // dd($this->fullSura->verses);
         return $this->jsonResponse($this->fullSura);
@@ -78,29 +79,13 @@ class CalculatorController extends Controller
 
     private function processVerses($verses)
     {
-        $verseObject = new \stdClass();
-
-        for ($i = 0; $i < sizeof($verses); $i++) {
-            $verse = new Verse($verses[$i], $i);
-            $verseJSON = new \stdClass();
-            $wordsJSON = new \stdClass();
-            $verseIndex = $i + 1;
-            $verseJSON = $this->prepareVerseJSON($verse, $verseIndex);
-            $verseObject->$verseIndex = $verseJSON;
+        foreach($verses as $index => $verse){        
+            $verseObject = new Verse($verse, $index);
+            $verseObject->WordsCount = sizeof($verseObject->verseArray);
+            $verseObject->lettersCount = $verseObject->countVerseLetters();
         }
 
-        return $verseObject;
+        return $verses;
     }
 
-    private function prepareVerseJSON($verse, $i)
-    {
-        $verseNumberOfWords = $verse->calculateVerseWords();
-        $verseNumberOfLetters = $verse->calculateVerseLetters();
-        $verseJSON = new \stdClass();
-        $verseJSON->TheVerse = implode(" ", $verse->verse);
-        $verseJSON->WordsCount = $verseNumberOfWords;
-        $verseJSON->lettersCount = $verseNumberOfLetters;
-
-        return $verseJSON;
-    }
 }

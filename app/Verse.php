@@ -6,27 +6,22 @@ use App\FullSura;
 
 class Verse extends FullSura
 {
-    public $verse;
-    public $verse_number;
+    public $verseString;
+    public $verseArray;
+    public $verseIndex;
     
-    public function __construct($verse, $verse_number)
+    public function __construct($verse, $index)
     {
-        $verse = explode(" ", $verse);
-        $this->verse = $verse;
-        $this->verse_number = $verse_number;
-        //$verse
+        $this->verseString = $verse;
+        $this->verseArray = explode(" ", $verse);
+        $this->verseIndex = $index + 1;
     }
 
-    public function calculateVerseWords()
+    public function countVerseLetters()
     {
-        $verse = $this->verse;
-        return sizeof($verse);
-    }
-    public function calculateVerseLetters()
-    {
-        $verse = $this->verse;
-        $verse = implode("", $verse);
-        $verseLetters = strlen($verse) / 2;
-        return $verseLetters;
+        $verseNoSpaces = implode("", $this->verseArray);
+        $lettersCount = mb_strlen($verseNoSpaces);
+
+        return $lettersCount;
     }
 }
