@@ -18,15 +18,13 @@ class FullSura extends Model
 
     public function breakToVerses()
     {
-        $fullSura = $this->fullSura;
+        $fullSura = $this->suraFile;
 
         for ($i = 0; $i < sizeof($fullSura); $i++) {
-            $verseIndex = $i + 1;
-            //$verse[]= [$verseIndex=>$fullSura[$i]];
-            $verse[($verseIndex)] = $fullSura[$i];
+            $versesArray[$i + 1] = $fullSura[$i];
         }
 
-        return $verse;
+        return $versesArray;
     }
 
     public function calculateNumberOfVerses()

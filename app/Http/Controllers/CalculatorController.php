@@ -31,6 +31,7 @@ class CalculatorController extends Controller
         $this->fullSura->numberOfVerses = $this->fullSura->calculateNumberOfVerses();
         $this->fullSura->numberOfWords = $this->fullSura->calculateNumberOfWords();
         $this->fullSura->numberOfLetters = $this->fullSura->calculateNumberOfLetters();
+        $this->fullSura->VerseIndex = $this->fullSura->breakToVerses();
 
         $this->fullSura->verses = $this->processVerses($this->fullSura->suraFile);
         $this->fullSura->words = $this->processVerseWords($this->fullSura->suraFile);

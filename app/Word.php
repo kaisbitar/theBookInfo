@@ -6,27 +6,45 @@ use App\Verse;
 
 class Word extends Verse
 {
-    public $word;
+    public $verse;
     public $verse_number;
 
-    public function __construct($word)
+    public function __construct($verse)
     {
         //when building the database consider passing ($sura_number, $verse_numbe, $word_number)as index for verse
-        $this->word = $word;
+        $this->verse = $verse;
     }
 
     public function indexTheWords()
     {
-        $word = $this->word;
-        $wordCount = array();
+        $verse = $this->verse;
+        $wordsIndex = array();
 
-        $lettersArray = preg_split('//u', $word, -1, PREG_SPLIT_NO_EMPTY);
-        
+        $lettersArray = preg_split('//u', $verse, -1, PREG_SPLIT_NO_EMPTY);
+
         foreach ($lettersArray as $index => $letter) {
-            $wordCount[$index + 1] = $letter;
+            $wordsIndex["Verse"] = $index + 1;
+            $numberOfLetters = mb_strlen($lettersArray[$index]);
+            $wordsIndex["lettersCount"] = $numberOfLetters;
+            $wordsIndex["Word"] = $lettersArray[$index];
         }
 
-        return $wordCount;
+        return $wordsIndex;
+
+        // $verse = $this->verse; //var_dump($verse);
+        // $verse_number = $this->verse_number;
+        // $verseArray = array();
+        // $wordsIndex = array();
+        // $verseArray = explode(' ', $verse);
+        // for ($i = 0; $i < sizeof($verseArray); $i++) {
+        //     $wordsIndex["Verse"] = $i + 1;
+        //     $numberOfLetters = mb_strlen($verseArray[$i]);
+        //     $wordsIndex["lettersCount"] = $numberOfLetters;
+        //     $wordsIndex["Word"] = $verseArray[$i];
+        // }
+
+        // return $wordsIndex;
+
     }
 
     public function breakToLetters($wordsIndex)
