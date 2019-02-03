@@ -18,37 +18,33 @@ class CalculatorController extends Controller
         $file = 'الفاتحة';
 
         $suraFile = File::get(storage_path($file));
-       // dd($suraFile);
+        // dd($suraFile);
         if (!isset($suraFile)) {
             return response()->json(["error" => "Sura file not found"]);
         }
 
         $this->fullSura = new FullSura($suraFile);
-        $this->fullSura->name = $file;
+        $this->fullSura->name =
+        $file;
     }
 
-    public function get()
+    public function mapSura()
     {
         $this->fullSura->numberOfVerses = $this->fullSura->calculateNumberOfVerses();
         $this->fullSura->numberOfWords = $this->fullSura->calculateNumberOfWords();
         $this->fullSura->numberOfLetters = $this->fullSura->calculateNumberOfLetters();
         $this->fullSura->VerseIndex = $this->fullSura->breakToVerses();
 
+        return $this->jsonResponse($this->fullSura);
+    }
+    public function mapVerses()
+    {
         $this->fullSura->verses = $this->processVerses($this->fullSura->suraFile);
-        $this->fullSura->words = $this->processVerseWords($this->fullSura->suraFile);
 
-        // dd($this->fullSura->toArray());
-
-        foreach ($this->fullSura as $row) {
-            // if (!mb_check_encoding($row, 'UTF-8')) {
-            //     return response()->json(["error" => "File is malformed"]);
-            // }
-        }
-        // dd($this->fullSura->verses);
         return $this->jsonResponse($this->fullSura);
     }
 
-    private function processVerseWords($verses)
+    public function mapWords()
     {
         $processedWords = array();
         $wordsContainer = array();
@@ -73,13 +69,13 @@ class CalculatorController extends Controller
 
             $processedWords[$i] = $wordsContainer;
         }
+        $this->fullSura->words = $processedWords;
 
-        return $processedWords;
+        return $this->jsonResponse($this->fullSura);
     }
-
     private function processVerses($verses)
     {
-        foreach($verses as $index => $verse){        
+        foreach ($verses as $index => $verse) {
             $verseObject = new Verse($verse, $index);
             $verseObject->WordsCount = sizeof($verseObject->verseArray);
             $verseObject->lettersCount = $verseObject->countVerseLetters();
@@ -87,5 +83,4 @@ class CalculatorController extends Controller
 
         return $verses;
     }
-
 }

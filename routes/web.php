@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('calculate', 'CalculatorController@get');
+Route::get('sura-map', 'CalculatorController@mapSura');
+Route::get('verses-map', 'CalculatorController@mapVerses');
+Route::get('words-map', 'CalculatorController@mapWords');
