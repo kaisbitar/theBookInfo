@@ -15,7 +15,7 @@ class CalculatorController extends Controller
 
     public function __construct()
     {
-        $file = 'الفاتحة';
+        $file = 'البقرة';
 
         $suraFile = File::get(storage_path($file));
         if (!isset($suraFile)) {
@@ -40,7 +40,7 @@ class CalculatorController extends Controller
     {
         $this->fullSura->verses = $this->processVerses($this->fullSura->suraFile);
 
-        return $this->jsonResponse($this->fullSura->verses);
+        return $this->jsonResponse($this->fullSura);
     }
 
     private function processVerses($verses)
