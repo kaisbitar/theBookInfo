@@ -38,9 +38,9 @@ class CalculatorController extends Controller
 
     public function mapVerses()
     {
-        $this->fullSura->verses = $this->processVerses($this->fullSura->suraFile);
+        $verses = $this->processVerses($this->fullSura->suraFile);
 
-        return $this->jsonResponse($this->fullSura);
+        return $this->jsonResponse($this->paginate($verses));
     }
 
     private function processVerses($verses)

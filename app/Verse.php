@@ -4,6 +4,7 @@ namespace App;
 
 use App\FullSura;
 use App\Word;
+use Illuminate\Support\Collection;
 
 class Verse extends FullSura
 {
@@ -28,7 +29,7 @@ class Verse extends FullSura
 
     public function indexVerseWords()
     {
-        $verseWords = [];
+        $verseWords = new Collection();
 
         foreach ($this->verseArray as $index => $word) {
             $wordObject = new Word($word, $index + 1);
@@ -36,7 +37,7 @@ class Verse extends FullSura
             $wordObject->Word = $wordObject->string;
             $wordObject->Letters = $wordObject->letters;
             
-            $verseWords[$word] = $wordObject;
+            $verseWords->push($wordObject);
         }
 
         return $verseWords;
