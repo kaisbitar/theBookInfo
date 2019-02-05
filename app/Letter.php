@@ -2,14 +2,18 @@
 
 namespace App;
 
-use App\Words;
+use App\Word;
 
-class Letter extends Words
+class Letter extends Word
 {
-    public $word;
+    public $char;
+    public $index;
 
-    public function __construct($word)
+    public function __construct($char, $index)
     {
-        $this->word = $word;
+        $this->char = $char;
+        $this->index = $index;
+
+        return $this;
     }
 }
