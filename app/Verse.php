@@ -24,4 +24,16 @@ class Verse extends FullSura
 
         return $lettersCount;
     }
+
+    public function indexVerseWords(){
+
+        $verse = $this->verseArray;
+        foreach($verse as $index => $word){
+           $wordIndex = 'wordIndex '.($index + 1);
+           $tmpArray[$wordIndex] = $word;
+
+        }
+        return $tmpArray;
+    }
+   
 }

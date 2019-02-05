@@ -18,14 +18,12 @@ class CalculatorController extends Controller
         $file = 'الفاتحة';
 
         $suraFile = File::get(storage_path($file));
-        // dd($suraFile);
         if (!isset($suraFile)) {
             return response()->json(["error" => "Sura file not found"]);
         }
 
         $this->fullSura = new FullSura($suraFile);
-        $this->fullSura->name =
-        $file;
+        $this->fullSura->name =  $file;
     }
 
     public function mapSura()
@@ -40,8 +38,8 @@ class CalculatorController extends Controller
     public function mapVerses()
     {
         $this->fullSura->verses = $this->processVerses($this->fullSura->suraFile);
-
-        return $this->jsonResponse($this->fullSura);
+        //How can we show the Verse Index of each the verses
+        return $this->jsonResponse($this->fullSura->verses);
     }
 
     public function mapWords()
@@ -77,10 +75,13 @@ class CalculatorController extends Controller
     {
         foreach ($verses as $index => $verse) {
             $verseObject = new Verse($verse, $index);
+            $verseObject->verseNumber = $verseObject->verseIndex;
             $verseObject->WordsCount = sizeof($verseObject->verseArray);
             $verseObject->lettersCount = $verseObject->countVerseLetters();
+            $verseObject->verseWords = $verseObject->indexVerseWords();
+            $verses[$index] = $verseObject;
         }
-
+        
         return $verses;
     }
 }
