@@ -15,15 +15,15 @@ class CalculatorController extends Controller
 
     public function __construct()
     {
-        $file = 'البقرة';
+        $fileName = 'البقرة';
 
-        $suraFile = File::get(storage_path($file));
+        $suraFile = File::get(storage_path($fileName));
         if (!isset($suraFile)) {
             return response()->json(["error" => "Sura file not found"]);
         }
 
         $this->fullSura = new FullSura($suraFile);
-        $this->fullSura->name = $file;
+        $this->fullSura->name = $fileName;
     }
 
     public function mapSura()
@@ -38,9 +38,14 @@ class CalculatorController extends Controller
 
     public function mapVerses()
     {
-        $verses = $this->processVerses($this->fullSura->suraFile);
+        $verses = $this->processVerses($this->fullSura->verses);
+        return $this->jsonResponse($verses);
+    }
 
-        return $this->jsonResponse($this->paginate($verses));
+    public function scoreLetter($letter)
+    {
+        $letterCount = substr_count($this->fullSura->suraString, $letter);
+        return $this->jsonResponse([$letter => $letterCount]);
     }
 
     private function processVerses($verses)

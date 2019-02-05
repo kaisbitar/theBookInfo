@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class FullSura extends Model
 {
-    public $suraFile;
+    public $verses;
+    public $suraString;
 
     public function __construct($file)
     {
-        // $file = \utf8_decode($file);
-        $this->suraFile =  explode(",", $file);
+        $this->verses =  explode(",", $file);
+        $this->suraString = $file;
 
         return $this;
     }
