@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\FullSura;
 use App\Http\Controllers\Controller;
 use App\Verse;
-use App\Word;
 use Illuminate\Support\Facades\File;
 
 class CalculatorController extends Controller
@@ -42,10 +41,22 @@ class CalculatorController extends Controller
         return $this->jsonResponse($verses);
     }
 
-    public function scoreLetter($letter)
+    public function scoreLetters()
     {
-        $letterCount = substr_count($this->fullSura->suraString, $letter);
-        return $this->jsonResponse([$letter => $letterCount]);
+        $lettersScore = [];
+        $lettersScore["sura_title"] = $this->fullSura->name;
+
+        $alphabet = File::get(storage_path('الابجدية'));
+        if (!isset($alphabet)) {
+            return response()->json(["error" => "Alphabet file not found"]);
+        }
+
+        $alphabetArray = explode(" ", $alphabet);
+        foreach ($alphabetArray as $letter) {
+            $lettersScore[$letter] = substr_count($this->fullSura->suraString, $letter);
+        }
+
+        return $this->jsonResponse($lettersScore);
     }
 
     private function processVerses($verses)
