@@ -2,21 +2,25 @@
 
 namespace App;
 
-use App\FullSura;
 use App\Word;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class Verse extends FullSura
+class Verse extends Model
 {
     public $verseString;
     public $verseArray;
     public $verseIndex;
+    public $lettersCount = [];
 
     public function __construct($verse, $index)
     {
+
         $this->verseString = $verse;
         $this->verseArray = explode(" ", $verse);
         $this->verseIndex = $index + 1;
+
+        return $this;
     }
 
     public function countVerseLetters()
@@ -36,7 +40,7 @@ class Verse extends FullSura
             $wordObject->Index = $wordObject->index;
             $wordObject->Word = $wordObject->string;
             $wordObject->Letters = $wordObject->letters;
-            
+
             $verseWords->push($wordObject);
         }
 
