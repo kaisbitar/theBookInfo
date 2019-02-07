@@ -6,6 +6,7 @@ use App\Counter;
 use App\FullSura;
 use App\Http\Controllers\Controller;
 use App\Verse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class CalculatorController extends Controller
@@ -13,9 +14,11 @@ class CalculatorController extends Controller
     private $request;
     private $fullSura;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $fileName = 'الفاتحة';
+        $fileName = $request->input('fileName');
+
+        // $fileName = 'الفاتحة';
 
         $suraFile = File::get(storage_path($fileName));
         if (!isset($suraFile)) {
@@ -63,6 +66,7 @@ class CalculatorController extends Controller
 
             $verseObject->verseText = $verseObject->verseString;
             $verseObject->verseNumber = $verseObject->verseIndex;
+            $verseObject->verseText = $verseObject->verseString;
             $verseObject->WordsCount = sizeof($verseObject->verseArray);
             $verseObject->LettersCount = $verseObject->countVerseLetters();
             $verseObject->LettersScore = $counter->countLettersInString($verse);
