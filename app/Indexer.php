@@ -11,10 +11,10 @@ class Indexer extends Model
         return $this;
     }
 
-    public function indexLettersInString($verseArray)
+    public function indexLettersInString($array)
     {
-        $oneWordVerse = implode("", $verseArray);
-        $lettersArray = preg_split('//u', $oneWordVerse, -1, PREG_SPLIT_NO_EMPTY);
+        $oneWordString = implode("", $array);
+        $lettersArray = preg_split('//u', $oneWordString, -1, PREG_SPLIT_NO_EMPTY);
         $returnArray = [];
 
         foreach ($lettersArray as $index => $char) {
@@ -23,6 +23,24 @@ class Indexer extends Model
             }
 
             array_push($returnArray[$char], $index + 1);
+        }
+
+        return $returnArray;
+    }
+
+    public function indexWordsInString($string)
+    {
+        $string = \str_replace(",", " ", $string);
+
+        $wordsArray = explode(" ", $string);
+        $returnArray = [];
+
+        foreach ($wordsArray as $index => $word) {
+            if (!isset($returnArray[$word])) {
+                $returnArray[$word] = [];
+            }
+
+            array_push($returnArray[$word], $index + 1);
         }
 
         return $returnArray;

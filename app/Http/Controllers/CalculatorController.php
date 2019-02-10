@@ -44,7 +44,7 @@ class CalculatorController extends Controller
         $this->fullSura->numberOfLetters = $this->fullSura->calculateNumberOfLetters();
         
         $this->fullSura->wordOccurrences = $this->counter->countWordsInString($this->fullSura->suraString);
-        // $this->fullSura->wordIndex = $this->counter->countWordsInString($this->fullSura->suraString);
+        $this->fullSura->wordIndex = $this->indexer->indexWordsInString($this->fullSura->suraString);
         
         $this->fullSura->letterOccurrences = $this->counter->countLettersInString($this->fullSura->suraString);
         $this->fullSura->LettersMapIndexes = $this->indexer->indexLettersInString($this->fullSura->verses);
@@ -93,13 +93,14 @@ class CalculatorController extends Controller
             $verseObject->verseNumber = $verseObject->verseIndex;
             $verseObject->verseText = $verseObject->verseString;
             
-            $verseObject->WordsCount = sizeof($verseObject->verseArray);
+            $verseObject->TotalNumOfWords = sizeof($verseObject->verseArray);
             $verseObject->TotalNumOfLetters = $verseObject->countVerseLetters();
-            $verseObject->LettersMapCount = $this->counter->countLettersInString($verse);
             
-            $verseObject->LettersMapIndexes = $this->indexer->indexLettersInString($verseObject->verseArray);
-            $verseObject->IndexWords = $verseObject->indexVerseWords();
+            $verseObject->LettersOccurrences = $this->counter->countLettersInString($verse);
+            $verseObject->LettersIndexes = $this->indexer->indexLettersInString($verseObject->verseArray);
+            
             $verseObject->WordsOccurrences = $this->counter->countWordsInString($verse);
+            $verseObject->wordIndex = $this->indexer->indexWordsInString($verse);
 
             $returnArray[$index] = $verseObject;
         }

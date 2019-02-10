@@ -29,37 +29,4 @@ class Verse extends Model
 
         return $lettersCount;
     }
-
-    public function indexVerseWords()
-    {
-        $verseWords = new Collection();
-
-        foreach ($this->verseArray as $index => $word) {
-            $wordObject = new Word($word, $index + 1);
-            $wordObject->Index = $wordObject->index;
-            $wordObject->Word = $wordObject->string;
-            $wordObject->Letters = $wordObject->letters;
-
-            $verseWords->push($wordObject);
-        }
-
-        return $verseWords;
-    }
-
-    public function indexLettersInString()
-    {
-        $oneWordVerse = implode("", $this->verseArray);
-        $lettersArray = preg_split('//u', $oneWordVerse, -1, PREG_SPLIT_NO_EMPTY);
-        $returnArray = [];
-
-        foreach ($lettersArray as $index => $char) {
-            if (!isset($returnArray[$char])) {
-                $returnArray[$char] = [];
-            }
-
-            array_push($returnArray[$char], $index + 1);
-        }
-
-        return $returnArray;
-    }
 }
