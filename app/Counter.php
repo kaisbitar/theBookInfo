@@ -25,4 +25,33 @@ class Counter extends Model
 
         return $lettersScore;
     }
+
+    public function countWordsInString($inputString)
+    {
+        $occurrences = array_count_values($this->splitStringToArray($inputString, 1));
+        asort($occurrences);
+
+        return $occurrences;
+    }
+    
+    public function splitStringToArray($string, $format = 0, $charlist = '[]')
+    {
+        mb_internal_encoding('UTF-8');
+        mb_regex_encoding('UTF-8');
+
+        $words = mb_split('[^\x{0600}-\x{06FF}]', $string);
+        switch ($format) {
+            case 0:
+                return count($words);
+                break;
+            case 1:
+            case 2:
+                return $words;
+                break;
+            default:
+                return $words;
+                break;
+        }
+    }
+
 }

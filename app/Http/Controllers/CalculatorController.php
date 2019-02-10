@@ -13,16 +13,22 @@ class CalculatorController extends Controller
 {
     private $request;
     private $fullSura;
+    private $counter;
 
     public function __construct(Request $request)
     {
+        $this->counter = new Counter();
+
         $fileName = $request->input('fileName');
 
-        // $fileName = 'الفاتحة';
+        if (!isset($fileName)) {
+            throw new \Exception("Please input a Sura name");
+        }
 
         $suraFile = File::get(storage_path($fileName));
+
         if (!isset($suraFile)) {
-            return response()->json(["error" => "Sura file not found"]);
+            throw new \Exception("Sura file not found");
         }
 
         $this->fullSura = new FullSura($suraFile);
@@ -34,6 +40,7 @@ class CalculatorController extends Controller
         $this->fullSura->numberOfVerses = $this->fullSura->calculateNumberOfVerses();
         $this->fullSura->numberOfWords = $this->fullSura->calculateNumberOfWords();
         $this->fullSura->numberOfLetters = $this->fullSura->calculateNumberOfLetters();
+        $this->fullSura->wordOccurrences = $this->counter->countWordsInString($this->fullSura->suraString);
         $this->fullSura->VerseIndex = $this->fullSura->breakToVerses();
 
         return $this->jsonResponse($this->fullSura);
@@ -48,7 +55,6 @@ class CalculatorController extends Controller
 
     public function countLetters()
     {
-        $counter = new Counter();
         $lettersCount = [];
         $lettersCount["sura_title"] = $this->fullSura->name;
         $lettersCount["occurrences"] = $counter->countLettersInString($this->fullSura->suraString);
@@ -58,7 +64,6 @@ class CalculatorController extends Controller
 
     private function processVerses($verses)
     {
-        $counter = new Counter();
         $returnArray = [];
 
         foreach ($verses as $index => $verse) {
@@ -69,8 +74,9 @@ class CalculatorController extends Controller
             $verseObject->verseText = $verseObject->verseString;
             $verseObject->WordsCount = sizeof($verseObject->verseArray);
             $verseObject->LettersCount = $verseObject->countVerseLetters();
-            $verseObject->LettersScore = $counter->countLettersInString($verse);
-            $verseObject->Words = $verseObject->indexVerseWords();
+            $verseObject->LettersScore = $this->counter->countLettersInString($verse);
+            $verseObject->IndexWords = $verseObject->indexVerseWords();
+            $verseObject->WordsOccurrences = $this->counter->countWordsInString($verse);
             $verses[$index] = $verseObject;
         }
 
