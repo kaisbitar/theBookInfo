@@ -50,7 +50,7 @@ class CalculatorController extends Controller
     {
         $verses = $this->processVerses($this->fullSura->verses);
 
-        return $this->jsonResponse($this->paginate($verses));
+        return $this->jsonResponse($verses);
     }
 
     public function countLetters()
