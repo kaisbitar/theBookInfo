@@ -43,12 +43,17 @@ class CalculatorController extends Controller
         $this->fullSura->wordOccurrences = $this->counter->countWordsInString($this->fullSura->suraString);
         $this->fullSura->VerseIndex = $this->fullSura->breakToVerses();
 
+        $resultFileName = $this->fullSura->name . ' sura results';
+        file_put_contents(storage_path($resultFileName), json_encode($this->fullSura->toArray(), JSON_UNESCAPED_UNICODE));
+
         return $this->jsonResponse($this->fullSura);
     }
 
     public function mapVerses()
     {
         $verses = $this->processVerses($this->fullSura->verses);
+        $resultFileName =$this->fullSura->name . ' verses results';
+        file_put_contents(storage_path($resultFileName), json_encode($verses, JSON_UNESCAPED_UNICODE));
 
         return $this->jsonResponse($verses);
     }
