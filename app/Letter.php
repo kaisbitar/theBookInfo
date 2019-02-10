@@ -2,9 +2,9 @@
 
 namespace App;
 
-use App\Word;
+use Illuminate\Database\Eloquent\Model;
 
-class Letter extends Word
+class Letter extends Model
 {
     public $char;
     public $index;

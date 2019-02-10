@@ -6,19 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class FullSura extends Model
 {
-    public $suraFile;
+    public $verses;
+    public $suraString;
 
     public function __construct($file)
     {
-        // $file = \utf8_decode($file);
-        $this->suraFile =  explode(",", $file);
+        $this->verses =  explode(",", $file);
+        $this->suraString = $file;
 
         return $this;
     }
 
     public function breakToVerses()
     {
-        $fullSura = $this->suraFile;
+        $fullSura = $this->verses;
 
         for ($i = 0; $i < sizeof($fullSura); $i++) {
             $versesArray[$i + 1] = $fullSura[$i];
@@ -29,13 +30,13 @@ class FullSura extends Model
 
     public function calculateNumberOfVerses()
     {
-        return sizeof($this->suraFile);
+        return sizeof($this->verses);
     }
 
     public function calculateNumberOfLetters()
     {
         $lettersCount = 0;
-        $fullSura = $this->suraFile;
+        $fullSura = $this->verses;
 
         for ($i = 0; $i < sizeof($fullSura); $i++) {
             $verse = explode(" ", $fullSura[$i]);
@@ -52,7 +53,7 @@ class FullSura extends Model
     public function calculateNumberOfWords()
     {
         $wordsCount = 0;
-        $fullSura = $this->suraFile;
+        $fullSura = $this->verses;
 
         for ($i = 0; $i < sizeof($fullSura); $i++) {
             $verse = $fullSura[$i];
