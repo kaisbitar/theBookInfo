@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Counter;
+use App\Indexer;
 use App\FullSura;
 use App\Http\Controllers\Controller;
 use App\Verse;
@@ -18,6 +19,7 @@ class CalculatorController extends Controller
     public function __construct(Request $request)
     {
         $this->counter = new Counter();
+        $this->indexer = new Indexer();
 
         $fileName = $request->input('fileName');
 
@@ -40,8 +42,22 @@ class CalculatorController extends Controller
         $this->fullSura->numberOfVerses = $this->fullSura->calculateNumberOfVerses();
         $this->fullSura->numberOfWords = $this->fullSura->calculateNumberOfWords();
         $this->fullSura->numberOfLetters = $this->fullSura->calculateNumberOfLetters();
+        
         $this->fullSura->wordOccurrences = $this->counter->countWordsInString($this->fullSura->suraString);
+        $this->fullSura->wordIndex = $this->indexer->indexWordsInString($this->fullSura->suraString);
+        
+        $this->fullSura->letterOccurrences = $this->counter->countLettersInString($this->fullSura->suraString);
+        $this->fullSura->LettersMapIndexes = $this->indexer->indexLettersInString($this->fullSura->verses);
+
+
         $this->fullSura->VerseIndex = $this->fullSura->breakToVerses();
+
+        $resultFileName = $this->fullSura->name . ' sura results';
+
+        file_put_contents(
+            storage_path($resultFileName),
+            json_encode($this->fullSura->toArray(), JSON_UNESCAPED_UNICODE)
+        );
 
         return $this->jsonResponse($this->fullSura);
     }
@@ -49,6 +65,10 @@ class CalculatorController extends Controller
     public function mapVerses()
     {
         $verses = $this->processVerses($this->fullSura->verses);
+        $verses["SuraLettersCount"] = $this->counter->countLettersInString($this->fullSura->suraString);
+
+        $resultFileName = $this->fullSura->name . ' verses results';
+        file_put_contents(storage_path($resultFileName), json_encode($verses, JSON_UNESCAPED_UNICODE));
 
         return $this->jsonResponse($verses);
     }
@@ -72,14 +92,19 @@ class CalculatorController extends Controller
             $verseObject->verseText = $verseObject->verseString;
             $verseObject->verseNumber = $verseObject->verseIndex;
             $verseObject->verseText = $verseObject->verseString;
-            $verseObject->WordsCount = sizeof($verseObject->verseArray);
-            $verseObject->LettersCount = $verseObject->countVerseLetters();
-            $verseObject->LettersScore = $this->counter->countLettersInString($verse);
-            $verseObject->IndexWords = $verseObject->indexVerseWords();
+            
+            $verseObject->TotalNumOfWords = sizeof($verseObject->verseArray);
+            $verseObject->TotalNumOfLetters = $verseObject->countVerseLetters();
+            
+            $verseObject->LettersOccurrences = $this->counter->countLettersInString($verse);
+            $verseObject->LettersIndexes = $this->indexer->indexLettersInString($verseObject->verseArray);
+            
             $verseObject->WordsOccurrences = $this->counter->countWordsInString($verse);
-            $verses[$index] = $verseObject;
+            $verseObject->wordIndex = $this->indexer->indexWordsInString($verse);
+
+            $returnArray[$index] = $verseObject;
         }
 
-        return $verses;
+        return $returnArray;
     }
 }

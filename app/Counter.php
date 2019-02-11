@@ -28,30 +28,19 @@ class Counter extends Model
 
     public function countWordsInString($inputString)
     {
-        $occurrences = array_count_values($this->splitStringToArray($inputString, 1));
+        $occurrences = array_count_values($this->splitStringToArray($inputString));
         asort($occurrences);
 
         return $occurrences;
     }
-    
-    public function splitStringToArray($string, $format = 0, $charlist = '[]')
+
+    public function splitStringToArray($string)
     {
         mb_internal_encoding('UTF-8');
         mb_regex_encoding('UTF-8');
-
         $words = mb_split('[^\x{0600}-\x{06FF}]', $string);
-        switch ($format) {
-            case 0:
-                return count($words);
-                break;
-            case 1:
-            case 2:
-                return $words;
-                break;
-            default:
-                return $words;
-                break;
-        }
+
+        return $words;
     }
 
 }
