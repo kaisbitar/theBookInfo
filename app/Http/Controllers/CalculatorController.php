@@ -23,11 +23,11 @@ class CalculatorController extends Controller
 
         $fileName = $request->input('fileName');
 
-        if (!isset($fileName)) {
+        if (!isset($fileName)) { 
             throw new \Exception("Please input a Sura name");
         }
 
-        $suraFile = File::get(storage_path($fileName));
+        $suraFile = File::get(storage_path('suras/'.$fileName));
 
         if (!isset($suraFile)) {
             throw new \Exception("Sura file not found");
@@ -55,7 +55,7 @@ class CalculatorController extends Controller
         $resultFileName = $this->fullSura->name . ' sura results';
 
         file_put_contents(
-            storage_path($resultFileName),
+            storage_path('decoded_suras/'. $resultFileName),
             json_encode($this->fullSura->toArray(), JSON_UNESCAPED_UNICODE)
         );
 
@@ -68,7 +68,7 @@ class CalculatorController extends Controller
         $verses["SuraLettersCount"] = $this->counter->countLettersInString($this->fullSura->suraString);
 
         $resultFileName = $this->fullSura->name . ' verses results';
-        file_put_contents(storage_path($resultFileName), json_encode($verses, JSON_UNESCAPED_UNICODE));
+        file_put_contents(storage_path('decoded_verses/'. $resultFileName), json_encode($verses, JSON_UNESCAPED_UNICODE));
 
         return $this->jsonResponse($verses);
     }
