@@ -48,6 +48,7 @@ class SanatizerController extends Controller
         foreach($SuraArrayToClean as $key=>$ArrayElement) {
             $ArrayElement = str_replace("&nbsp;", "", $ArrayElement);
             $ArrayElement = str_replace("\n","",$ArrayElement); 
+            $ArrayElement = str_replace("\r","",$ArrayElement); 
             $ArrayElement = str_replace(" ","",$ArrayElement); 
 
             $tmpToClean[$key] = $ArrayElement;
@@ -125,7 +126,7 @@ class SanatizerController extends Controller
     }        
 
     public function saveSura($readyToSaveSura, $fileNameToSave)
-    {
+    {   
         $sanataizedDir = fopen($this->cleanedSurasPath.'\\'.$fileNameToSave, 'w');
         fwrite($sanataizedDir, $readyToSaveSura);
         fclose($sanataizedDir);
