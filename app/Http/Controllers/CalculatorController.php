@@ -27,7 +27,7 @@ class CalculatorController extends Controller
             throw new \Exception("Please input a Sura name");
         }
 
-        $suraFile = File::get(storage_path('suras/'.$fileName));
+        $suraFile = File::get(storage_path('sanatizedSuras/'.$fileName));
 
         if (!isset($suraFile)) {
             throw new \Exception("Sura file not found");
