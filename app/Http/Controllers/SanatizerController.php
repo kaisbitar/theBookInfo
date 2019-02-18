@@ -91,10 +91,10 @@ class SanatizerController extends Controller
         $tmpToClean = array_values($tmpToClean);
         $suraName = $tmpToClean[0];
         $tmpToClean[0] = str_replace($suraName, '', $tmpToClean[0]);    
-         
+        
         $tmpToClean = implode(" ", $tmpToClean);    
         $cleanedSura = strstr($tmpToClean, 'انتهت', true); 
-
+        
         $cleanedSura = str_replace('(', '', $cleanedSura); 
         $cleanedSura = str_replace(')', '', $cleanedSura); 
         $cleanedSura = str_replace(',', '', $cleanedSura); 
@@ -106,11 +106,18 @@ class SanatizerController extends Controller
         $cleanedSura = str_replace('تحصوهاإن', 'تحصوها إن', $cleanedSura); 
         $cleanedSura = str_replace('ءا', 'ا', $cleanedSura); 
         $cleanedSura = mb_substr($cleanedSura, 0, -1);
+        $cleanedSura = str_replace('عمران,', '', $cleanedSura); 
         $cleanedSura = ltrim($cleanedSura, ',');
+        $cleanedSura = ltrim($cleanedSura, ' ');
+        $cleanedSura = rtrim($cleanedSura, '  ');
 
-       $readyToSaveString = $cleanedSura;
-       echo($readyToSaveString);
-       echo "<br><br><br>";
+
+        $readyToSaveString = $cleanedSura;
+        echo($readyToSaveString);
+        echo "<br><br><br>";
+        if($suraName == "آل"){
+             $suraName = "آل_عمران";
+        }
        $readyToSaveSura["theSura"] = $readyToSaveString;
        $readyToSaveSura["suraName"] = $suraName;
 
