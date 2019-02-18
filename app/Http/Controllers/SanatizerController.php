@@ -10,8 +10,7 @@ class SanatizerController extends Controller
     public function __construct()
     {
         $this->rawHTMLFolderPath = storage_path('nonSanatizedSuras');
-        $this->cleanedSurasPath = storage_path('SanatizedSuras');
-        
+        $this->cleanedSurasPath = storage_path('SanatizedSuras');   
     }
 
     public function sanatize()
@@ -21,10 +20,9 @@ class SanatizerController extends Controller
             if (($rawHTMLFile != '.')&&($rawHTMLFile != '..')) {
                 $suraStringToClean = self::getSuraString($rawHTMLFile); 
                 $readyToSaveSura = self::cleanSuraString($suraStringToClean);
-                
 
-                $fileNameToSave = substr($rawHTMLFile, 0, strpos($rawHTMLFile, "."));
-                $fileNameToSave = $fileNameToSave.$readyToSaveSura["suraName"];
+                $suraNumber = substr($rawHTMLFile, 0, strpos($rawHTMLFile, "."));
+                $fileNameToSave = $suraNumber.$readyToSaveSura["suraName"];
                 self::saveSura($readyToSaveSura["theSura"], $fileNameToSave);
             }
         }
@@ -37,7 +35,6 @@ class SanatizerController extends Controller
         $suraStringToClean = (strip_tags($suraStringToClean));
 
         return $suraStringToClean;
-
     }
 
     public function cleanSuraString($suraStringToClean)
@@ -49,7 +46,6 @@ class SanatizerController extends Controller
             $ArrayElement = str_replace("&nbsp;", "", $ArrayElement);
             $ArrayElement = str_replace("\n","",$ArrayElement); 
             $ArrayElement = str_replace(" ","",$ArrayElement); 
-
             $tmpToClean[$key] = $ArrayElement;
         }
         
@@ -86,7 +82,6 @@ class SanatizerController extends Controller
             }
                         
         }
-
         $tmpToClean = array_diff($tmpToClean, array('')) + array_intersect($tmpToClean, array(''));
         $tmpToClean = array_values($tmpToClean);
         $suraName = $tmpToClean[0];
@@ -94,7 +89,6 @@ class SanatizerController extends Controller
         
         $tmpToClean = implode(" ", $tmpToClean);    
         $cleanedSura = strstr($tmpToClean, 'انتهت', true); 
-        
         $cleanedSura = str_replace('(', '', $cleanedSura); 
         $cleanedSura = str_replace(')', '', $cleanedSura); 
         $cleanedSura = str_replace(',', '', $cleanedSura); 
@@ -110,7 +104,6 @@ class SanatizerController extends Controller
         $cleanedSura = ltrim($cleanedSura, ',');
         $cleanedSura = ltrim($cleanedSura, ' ');
         $cleanedSura = rtrim($cleanedSura, '  ');
-
 
         $readyToSaveString = $cleanedSura;
         echo($readyToSaveString);
@@ -130,9 +123,6 @@ class SanatizerController extends Controller
         fwrite($sanataizedDir, $readyToSaveSura);
         fclose($sanataizedDir);
     }
-    
-    
-    
 }
 
 ?>
