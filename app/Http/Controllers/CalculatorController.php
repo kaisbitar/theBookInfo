@@ -77,7 +77,7 @@ class CalculatorController extends Controller
     {
         $lettersCount = [];
         $lettersCount["sura_title"] = $this->fullSura->name;
-        $lettersCount["occurrences"] = $counter->countLettersInString($this->fullSura->suraString);
+        $lettersCount["occurrences"] = $this->counter->countLettersInString($this->fullSura->suraString);
 
         return $this->jsonResponse($lettersCount);
     }
