@@ -27,7 +27,7 @@ class CalculatorController extends Controller
             throw new \Exception("Please input a Sura name");
         }
 
-        $suraFile = File::get(storage_path('suras/' . $fileName));
+        $suraFile = File::get(storage_path('sanatizedSuras/'.$fileName));
 
         if (!isset($suraFile)) {
             throw new \Exception("Sura file not found");
@@ -61,6 +61,26 @@ class CalculatorController extends Controller
         );
 
         return $this->jsonResponse($this->fullSura);
+    }
+
+    public function mapVerses()
+    {
+        $verses = $this->processVerses($this->fullSura->verses);
+        $verses["SuraLettersCount"] = $this->counter->countLettersInString($this->fullSura->suraString);
+
+        $resultFileName = $this->fullSura->name . ' verses results';
+        file_put_contents(storage_path('decoded_verses/'. $resultFileName), json_encode($verses, JSON_UNESCAPED_UNICODE));
+
+        return $this->jsonResponse($verses);
+    }
+
+    public function countLetters()
+    {
+        $lettersCount = [];
+        $lettersCount["sura_title"] = $this->fullSura->name;
+        $lettersCount["occurrences"] = $this->counter->countLettersInString($this->fullSura->suraString);
+
+        return $this->jsonResponse($lettersCount);
     }
 
     private function processVerses($verses)
