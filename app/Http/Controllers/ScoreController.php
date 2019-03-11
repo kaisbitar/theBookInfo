@@ -66,7 +66,7 @@ class ScoreController extends Controller
             }
             
             if ($letter == 'ئ') {
-                $occurences['و'] += $count;
+                $occurences['ي'] += $count;
                 break;
             }
 
