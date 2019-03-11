@@ -12,8 +12,31 @@ use Illuminate\Support\Facades\File;
 
 class ScoreController extends Controller
 {
+    private $phrase;
+    private $allScores;
     public function __construct(Request $request)
     {
+        $this->allScores = $this->calculateLettersScore();
+
+        $this->phrase = $request->input('phrase');
+        if (!isset($this->phrase)) {
+            throw new \Exception("Please input a phrase to get the score for");
+        }
+    }
+
+    public function calculateScore()
+    {
+        $lettersArray = preg_split('//u', $this->phrase, -1, PREG_SPLIT_NO_EMPTY);
+        $score = 0;
+
+        foreach ($lettersArray as $letter) {
+            if ($letter == " ") {
+                continue;
+            }
+            $score += $this->allScores[$letter];
+        }
+
+        return $this->jsonResponse([$this->phrase => $score]);
     }
 
     public function calculateLettersScore()
@@ -79,7 +102,20 @@ class ScoreController extends Controller
         }
 
         arsort($array);
+        $array = $this->attachScore($array);
+        
+        return $array;
+    }
 
-        return $this->jsonResponse($array);
+    private function attachScore($lettersWithOcurrences)
+    {
+        $returnArray = [];
+        $counter = 1;
+        foreach ($lettersWithOcurrences as $letter => $count) {
+            $returnArray[$letter] = $counter;
+            $counter++;
+        }
+
+        return $returnArray;
     }
 }

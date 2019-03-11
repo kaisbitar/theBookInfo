@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Sanatizer;
 
+use App\Sanatizer;
 use Illuminate\Support\Facades\File;
 
 class SanatizerController extends Controller
@@ -22,4 +22,3 @@ class SanatizerController extends Controller
         $sanatizer->sanatize();
     }
 }
-    
