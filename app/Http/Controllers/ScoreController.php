@@ -78,6 +78,8 @@ class ScoreController extends Controller
             $array[$letter] = $count;
         }
 
-        return $this->jsonResponse(arsort($array));
+        arsort($array);
+
+        return $this->jsonResponse($array);
     }
 }

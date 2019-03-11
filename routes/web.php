@@ -17,5 +17,5 @@ Route::get('/', function () {
 
 Route::get('sura-map', 'CalculatorController@mapSura');
 Route::get('verses-map', 'CalculatorController@mapVerses');
-Route::get('letters-score', 'ScoreController@calculateLettersScore');
 Route::get('sanatize', 'SanatizerController@runSanatization');
+Route::get('letters-score', 'ScoreController@calculateLettersScore');
