@@ -14,29 +14,58 @@ class ScoreController extends Controller
 {
     private $phrase;
     private $allScores;
+    private $words;
+    
     public function __construct(Request $request)
     {
         $this->allScores = $this->calculateLettersScore();
-
-        $this->phrase = $request->input('phrase');
-        if (!isset($this->phrase)) {
-            throw new \Exception("Please input a phrase to get the score for");
-        }
+        $file = storage_path() . "/decoded_suras/كامل sura results.json";
+        $results = json_decode(file_get_contents($file), true);
+        $this->words = $results["wordOccurrences"];
     }
 
     public function calculateScore()
     {
-        $lettersArray = preg_split('//u', $this->phrase, -1, PREG_SPLIT_NO_EMPTY);
-        $score = 0;
+        $scores = [];
 
-        foreach ($lettersArray as $letter) {
-            if ($letter == " ") {
-                continue;
+        foreach ($this->words as $word => $count) {
+            $lettersArray = preg_split('//u', $word, -1, PREG_SPLIT_NO_EMPTY);
+            $score = 0;
+
+            foreach ($lettersArray as $letter) {
+                $score += $this->returnLetterScore($letter);
             }
-            $score += $this->allScores[$letter];
+
+            $scores[$word] = $score;
         }
 
-        return $this->jsonResponse([$this->phrase => $score]);
+        arsort($scores);
+        return $this->jsonResponse($scores);
+    }
+
+    private function returnLetterScore($letter)
+    {
+        if ($letter == " ") {
+            return 0;
+        }
+
+        if ($letter == 'ء' || $letter == 'ى' || $letter == 'أ' || $letter == 'إ' || $letter == 'آ') {
+            return $this->allScores['ا'];                    
+        }
+
+        if ($letter == 'ؤ') {
+            return $this->allScores['و'];                    
+        }
+        
+        if ($letter == 'ئ') {
+            return $this->allScores['ي'];                    
+        }
+
+        if ($letter == 'ة') {
+            return $this->allScores['ه'];                    
+        }
+
+        return $this->allScores[$letter];
     }
 
     public function calculateLettersScore()
