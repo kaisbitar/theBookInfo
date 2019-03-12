@@ -15,6 +15,7 @@ class ScoreController extends Controller
     private $phrase;
     private $allScores;
     private $words;
+    private $verses;
     
     public function __construct(Request $request)
     {
@@ -22,53 +23,78 @@ class ScoreController extends Controller
         $file = storage_path() . "/decoded_suras/كامل sura results.json";
         $results = json_decode(file_get_contents($file), true);
         $this->words = $results["wordOccurrences"];
+        $this->verses = $results["VerseIndex"];
     }
 
-    public function calculateScore()
+    public function eachWordScore()
     {
         $scores = [];
 
         foreach ($this->words as $word => $count) {
-            $lettersArray = preg_split('//u', $word, -1, PREG_SPLIT_NO_EMPTY);
-            $score = 0;
-
-            foreach ($lettersArray as $letter) {
-                $score += $this->returnLetterScore($letter);
-            }
-
-            $scores[$word] = $score;
+            $scores[$word] = $this->calculateScore($word);
         }
 
         arsort($scores);
         return $this->jsonResponse($scores);
     }
 
-    private function returnLetterScore($letter)
+    public function eachVerseScore()
     {
-        if ($letter == " ") {
-            return 0;
-        }
+        $scores = [];
 
-        if ($letter == 'ء' || $letter == 'ى' || $letter == 'أ' || $letter == 'إ' || $letter == 'آ') {
-            return $this->allScores['ا'];                    
-        }
-
-        if ($letter == 'ؤ') {
-            return $this->allScores['و'];                    
+        foreach ($this->verses as $verse) {
+            $stripped = preg_replace('/\s/', '', $verse);
+            $scores[$verse] = $this->calculateScore($stripped);
         }
         
-        if ($letter == 'ئ') {
-            return $this->allScores['ي'];                    
-        }
-
-        if ($letter == 'ة') {
-            return $this->allScores['ه'];                    
-        }
-
-        return $this->allScores[$letter];
+        arsort($scores);
+        return $this->jsonResponse($scores);
     }
 
-    public function calculateLettersScore()
+    public function calculateScore($phrase)
+    {
+        $lettersArray = preg_split('//u', $phrase, -1, PREG_SPLIT_NO_EMPTY);
+        $score = 0;
+
+        foreach ($lettersArray as $letter) {
+            if ($letter == " ") {
+                $score += 0;
+                continue;
+            }
+    
+            if ($letter == 'ء' || $letter == 'ى' || $letter == 'أ' || $letter == 'إ' || $letter == 'آ') {
+                $score += $this->allScores['ا'];
+                continue;
+            }
+    
+            if ($letter == 'ؤ') {
+                $score += $this->allScores['و'];
+                continue;
+            }
+            
+            if ($letter == 'ئ') {
+                $score += $this->allScores['ي'];
+                continue;
+            }
+    
+            if ($letter == 'ة') {
+                $score += $this->allScores['ه'];
+                continue;
+            }
+    
+            if (empty($this->allScores[$letter])) {
+                $score += 0;
+                continue;
+            }
+
+            $score += $this->allScores[$letter];
+        }
+
+        return $score;
+    }
+
+
+    private function calculateLettersScore()
     {
         $occurences = [
         "ا" => 46287,
