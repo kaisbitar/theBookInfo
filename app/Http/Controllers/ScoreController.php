@@ -41,7 +41,6 @@ class ScoreController extends Controller
     public function eachVerseScore()
     {
         $scores = [];
-
         foreach ($this->verses as $verse) {
             $stripped = preg_replace('/\s/', '', $verse);
             $scores[$verse] = $this->calculateScore($stripped);
