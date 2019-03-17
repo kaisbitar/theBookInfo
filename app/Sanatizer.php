@@ -46,7 +46,8 @@ class Sanatizer extends Model
         $cleanedSura= array();
         foreach($SuraArrayToClean as $key=>$ArrayElement) {
             $ArrayElement = str_replace("&nbsp;", "", $ArrayElement);
-            $ArrayElement = str_replace("\n","",$ArrayElement); 
+            $ArrayElement = str_replace("\n","",$ArrayElement);
+            $ArrayElement = str_replace("\r","",$ArrayElement); 
             $ArrayElement = str_replace(" ","",$ArrayElement); 
             $tmpToClean[$key] = $ArrayElement;
         }
