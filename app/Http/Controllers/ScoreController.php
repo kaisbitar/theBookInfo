@@ -20,9 +20,11 @@ class ScoreController extends Controller
     public function __construct(Request $request)
     {
         $this->allScores = $this->calculateLettersScore();
-        $file = storage_path() . "/decoded_suras/كامل sura results.json";
+        $fileName = $request->fileName;
+        $file = storage_path() . "/decoded_suras/" . '/' .$fileName. '_sura_results.json';
         $results = json_decode(file_get_contents($file), true);
-        $this->words = $results["wordOccurrences"];
+        dd($results);
+        $this->words = $results["WordOccurrences"];
         $this->verses = $results["VerseIndex"];
     }
 

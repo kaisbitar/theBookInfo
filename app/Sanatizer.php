@@ -103,7 +103,9 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('البحربما ينفع الناس', 'البحر بما ينفع الناس', $cleanedSura); 
         $cleanedSura = str_replace('لامنينهمولامرنهم', 'لامنينهم ولامرنهم', $cleanedSura);  //PHP can't find the sunstring, although it exist in the sting hmmmm
         $cleanedSura = str_replace('قومامسرفين', 'قوما مسرفين', $cleanedSura); 
+        $cleanedSura = str_replace('فوقهافاما', 'فوقها فاما', $cleanedSura);   
         $cleanedSura = str_replace('تحصوهاإن', 'تحصوها إن', $cleanedSura); 
+        $cleanedSura = str_replace('واوليك', 'واولئك', $cleanedSura); 
         $cleanedSura = str_replace('ءا', 'ا', $cleanedSura); 
         $cleanedSura = mb_substr($cleanedSura, 0, -1);
         $cleanedSura = str_replace('عمران,', '', $cleanedSura); 
@@ -118,10 +120,12 @@ class Sanatizer extends Model
         if($suraName == "آل"){
             $suraName = "آل_عمران";
        }
-        // echo $suraName;
-        // echo ":<br><br>";
-       // echo($readyToSaveString);
-       // echo "<br><br><br>";
+        echo $suraName;       
+        echo strlen($readyToSaveString);
+
+        echo ":<br><br>";
+        echo($readyToSaveString);
+        echo "<br><br><br>";
         $readyToSaveSura["theSura"] = $readyToSaveString;
         $readyToSaveSura["suraName"] = $suraName;
 
@@ -137,5 +141,3 @@ class Sanatizer extends Model
 }
 
 ?>
-
-}
