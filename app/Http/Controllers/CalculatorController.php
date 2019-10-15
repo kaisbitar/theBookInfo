@@ -66,7 +66,6 @@ class CalculatorController extends Controller
 
     public function mapVerses($fileName)
     {
-        // dd($fileName);
         $verses = $this->processVerses($this->fullSura->verses);
         $verses["SuraLettersCount"] = $this->counter->countLettersInString($this->fullSura->suraString);
         $resultFileName = $this->fullSura->Name . '_verses_results';

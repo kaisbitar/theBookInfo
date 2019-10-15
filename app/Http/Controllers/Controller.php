@@ -40,17 +40,17 @@ class Controller extends BaseController
     public function listSuras(){
         $listOfSuras = [];
         $surasFiles = scandir(storage_path('SanatizedSuras'));
-        $index = -1;
+        $suraIndex = 0;
         foreach ($surasFiles as $suraFile) {
             if (($suraFile != '.')&&($suraFile != '..')) {
-                $listOfSuras["fileName"] = $suraFile;
-                $listOfSuras["suraIndex"] = preg_replace("/[^Z0-9]+/", "", $suraFile);                
-                $listOfSuras["suraName"] = mb_substr($suraFile,3);     
-                return $listOfSuras;           
+                $suraInfo["fileName"] = $suraFile;               
+                $suraInfo["suraName"] = mb_substr($suraFile,3);
+                $suraIndex = preg_replace("/[^Z0-9]+/", "", $suraFile);
+                $suraInfo["suraIndex"] =  $suraIndex;
+                $listOfSuras[$suraIndex] = $suraInfo;      
             }
-            $index+=1;
-            
         }
+        $listOfSuras = array_values($listOfSuras);
         return json_encode($listOfSuras);
     }
 }
