@@ -1,8 +1,8 @@
 <template>
     <div class="row justify-content-center">
-        <div class="" >
-            <ul class="verseBlock" >
-                <p class="detail" v-if="detailShow==true"> 
+        <div class="suraContainer" >
+            <ul class="verseBlock shadow-sm p-3 mb-5 rounded" >
+                <p class="detail" v-if="detailShow==true"> {{verseInPlay}}
                     {{verse.verseText}}
                     Number of Letters:{{verse.NumberOfLetters}} 
                     Number of Words:{{verse.NumberOfWords}}
@@ -18,12 +18,15 @@
             <div class="starBlock">
             </div>
         </div>
+        <verseInPlay :verseInPlay="verseInPlay"></verseInPlay>
     </div>
 </template> 
 
 
 <script>
+
     export default {
+        props:['verseInPlay'],
         data() {
             return {
             verses: [],
@@ -35,7 +38,7 @@
         },
         methods: {
             fetchVerse(){
-                fetch(('api/verses-map'),{method: 'GET',})
+                fetch(('api/verses-map/002البقرة'),{method: 'GET',})
                 .then(res => res.json())
                 .then(res=> {
                     this.verses = res
@@ -77,25 +80,13 @@
     ul.verseBlock {
         text-align: justify;
     }
-    #diamond {
-      width: 0;
-      height: 0;
-      border: 50px solid transparent;
-      border-bottom-color: red;
-      position: relative;
-      top: -50px;
-    }
-    #diamond:after {
-      content: '';
-      position: absolute;
-      left: -50px;
-      top: 50px;
-      width: 0;
-      height: 0;
-      border: 50px solid transparent;
-      border-top-color: red;
-    }
     .detail{
         display: sticky;
+    }
+    .suraContainer{
+        background: #eeeeee7d;
+    }
+    .shadow-sm {
+        box-shadow: 0 0.125rem 0.25rem #C5E275 !important;
     }
 </style>

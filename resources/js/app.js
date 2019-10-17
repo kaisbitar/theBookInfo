@@ -7,7 +7,12 @@
  
 require('./bootstrap');
 import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 window.Vue = require('vue'); 
+Vue.use(BootstrapVue)
 
 /**
  * The following block of code may be used to automatically register your
@@ -21,6 +26,8 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('verse', require('./components/Verse.vue').default);
+Vue.component('verseInPlay', {
+  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
 Vue.component('verses-list', require('./components/VersesList.vue').default);
 
 /**
