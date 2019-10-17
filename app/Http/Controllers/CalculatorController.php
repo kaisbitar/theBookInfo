@@ -16,30 +16,30 @@ class CalculatorController extends Controller
     private $fullSura;
     private $counter;
 
-    public function __construct(Request $request)
+    public function __construct($fileName=null, Request $request=null)
     { 
         $this->counter = new Counter();
         $this->indexer = new Indexer();
-
-        $fileName = $request->fileName;
-        // dd($fileName);
-
+ 
+        if ($request) {
+            $fileName = $request->fileName;
+        }
         if (!isset($fileName)) {
             throw new \Exception("Please input a Sura name");
         }
-
         $suraFile = File::get(storage_path('sanatizedSuras' . '/' .$fileName));
-
         if (!isset($suraFile)) {
             throw new \Exception("Sura file not found");
         }
-
         $this->fullSura = new FullSura($suraFile);
         $this->fullSura->Name = $fileName;
+           
     }
 
     public function mapSura()
-    {
+    {   
+        $resultFileName = $this->fullSura->Name . '_sura_results.json';
+        if (!file_exists(storage_path('decoded_suras/' . $resultFileName))) {
             $this->fullSura->NumberOfVerses = $this->fullSura->calculateNumberOfVerses();
             $this->fullSura->NumberOfWords = $this->fullSura->calculateNumberOfWords();
             $this->fullSura->NumberOfLetters = $this->fullSura->calculateNumberOfLetters();
@@ -54,24 +54,26 @@ class CalculatorController extends Controller
             $verses["SuraLettersCount"] = $this->counter->countLettersInString($this->fullSura->suraString);
             
             $this->fullSura->VersesScore = $verses;
+            
+            file_put_contents(storage_path('decoded_suras/' . $resultFileName), json_encode($this->fullSura, JSON_UNESCAPED_UNICODE));
+        }
+        $mappedSura = file_get_contents(storage_path('decoded_suras/' . $this->fullSura->Name . '_sura_results.json'));
 
-            $resultFileName = $this->fullSura->Name . '_sura_results.json';
-            file_put_contents(
-                storage_path('decoded_suras/' . $resultFileName),
-                json_encode($this->fullSura->toArray(), JSON_UNESCAPED_UNICODE)
-            );
-
-        return $this->jsonResponse($this->fullSura);
+        return $mappedSura;
     }
 
-    public function mapVerses($fileName)
+    public function mapVerses()
     {
-        $verses = $this->processVerses($this->fullSura->verses);
-        $verses["SuraLettersCount"] = $this->counter->countLettersInString($this->fullSura->suraString);
-        $resultFileName = $this->fullSura->Name . '_verses_results';
-        file_put_contents(storage_path('decoded_verses/'. $resultFileName), json_encode($verses, JSON_UNESCAPED_UNICODE));
+        $resultFileName = $this->fullSura->Name . '_verses_results.json';
+        if (!file_exists(storage_path('decoded_verses/' . $resultFileName))) {
+            $verses = $this->processVerses($this->fullSura->verses);
+            $verses["SuraLettersCount"] = $this->counter->countLettersInString($this->fullSura->suraString);
+            $resultFileName = $this->fullSura->Name . '_verses_results.json';
+            file_put_contents(storage_path('decoded_verses/'. $resultFileName), json_encode($verses, JSON_UNESCAPED_UNICODE));
+        }
+        $mappedSura = file_get_contents(storage_path('decoded_verses/' . $this->fullSura->Name . '_verses_results.json'));
 
-        return $this->jsonResponse($verses);
+        return $mappedSura;
     }
 
     public function countLetters()

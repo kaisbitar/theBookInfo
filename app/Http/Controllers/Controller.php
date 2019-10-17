@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-
+use App\FullSura;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -37,21 +37,45 @@ class Controller extends BaseController
 
         return new \Illuminate\Pagination\LengthAwarePaginator(array_values($items->forPage($page, $perPage)->toArray()), $items->count(), $perPage, $page, $options);
     }
+
     public function listSuras(){
-        $listOfSuras = [];
+        //if quranIndex file doesn't exist create one and read from it 
+        if(!file_exists(storage_path('quranIndex'))){
+            $listOfSuras = [];
+            $surasFiles = scandir(storage_path('SanatizedSuras'));
+            $suraIndex = 0;
+            foreach ($surasFiles as $suraFile) {
+                if (($suraFile != '.')&&($suraFile != '..')) {
+                    $suraInfo["fileName"] = $suraFile;
+                    $suraInfo["suraName"] = mb_substr($suraFile, 3);
+                    $suraIndex = preg_replace("/[^Z0-9]+/", "", $suraFile);
+                    $suraInfo["suraIndex"] =  $suraIndex;
+                    $listOfSuras[$suraIndex] = $suraInfo;
+                }
+            }
+            $listOfSuras = array_values($listOfSuras);
+            $resultFileName =  'quranIndex';
+            file_put_contents(
+                storage_path($resultFileName),
+                json_encode($listOfSuras, JSON_UNESCAPED_UNICODE)
+            );
+            
+        }
+
+        return file_get_contents(storage_path('quranIndex')) ;
+    } 
+
+    // Run all the backend to create mapped suras and verses
+    public function runBackend(){
         $surasFiles = scandir(storage_path('SanatizedSuras'));
-        $suraIndex = 0;
-        foreach ($surasFiles as $suraFile) {
-            if (($suraFile != '.')&&($suraFile != '..')) {
-                $suraInfo["fileName"] = $suraFile;               
-                $suraInfo["suraName"] = mb_substr($suraFile,3);
-                $suraIndex = preg_replace("/[^Z0-9]+/", "", $suraFile);
-                $suraInfo["suraIndex"] =  $suraIndex;
-                $listOfSuras[$suraIndex] = $suraInfo;      
+        foreach ($surasFiles as $suraFileName) {
+            if (($suraFileName != '.')&&($suraFileName != '..')) {
+                $fullSura = new CalculatorController($suraFileName);    
+                $fullSura->mapSura();
+                $fullSura->mapVerses();
             }
         }
-        $listOfSuras = array_values($listOfSuras);
-        return json_encode($listOfSuras);
+        return;
     }
 }
     

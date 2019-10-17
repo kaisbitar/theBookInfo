@@ -21,11 +21,11 @@ class ScoreController extends Controller
     {
         $this->allScores = $this->calculateLettersScore();
         $fileName = $request->fileName;
-        $file = storage_path() . "/decoded_suras/" . '/' .$fileName. '_sura_results.json';
+        $file = storage_path() . "/decoded_suras" . '/' .$fileName. '_sura_results.json';
         $results = json_decode(file_get_contents($file), true);
-        dd($results);
+        // dd($results);
         $this->words = $results["WordOccurrences"];
-        $this->verses = $results["VerseIndex"];
+        $this->verses = $results["VersesScore"];
     }
 
     public function eachWordScore()
@@ -43,12 +43,15 @@ class ScoreController extends Controller
     public function eachVerseScore()
     {
         $scores = [];
-        foreach ($this->verses as $index => $verse) {
-            $stripped = preg_replace('/\s/', '', $verse);
-            $scores[$index] = [
-                "verse" => $verse,
-                "score" => $this->calculateScore($stripped)
-            ];
+        foreach ($this->verses as $index => $verseArr) {
+            if (is_numeric($index)) {
+                $verse = ($this->verses[$index]["verseText"]);
+                $stripped = preg_replace('/\s/', '', $verse);
+                $scores[$index] = [
+                    "verse" => $verse,
+                    "score" => $this->calculateScore($stripped)
+                ];
+            }
         }
         
         arsort($scores);
