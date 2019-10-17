@@ -9,7 +9,7 @@ class Counter extends Model
 {
     public function countLettersInString($inputString)
     {
-        $lettersScore = new \stdClass();
+        $lettersScore = new \stdClass(); 
         $alphabet = File::get(storage_path('الابجدية'));
 
         if (!isset($alphabet)) {

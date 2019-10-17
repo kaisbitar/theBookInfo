@@ -15,8 +15,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('sura-map', 'CalculatorController@mapSura');
-Route::get('verses-map', 'CalculatorController@mapVerses');
-Route::get('sanatize', 'SanatizerController@runSanatization');
-Route::get('words-score', 'ScoreController@eachWordScore');
-Route::get('verses-score', 'ScoreController@eachVerseScore');

@@ -37,4 +37,21 @@ class Controller extends BaseController
 
         return new \Illuminate\Pagination\LengthAwarePaginator(array_values($items->forPage($page, $perPage)->toArray()), $items->count(), $perPage, $page, $options);
     }
+    public function listSuras(){
+        $listOfSuras = [];
+        $surasFiles = scandir(storage_path('SanatizedSuras'));
+        $suraIndex = 0;
+        foreach ($surasFiles as $suraFile) {
+            if (($suraFile != '.')&&($suraFile != '..')) {
+                $suraInfo["fileName"] = $suraFile;               
+                $suraInfo["suraName"] = mb_substr($suraFile,3);
+                $suraIndex = preg_replace("/[^Z0-9]+/", "", $suraFile);
+                $suraInfo["suraIndex"] =  $suraIndex;
+                $listOfSuras[$suraIndex] = $suraInfo;      
+            }
+        }
+        $listOfSuras = array_values($listOfSuras);
+        return json_encode($listOfSuras);
+    }
 }
+    

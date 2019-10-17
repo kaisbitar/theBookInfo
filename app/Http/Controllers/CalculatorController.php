@@ -17,17 +17,18 @@ class CalculatorController extends Controller
     private $counter;
 
     public function __construct(Request $request)
-    {
+    { 
         $this->counter = new Counter();
         $this->indexer = new Indexer();
 
-        $fileName = $request->input('fileName');
+        $fileName = $request->fileName;
+        // dd($fileName);
 
         if (!isset($fileName)) {
             throw new \Exception("Please input a Sura name");
         }
 
-        $suraFile = File::get(storage_path('sanatizedSuras/'.$fileName));
+        $suraFile = File::get(storage_path('sanatizedSuras' . '/' .$fileName));
 
         if (!isset($suraFile)) {
             throw new \Exception("Sura file not found");
@@ -39,36 +40,35 @@ class CalculatorController extends Controller
 
     public function mapSura()
     {
-        $this->fullSura->NumberOfVerses = $this->fullSura->calculateNumberOfVerses();
-        $this->fullSura->NumberOfWords = $this->fullSura->calculateNumberOfWords();
-        $this->fullSura->NumberOfLetters = $this->fullSura->calculateNumberOfLetters();
+            $this->fullSura->NumberOfVerses = $this->fullSura->calculateNumberOfVerses();
+            $this->fullSura->NumberOfWords = $this->fullSura->calculateNumberOfWords();
+            $this->fullSura->NumberOfLetters = $this->fullSura->calculateNumberOfLetters();
 
-        $this->fullSura->WordOccurrences = $this->counter->countWordsInString($this->fullSura->suraString);
-        $this->fullSura->WordIndex = $this->indexer->indexWordsInString($this->fullSura->suraString);
+            $this->fullSura->WordOccurrences = $this->counter->countWordsInString($this->fullSura->suraString);
+            $this->fullSura->WordIndex = $this->indexer->indexWordsInString($this->fullSura->suraString);
 
-        $this->fullSura->LetterOccurrences = $this->counter->countLettersInString($this->fullSura->suraString);
-        $this->fullSura->LetterIndexes = $this->indexer->indexLettersInString($this->fullSura->verses);
+            $this->fullSura->LetterOccurrences = $this->counter->countLettersInString($this->fullSura->suraString);
+            $this->fullSura->LetterIndexes = $this->indexer->indexLettersInString($this->fullSura->verses);
 
-        $verses = $this->processVerses($this->fullSura->verses);
-        $verses["SuraLettersCount"] = $this->counter->countLettersInString($this->fullSura->suraString);
-        
-        $this->fullSura->VersesScore = $verses;
+            $verses = $this->processVerses($this->fullSura->verses);
+            $verses["SuraLettersCount"] = $this->counter->countLettersInString($this->fullSura->suraString);
+            
+            $this->fullSura->VersesScore = $verses;
 
-        $resultFileName = $this->fullSura->Name . '_sura_results.json';
-        file_put_contents(
-            storage_path('decoded_suras/' . $resultFileName),
-            json_encode($this->fullSura->toArray(), JSON_UNESCAPED_UNICODE)
-        );
+            $resultFileName = $this->fullSura->Name . '_sura_results.json';
+            file_put_contents(
+                storage_path('decoded_suras/' . $resultFileName),
+                json_encode($this->fullSura->toArray(), JSON_UNESCAPED_UNICODE)
+            );
 
         return $this->jsonResponse($this->fullSura);
     }
 
-    public function mapVerses()
+    public function mapVerses($fileName)
     {
         $verses = $this->processVerses($this->fullSura->verses);
         $verses["SuraLettersCount"] = $this->counter->countLettersInString($this->fullSura->suraString);
-
-        $resultFileName = $this->fullSura->name . ' verses results';
+        $resultFileName = $this->fullSura->Name . '_verses_results';
         file_put_contents(storage_path('decoded_verses/'. $resultFileName), json_encode($verses, JSON_UNESCAPED_UNICODE));
 
         return $this->jsonResponse($verses);

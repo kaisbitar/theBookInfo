@@ -43,7 +43,6 @@ class FullSura extends Model
             
             for ($j = 0; $j < sizeof($verse); $j++) {
                 $numberOfLetters = strlen($verse[$j]);
-                //echo $verse[$j];echo '  '; echo ($numberOfLetters/2);echo '<br>';
                 $lettersCount = $lettersCount + ($numberOfLetters / 2);
             }
         }
