@@ -2,7 +2,8 @@
     <div class="row justify-content-center">
         <div class="suraContainer" >
             <ul class="verseBlock shadow-sm p-3 mb-5 rounded" >
-                <p class="detail" v-if="detailShow==true"> {{verseInPlay}}
+                <p class="detail" v-if="detailShow==true"> 
+                    <!-- {{verseInPlay}} -->
                     {{verse.verseText}}
                     Number of Letters:{{verse.NumberOfLetters}} 
                     Number of Words:{{verse.NumberOfWords}}
@@ -18,7 +19,7 @@
             <div class="starBlock">
             </div>
         </div>
-        <verseInPlay :verseInPlay="verseInPlay"></verseInPlay>
+        <!-- <verseInPlay :verseInPlay  "verseInPlay"></verseInPlay> -->
     </div>
 </template> 
 
@@ -26,7 +27,7 @@
 <script>
 
     export default {
-        props:['verseInPlay'],
+        // props:['verseInPlay'],
         data() {
             return {
             verses: [],

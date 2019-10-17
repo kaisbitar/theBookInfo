@@ -1722,8 +1722,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['verseInPlay'],
+  // props:['verseInPlay'],
   data: function data() {
     return {
       verses: [],
@@ -1770,7 +1771,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Verse_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Verse.vue */ "./resources/js/components/Verse.vue");
 //
 //
 //
@@ -1787,11 +1787,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+// import verseInPlay from './Verse.vue';
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    verseInPlay: _Verse_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
+  //  components: {
+  //     verseInPlay
+  // },
   data: function data() {
     return {
       surasList: [],
@@ -66755,131 +66755,122 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "row justify-content-center" },
-    [
-      _c("div", { staticClass: "suraContainer" }, [
-        _c(
-          "ul",
-          { staticClass: "verseBlock shadow-sm p-3 mb-5 rounded" },
-          [
-            _vm.detailShow == true
-              ? _c("p", { staticClass: "detail" }, [
-                  _vm._v(
-                    " " +
-                      _vm._s(_vm.verseInPlay) +
-                      "\n                " +
-                      _vm._s(_vm.verse.verseText) +
-                      "\n                Number of Letters:" +
-                      _vm._s(_vm.verse.NumberOfLetters) +
-                      " \n                Number of Words:" +
-                      _vm._s(_vm.verse.NumberOfWords) +
-                      "\n            "
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm._l(_vm.verses, function(verse, index) {
-              return _c(
-                "li",
-                {
-                  key: index,
-                  staticClass: "verse",
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c("div", { staticClass: "suraContainer" }, [
+      _c(
+        "ul",
+        { staticClass: "verseBlock shadow-sm p-3 mb-5 rounded" },
+        [
+          _vm.detailShow == true
+            ? _c("p", { staticClass: "detail" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.verse.verseText) +
+                    "\n                Number of Letters:" +
+                    _vm._s(_vm.verse.NumberOfLetters) +
+                    " \n                Number of Words:" +
+                    _vm._s(_vm.verse.NumberOfWords) +
+                    "\n            "
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.verses, function(verse, index) {
+            return _c(
+              "li",
+              {
+                key: index,
+                staticClass: "verse",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.showDetail(verse)
+                  }
+                }
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: verse.verseText,
+                      expression: "verse.verseText"
+                    }
+                  ],
+                  attrs: { type: "hidden" },
+                  domProps: { value: verse.verseText },
                   on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.showDetail(verse)
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(verse, "verseText", $event.target.value)
                     }
                   }
-                },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: verse.verseText,
-                        expression: "verse.verseText"
-                      }
-                    ],
-                    attrs: { type: "hidden" },
-                    domProps: { value: verse.verseText },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(verse, "verseText", $event.target.value)
-                      }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: verse.NumberOfLetters,
+                      expression: "verse.NumberOfLetters"
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: verse.NumberOfLetters,
-                        expression: "verse.NumberOfLetters"
+                  ],
+                  attrs: { type: "hidden" },
+                  domProps: { value: verse.NumberOfLetters },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
-                    ],
-                    attrs: { type: "hidden" },
-                    domProps: { value: verse.NumberOfLetters },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(verse, "NumberOfLetters", $event.target.value)
-                      }
+                      _vm.$set(verse, "NumberOfLetters", $event.target.value)
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: verse.NumberOfWords,
-                        expression: "verse.NumberOfWords"
-                      }
-                    ],
-                    attrs: { type: "hidden" },
-                    domProps: { value: verse.NumberOfWords },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(verse, "NumberOfWords", $event.target.value)
-                      }
+                  }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: verse.NumberOfWords,
+                      expression: "verse.NumberOfWords"
                     }
-                  }),
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(verse.verseText) +
-                      "\n                "
-                  ),
-                  index != "SuraLettersCount"
-                    ? _c("label", { staticClass: "badge star" }, [
-                        _vm._v(_vm._s(index))
-                      ])
-                    : _vm._e()
-                ]
-              )
-            })
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "starBlock" })
-      ]),
+                  ],
+                  attrs: { type: "hidden" },
+                  domProps: { value: verse.NumberOfWords },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(verse, "NumberOfWords", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(
+                  "\n                " +
+                    _vm._s(verse.verseText) +
+                    "\n                "
+                ),
+                index != "SuraLettersCount"
+                  ? _c("label", { staticClass: "badge star" }, [
+                      _vm._v(_vm._s(index))
+                    ])
+                  : _vm._e()
+              ]
+            )
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
-      _c("verseInPlay", { attrs: { verseInPlay: _vm.verseInPlay } })
-    ],
-    1
-  )
+      _c("div", { staticClass: "starBlock" })
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -79392,8 +79383,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\quran_parser_test\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\quran_parser_test\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\test\quran_parser_test\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\test\quran_parser_test\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

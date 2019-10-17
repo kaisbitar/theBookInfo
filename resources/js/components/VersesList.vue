@@ -15,12 +15,12 @@
 
 
 <script>
-import verseInPlay from './Verse.vue';
+// import verseInPlay from './Verse.vue';
 
     export default {
-         components: {
-            verseInPlay
-        },
+        //  components: {
+        //     verseInPlay
+        // },
         data() {
             return {
                 surasList: [],
