@@ -1,11 +1,11 @@
 /node_modules
 /public/hot
-# /public/storage
+/public/storage
 /storage/logs
 /storage/app
-# /storage/framework
-# /storage/decoded_suras
-# /storage/decoded_verses
+/storage/framework
+/storage/decoded_suras
+/storage/decoded_verses
 /vendor
 .env
 .phpunit.result.cache
