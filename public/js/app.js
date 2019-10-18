@@ -1722,6 +1722,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     suraFileName: '',
@@ -1737,7 +1740,8 @@ __webpack_require__.r(__webpack_exports__);
       verse: {
         verseText: ''
       },
-      detailShow: false
+      detailShow: false,
+      loading: true
     };
   },
   methods: {
@@ -1753,12 +1757,14 @@ __webpack_require__.r(__webpack_exports__);
     fetchVerse: function fetchVerse() {
       var _this = this;
 
+      this.loading = true;
       fetch('api/verses-map/' + this.suraFileName, {
         method: 'GET'
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
         _this.verses = res;
+        _this.loading = false;
       });
     }
   },
@@ -1803,18 +1809,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Sura: _Sura_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    props: 'suraFileName',
-    watch: {// suraFileName: this.$refs.changingSura.fetchVerse()
-    }
+    props: 'suraFileName'
   },
   data: function data() {
     return {
       surasList: [],
       suraName: '',
-      isActive: true,
+      isActive: false,
       loading: true,
       suraFileName: '001الفاتحة',
-      showSura: true
+      showSura: true,
+      activeIndex: undefined
     };
   },
   methods: {
@@ -1828,14 +1833,15 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         _this.surasList = res;
         _this.suraName = _this.surasList.suraName;
-        _this.loading = true;
-        _this.$refs.changingSura.fetchVerse;
+        _this.loading = false;
       });
     },
-    setSuraInPlay: function setSuraInPlay(fileName) {
+    setSuraInPlay: function setSuraInPlay(fileName, index) {
       this.suraFileName = fileName;
       this.showSura = true;
-      this.$refs.changingSura.fetchVerse; // console.log(this.$refs.changingSura)
+      this.activeIndex = index;
+      this.isActive = true;
+      this.$refs.changingSura.fetchVerse;
     }
   },
   created: function created() {
@@ -34619,7 +34625,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.spinner-box[data-v-612d3247]{\n    width: 62px;\n}\n#quranIndex[data-v-612d3247]{\n    display: block;\n}\n.suraIndexItem[data-v-612d3247]{\n    width: 101px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    color: black;\n    height: 104px;\n}\n.badge[data-v-612d3247] {\n    background: yellowgreen;\n    margin-left: 6px;\n    color: white;\n}\n.suraItemBlock[data-v-612d3247]{\n    list-style: none;\n    transition: all .2s ease-in-out;\n    padding: 0;\n    /* position: fixed; */\n    max-height: 640px;\n    /* max-width: 332px; */\n    overflow-y: overlay;\n    overflow-x: hidden;\n    margin-left: 23px;\n    min-height: 647px;\n}\n.smallList[data-v-612d3247] {\n    /* transform: scale(0.5); */\n    transition: all .2s ease-in-out;\n}\nul.verseBlock[data-v-612d3247] {\n    text-align: justify;\n    padding-right: 28px;\n}\n[data-v-612d3247]::-webkit-scrollbar {\n    width: 1em;\n}\n[data-v-612d3247]::-webkit-scrollbar-track {\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);\n}\n[data-v-612d3247]::-webkit-scrollbar-thumb {\n    background-color: #6c757d;\n    outline: 1px solid slategrey;\n}\n", ""]);
+exports.push([module.i, "\n.spinner-box[data-v-612d3247]{\n    width: 62px;\n}\n#quranIndex[data-v-612d3247]{\n    display: block;\n}\n.suraIndexItem[data-v-612d3247]{\n    width: 101px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    color: black;\n    height: 104px;\n    cursor: pointer;\n}\n.suraIndexItem label[data-v-612d3247]{\n    cursor: pointer;\n}\n.badge[data-v-612d3247] {\n    background: yellowgreen;\n    margin-left: 6px;\n    color: white;\n}\n.suraItemBlock[data-v-612d3247]{\n    list-style: none;\n    transition: all .2s ease-in-out;\n    padding: 0;\n    /* position: fixed; */\n    max-height: 640px;\n    overflow-y: overlay;\n    overflow-x: hidden;\n    margin-left: 23px;\n    min-height: 647px;\n}\n.smallList[data-v-612d3247] {\n    transition: all .2s ease-in-out;\n}\n.isActive[data-v-612d3247]{\n    background: #28a745;\n}\nul.verseBlock[data-v-612d3247] {\n    text-align: justify;\n    padding-right: 28px;\n}\n[data-v-612d3247]::-webkit-scrollbar {\n    width: 1em;\n}\n[data-v-612d3247]::-webkit-scrollbar-track {\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);\n}\n[data-v-612d3247]::-webkit-scrollbar-thumb {\n    background-color: #6c757d;\n    outline: 1px solid slategrey;\n}\n", ""]);
 
 // exports
 
@@ -66778,115 +66784,134 @@ var render = function() {
   return _c("div", { staticClass: "row justify-content-center" }, [
     _c("div", { staticClass: "suraContainer" }, [
       _c(
-        "ul",
-        { staticClass: "verseBlock shadow-sm p-3 mb-5 rounded" },
+        "div",
+        { staticClass: "container-fluid spinner-box" },
         [
-          _vm.detailShow == true
-            ? _c("p", { staticClass: "detail" }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.verse.verseText) +
-                    "\n                Number of Letters:" +
-                    _vm._s(_vm.verse.NumberOfLetters) +
-                    " \n                Number of Words:" +
-                    _vm._s(_vm.verse.NumberOfWords) +
-                    "\n            "
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm._l(_vm.verses, function(verse, index) {
-            return _c(
-              "li",
-              {
-                key: index,
-                staticClass: "verse",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.showDetail(verse)
-                  }
-                }
-              },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: verse.verseText,
-                      expression: "verse.verseText"
-                    }
-                  ],
-                  attrs: { type: "hidden" },
-                  domProps: { value: verse.verseText },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(verse, "verseText", $event.target.value)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: verse.NumberOfLetters,
-                      expression: "verse.NumberOfLetters"
-                    }
-                  ],
-                  attrs: { type: "hidden" },
-                  domProps: { value: verse.NumberOfLetters },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(verse, "NumberOfLetters", $event.target.value)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: verse.NumberOfWords,
-                      expression: "verse.NumberOfWords"
-                    }
-                  ],
-                  attrs: { type: "hidden" },
-                  domProps: { value: verse.NumberOfWords },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(verse, "NumberOfWords", $event.target.value)
-                    }
-                  }
-                }),
-                _vm._v(
-                  "\n                " +
-                    _vm._s(verse.verseText) +
-                    "\n                "
-                ),
-                index != "SuraLettersCount"
-                  ? _c("label", { staticClass: "badge star" }, [
-                      _vm._v(_vm._s(index))
-                    ])
-                  : _vm._e()
-              ]
-            )
-          })
+          _vm.loading
+            ? _c("b-spinner", {
+                attrs: { small: "", label: "Small Spinner", variant: "success" }
+              })
+            : _vm._e()
         ],
-        2
+        1
       ),
+      _vm._v(" "),
+      !_vm.loading
+        ? _c(
+            "ul",
+            { staticClass: "verseBlock shadow-sm p-3 mb-5 rounded" },
+            [
+              _vm.detailShow == true
+                ? _c("p", { staticClass: "detail" }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.verse.verseText) +
+                        "\n                Number of Letters:" +
+                        _vm._s(_vm.verse.NumberOfLetters) +
+                        " \n                Number of Words:" +
+                        _vm._s(_vm.verse.NumberOfWords) +
+                        "\n            "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.verses, function(verse, index) {
+                return _c(
+                  "li",
+                  {
+                    key: index,
+                    staticClass: "verse",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.showDetail(verse)
+                      }
+                    }
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: verse.verseText,
+                          expression: "verse.verseText"
+                        }
+                      ],
+                      attrs: { type: "hidden" },
+                      domProps: { value: verse.verseText },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(verse, "verseText", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: verse.NumberOfLetters,
+                          expression: "verse.NumberOfLetters"
+                        }
+                      ],
+                      attrs: { type: "hidden" },
+                      domProps: { value: verse.NumberOfLetters },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            verse,
+                            "NumberOfLetters",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: verse.NumberOfWords,
+                          expression: "verse.NumberOfWords"
+                        }
+                      ],
+                      attrs: { type: "hidden" },
+                      domProps: { value: verse.NumberOfWords },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(verse, "NumberOfWords", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(verse.verseText) +
+                        "\n                "
+                    ),
+                    index != "SuraLettersCount"
+                      ? _c("label", { staticClass: "badge star" }, [
+                          _vm._v(_vm._s(index))
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              })
+            ],
+            2
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "starBlock" })
     ])
@@ -66947,10 +66972,10 @@ var render = function() {
                 {
                   key: index,
                   staticClass: "suraIndexItem btn btn-info",
-                  class: { smallList: _vm.isActive },
+                  class: { isActive: _vm.activeIndex === index },
                   on: {
                     click: function($event) {
-                      return _vm.setSuraInPlay(suraIndexItem.fileName)
+                      return _vm.setSuraInPlay(suraIndexItem.fileName, index)
                     }
                   }
                 },

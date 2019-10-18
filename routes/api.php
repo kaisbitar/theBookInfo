@@ -23,7 +23,7 @@ Route::get('verses-map/{fileName}', 'CalculatorController@mapVerses');
 Route::get('sanatize', 'SanatizerController@runSanatization');
 Route::get('words-score/{fileName}', 'ScoreController@eachWordScore');
 Route::get('verses-score/{fileName}', 'ScoreController@eachVerseScore');
-Route::get('quran-index', 'controller@listSuras');
+Route::get('quran-index', 'Controller@listSuras');
 
 //Run Backend calculations and create decoded verses and suras results files
-Route::get('decode-all', 'controller@runBackend');
+Route::get('decode-all', 'Controller@runBackend');

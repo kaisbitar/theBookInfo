@@ -1,7 +1,10 @@
 <template>
     <div class="row justify-content-center">
         <div class="suraContainer" >
-            <ul class="verseBlock shadow-sm p-3 mb-5 rounded" >
+            <div class="container-fluid spinner-box">
+                <b-spinner v-if="loading" small label="Small Spinner" variant="success"></b-spinner>
+            </div>
+            <ul v-if="!loading" class="verseBlock shadow-sm p-3 mb-5 rounded" >
                 <p class="detail" v-if="detailShow==true"> 
                     <!-- {{verseInPlay}} -->
                     {{verse.verseText}}
@@ -39,6 +42,7 @@
                     verseText: '',
                 },
             detailShow: false,
+            loading: true
             }
         },
         methods: { 
@@ -52,10 +56,12 @@
         },
         computed: {
             fetchVerse: function(){
+                this.loading= true
                 fetch(('api/verses-map/' + this.suraFileName),{method: 'GET',})
                 .then(res => res.json())
                 .then(res=> {
                     this.verses = res
+                    this.loading= false
                 });
             },   
         },

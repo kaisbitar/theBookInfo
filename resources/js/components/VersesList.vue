@@ -6,7 +6,7 @@
                 <b-spinner v-if="loading" small label="Small Spinner" variant="info"></b-spinner>
             </div>
             <ul  class="suraItemBlock block" >
-                <li  v-bind:class="{ smallList: isActive}" class="suraIndexItem btn btn-info" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName)">
+                <li  v-bind:class="{ isActive: activeIndex === index}" class="suraIndexItem btn btn-info" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName, index)">
                     <label> سورة {{suraIndexItem.suraName}}</label>
                     <label>{{suraIndexItem.suraIndex}} </label>
                 </li>
@@ -26,18 +26,16 @@
         components:{
             Sura,
             props:'suraFileName',
-            watch: {
-                // suraFileName: this.$refs.changingSura.fetchVerse()
-            }
         } ,
         data() {
             return {
                 surasList: [],
                 suraName: '',
-                isActive: true,
+                isActive: false,
                 loading: true,
                 suraFileName:'001الفاتحة',
-                showSura: true
+                showSura: true,
+                activeIndex: undefined
             }
         },
         methods: {
@@ -47,16 +45,15 @@
                 .then(res => {
                     this.surasList = res
                     this.suraName = this.surasList.suraName
-                    this.loading = true
-                    this.$refs.changingSura.fetchVerse
-
+                    this.loading = false
                 })
             },
-            setSuraInPlay(fileName){ 
+            setSuraInPlay(fileName, index){ 
                 this.suraFileName = fileName
                 this.showSura = true
+                this.activeIndex = index;
+                this.isActive =  true
                 this.$refs.changingSura.fetchVerse
-                // console.log(this.$refs.changingSura)
             }
         }, 
         created() {
@@ -81,6 +78,10 @@
         margin-left: 4px;
         color: black;
         height: 104px;
+        cursor: pointer;
+    }
+    .suraIndexItem label{
+        cursor: pointer;
     }
     .badge {
         background: yellowgreen;
@@ -93,15 +94,16 @@
         padding: 0;
         /* position: fixed; */
         max-height: 640px;
-        /* max-width: 332px; */
         overflow-y: overlay;
         overflow-x: hidden;
         margin-left: 23px;
         min-height: 647px;
     }
     .smallList {
-        /* transform: scale(0.5); */
         transition: all .2s ease-in-out;
+    }
+    .isActive{
+        background: #28a745;
     }
     ul.verseBlock {
         text-align: justify;
