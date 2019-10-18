@@ -1829,6 +1829,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.surasList = res;
         _this.suraName = _this.surasList.suraName;
         _this.loading = true;
+        _this.$refs.changingSura.fetchVerse;
       });
     },
     setSuraInPlay: function setSuraInPlay(fileName) {

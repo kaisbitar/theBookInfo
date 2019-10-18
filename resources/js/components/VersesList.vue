@@ -48,6 +48,8 @@
                     this.surasList = res
                     this.suraName = this.surasList.suraName
                     this.loading = true
+                    this.$refs.changingSura.fetchVerse
+
                 })
             },
             setSuraInPlay(fileName){
