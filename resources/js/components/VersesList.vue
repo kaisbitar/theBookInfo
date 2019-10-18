@@ -2,7 +2,7 @@
     <div> 
 
         <div id="quranIndex" class="container-fluid">      
-            <div class="container-fluid">
+            <div class="container-fluid spinner-box">
                 <b-spinner v-if="loading" small label="Small Spinner" variant="info"></b-spinner>
             </div>
             <ul  class="suraItemBlock block" >
@@ -52,21 +52,26 @@
 
                 })
             },
-            setSuraInPlay(fileName){
+            setSuraInPlay(fileName){ 
                 this.suraFileName = fileName
                 this.showSura = true
                 this.$refs.changingSura.fetchVerse
+                // console.log(this.$refs.changingSura)
             }
-        },
+        }, 
         created() {
             this.fetchList()
-                            
-
+        },
+        updated(){
+            this.$refs.changingSura.fetchVerse
         }
     }
 </script>
 
 <style scoped>
+    .spinner-box{
+        width: 62px;
+    }
     #quranIndex{
         display: block;
     }
@@ -86,9 +91,9 @@
         list-style: none;
         transition: all .2s ease-in-out;
         padding: 0;
-        position: fixed;
+        /* position: fixed; */
         max-height: 640px;
-        max-width: 332px;
+        /* max-width: 332px; */
         overflow-y: overlay;
         overflow-x: hidden;
         margin-left: 23px;

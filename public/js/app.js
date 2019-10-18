@@ -1835,11 +1835,14 @@ __webpack_require__.r(__webpack_exports__);
     setSuraInPlay: function setSuraInPlay(fileName) {
       this.suraFileName = fileName;
       this.showSura = true;
-      this.$refs.changingSura.fetchVerse;
+      this.$refs.changingSura.fetchVerse; // console.log(this.$refs.changingSura)
     }
   },
   created: function created() {
     this.fetchList();
+  },
+  updated: function updated() {
+    this.$refs.changingSura.fetchVerse;
   }
 });
 
@@ -34616,7 +34619,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#quranIndex[data-v-612d3247]{\n    display: block;\n}\n.suraIndexItem[data-v-612d3247]{\n    width: 101px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    color: black;\n    height: 104px;\n}\n.badge[data-v-612d3247] {\n    background: yellowgreen;\n    margin-left: 6px;\n    color: white;\n}\n.suraItemBlock[data-v-612d3247]{\n    list-style: none;\n    transition: all .2s ease-in-out;\n    padding: 0;\n    position: fixed;\n    max-height: 640px;\n    max-width: 332px;\n    overflow-y: overlay;\n    overflow-x: hidden;\n    margin-left: 23px;\n    min-height: 647px;\n}\n.smallList[data-v-612d3247] {\n    /* transform: scale(0.5); */\n    transition: all .2s ease-in-out;\n}\nul.verseBlock[data-v-612d3247] {\n    text-align: justify;\n    padding-right: 28px;\n}\n[data-v-612d3247]::-webkit-scrollbar {\n    width: 1em;\n}\n[data-v-612d3247]::-webkit-scrollbar-track {\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);\n}\n[data-v-612d3247]::-webkit-scrollbar-thumb {\n    background-color: #6c757d;\n    outline: 1px solid slategrey;\n}\n", ""]);
+exports.push([module.i, "\n.spinner-box[data-v-612d3247]{\n    width: 62px;\n}\n#quranIndex[data-v-612d3247]{\n    display: block;\n}\n.suraIndexItem[data-v-612d3247]{\n    width: 101px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    color: black;\n    height: 104px;\n}\n.badge[data-v-612d3247] {\n    background: yellowgreen;\n    margin-left: 6px;\n    color: white;\n}\n.suraItemBlock[data-v-612d3247]{\n    list-style: none;\n    transition: all .2s ease-in-out;\n    padding: 0;\n    /* position: fixed; */\n    max-height: 640px;\n    /* max-width: 332px; */\n    overflow-y: overlay;\n    overflow-x: hidden;\n    margin-left: 23px;\n    min-height: 647px;\n}\n.smallList[data-v-612d3247] {\n    /* transform: scale(0.5); */\n    transition: all .2s ease-in-out;\n}\nul.verseBlock[data-v-612d3247] {\n    text-align: justify;\n    padding-right: 28px;\n}\n[data-v-612d3247]::-webkit-scrollbar {\n    width: 1em;\n}\n[data-v-612d3247]::-webkit-scrollbar-track {\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);\n}\n[data-v-612d3247]::-webkit-scrollbar-thumb {\n    background-color: #6c757d;\n    outline: 1px solid slategrey;\n}\n", ""]);
 
 // exports
 
@@ -66920,7 +66923,7 @@ var render = function() {
         [
           _c(
             "div",
-            { staticClass: "container-fluid" },
+            { staticClass: "container-fluid spinner-box" },
             [
               _vm.loading
                 ? _c("b-spinner", {

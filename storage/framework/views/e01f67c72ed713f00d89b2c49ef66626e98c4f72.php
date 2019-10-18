@@ -34,4 +34,3 @@
         <script src="<?php echo e(asset('js/app.js')); ?>"></script>
     </body>
 </html>
-<?php /**PATH C:\test\quran_parser_test\resources\views/welcome.blade.php ENDPATH**/ ?>
