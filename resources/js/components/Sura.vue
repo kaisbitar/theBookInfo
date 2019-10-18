@@ -31,9 +31,6 @@
     export default {
         props:{ 
             suraFileName: '',
-            watch: {
-                suraFileName: function(){console.log(this.changingSura.fetchVerse)}
-            }
         },
         data() {
             return {
@@ -42,7 +39,8 @@
                     verseText: '',
                 },
             detailShow: false,
-            loading: true
+            loading: true,
+            suraName: ''
             }
         },
         methods: { 
@@ -65,7 +63,8 @@
                 });
             },   
         },
-        mounted() {   
+        mounted() {
+            this.suraName = this.suraFileName    
         },
     }
 </script>

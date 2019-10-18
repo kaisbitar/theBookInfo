@@ -7,8 +7,8 @@
             </div>
             <ul  class="suraItemBlock block" >
                 <li  v-bind:class="{ isActive: activeIndex === index}" class="suraIndexItem btn btn-info" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName, index)">
-                    <label> سورة {{suraIndexItem.suraName}}</label>
-                    <label>{{suraIndexItem.suraIndex}} </label>
+                    <label>  {{suraIndexItem.suraName}}</label>
+                    <label>سورة {{parseInt(suraIndexItem.suraIndex, 10)}} </label>
                 </li>
             </ul>
         </div>
@@ -35,7 +35,7 @@
                 loading: true,
                 suraFileName:'001الفاتحة',
                 showSura: true,
-                activeIndex: undefined
+                activeIndex: 0 //0 to default to الفاتحة this can be dynamic later on for user experience purposes
             }
         },
         methods: {
@@ -44,7 +44,6 @@
                 .then(res => res.json())
                 .then(res => {
                     this.surasList = res
-                    this.suraName = this.surasList.suraName
                     this.loading = false
                 })
             },

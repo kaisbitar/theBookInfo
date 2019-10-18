@@ -1727,12 +1727,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    suraFileName: '',
-    watch: {
-      suraFileName: function suraFileName() {
-        console.log(this.changingSura.fetchVerse);
-      }
-    }
+    suraFileName: ''
   },
   data: function data() {
     return {
@@ -1741,7 +1736,8 @@ __webpack_require__.r(__webpack_exports__);
         verseText: ''
       },
       detailShow: false,
-      loading: true
+      loading: true,
+      suraName: ''
     };
   },
   methods: {
@@ -1768,7 +1764,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    this.suraName = this.suraFileName;
+  }
 });
 
 /***/ }),
@@ -1819,7 +1817,8 @@ __webpack_require__.r(__webpack_exports__);
       loading: true,
       suraFileName: '001الفاتحة',
       showSura: true,
-      activeIndex: undefined
+      activeIndex: 0 //0 to default to الفاتحة this can be dynamic later on for user experience purposes
+
     };
   },
   methods: {
@@ -1832,7 +1831,6 @@ __webpack_require__.r(__webpack_exports__);
         return res.json();
       }).then(function (res) {
         _this.surasList = res;
-        _this.suraName = _this.surasList.suraName;
         _this.loading = false;
       });
     },
@@ -66980,11 +66978,15 @@ var render = function() {
                   }
                 },
                 [
-                  _c("label", [
-                    _vm._v(" سورة " + _vm._s(suraIndexItem.suraName))
-                  ]),
+                  _c("label", [_vm._v("  " + _vm._s(suraIndexItem.suraName))]),
                   _vm._v(" "),
-                  _c("label", [_vm._v(_vm._s(suraIndexItem.suraIndex) + " ")])
+                  _c("label", [
+                    _vm._v(
+                      "سورة " +
+                        _vm._s(parseInt(suraIndexItem.suraIndex, 10)) +
+                        " "
+                    )
+                  ])
                 ]
               )
             }),
