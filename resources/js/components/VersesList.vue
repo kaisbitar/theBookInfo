@@ -6,7 +6,7 @@
                 <b-spinner v-if="loading" small label="Small Spinner" variant="info"></b-spinner>
             </div>
             <ul  class="suraItemBlock block" >
-                <li  v-bind:class="{ isActive: activeIndex === index}" class="suraIndexItem btn btn-info" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName, index)">
+                <li  v-bind:class="{ isActive: activeSura === index}" class="suraIndexItem btn btn-info" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName, index)">
                     <label>  {{suraIndexItem.suraName}}</label>
                     <label>سورة {{parseInt(suraIndexItem.suraIndex, 10)}} </label>
                 </li>
@@ -25,17 +25,18 @@
     export default {
         components:{
             Sura,
-            props:'suraFileName',
+            props:['suraFileName', 'suraName'],
         } ,
         data() {
             return {
                 surasList: [],
                 suraName: '',
+                suraNumber: '',
+                suraFileName:'001الفاتحة',
+                showSura: true, 
                 isActive: false,
                 loading: true,
-                suraFileName:'001الفاتحة',
-                showSura: true,
-                activeIndex: 0 //0 to default to الفاتحة this can be dynamic later on for user experience purposes
+                activeSura: 0 //0 to default to الفاتحة this can be dynamic later on for user experience purposes
             }
         },
         methods: {
@@ -50,8 +51,11 @@
             setSuraInPlay(fileName, index){ 
                 this.suraFileName = fileName
                 this.showSura = true
-                this.activeIndex = index;
+                this.activeSura = index;
                 this.isActive =  true
+                this.suraNumber = parseInt(fileName, 10);
+                this.suraName = this.suraFileName.replace(/[0-9]/g, '');
+                console.log(this.suraName)
                 this.$refs.changingSura.fetchVerse
             }
         }, 

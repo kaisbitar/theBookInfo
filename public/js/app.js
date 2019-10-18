@@ -1725,6 +1725,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     suraFileName: ''
@@ -1760,12 +1761,12 @@ __webpack_require__.r(__webpack_exports__);
         return res.json();
       }).then(function (res) {
         _this.verses = res;
-        _this.loading = false;
+        _this.loading = false; // this.suraName = parseStr(this.suraFileName, 10)
       });
     }
   },
   mounted: function mounted() {
-    this.suraName = this.suraFileName;
+    this.suraName = this.suraFileName.replace(/[0-9]/g, '');
   }
 });
 
@@ -1807,17 +1808,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Sura: _Sura_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    props: 'suraFileName'
+    props: ['suraFileName', 'suraName']
   },
   data: function data() {
     return {
       surasList: [],
       suraName: '',
-      isActive: false,
-      loading: true,
+      suraNumber: '',
       suraFileName: '001الفاتحة',
       showSura: true,
-      activeIndex: 0 //0 to default to الفاتحة this can be dynamic later on for user experience purposes
+      isActive: false,
+      loading: true,
+      activeSura: 0 //0 to default to الفاتحة this can be dynamic later on for user experience purposes
 
     };
   },
@@ -1837,8 +1839,11 @@ __webpack_require__.r(__webpack_exports__);
     setSuraInPlay: function setSuraInPlay(fileName, index) {
       this.suraFileName = fileName;
       this.showSura = true;
-      this.activeIndex = index;
+      this.activeSura = index;
       this.isActive = true;
+      this.suraNumber = parseInt(fileName, 10);
+      this.suraName = this.suraFileName.replace(/[0-9]/g, '');
+      console.log(this.suraName);
       this.$refs.changingSura.fetchVerse;
     }
   },
@@ -66794,6 +66799,10 @@ var render = function() {
         1
       ),
       _vm._v(" "),
+      _c("h2", { staticClass: "suraName" }, [
+        _vm._v("سورة " + _vm._s(_vm.suraName))
+      ]),
+      _vm._v(" "),
       !_vm.loading
         ? _c(
             "ul",
@@ -66970,7 +66979,7 @@ var render = function() {
                 {
                   key: index,
                   staticClass: "suraIndexItem btn btn-info",
-                  class: { isActive: _vm.activeIndex === index },
+                  class: { isActive: _vm.activeSura === index },
                   on: {
                     click: function($event) {
                       return _vm.setSuraInPlay(suraIndexItem.fileName, index)

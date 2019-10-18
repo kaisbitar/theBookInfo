@@ -4,6 +4,7 @@
             <div class="container-fluid spinner-box">
                 <b-spinner v-if="loading" small label="Small Spinner" variant="success"></b-spinner>
             </div>
+            <h2 class="suraName">سورة {{suraName}}</h2>
             <ul v-if="!loading" class="verseBlock shadow-sm p-3 mb-5 rounded" >
                 <p class="detail" v-if="detailShow==true"> 
                     <!-- {{verseInPlay}} -->
@@ -60,11 +61,12 @@
                 .then(res=> {
                     this.verses = res
                     this.loading= false
+                    // this.suraName = parseStr(this.suraFileName, 10)
                 });
             },   
         },
         mounted() {
-            this.suraName = this.suraFileName    
+            this.suraName = this.suraFileName.replace(/[0-9]/g, '');    
         },
     }
 </script>
