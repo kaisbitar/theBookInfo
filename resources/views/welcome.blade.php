@@ -25,7 +25,6 @@
     <body>
         <div id="app"> 
             <div class="container">
-                <verse></verse>
                 <verses-list></verses-list>
             </div> 
         </div>

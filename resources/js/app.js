@@ -11,7 +11,7 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-window.Vue = require('vue'); 
+window.Vue = require('vue');  
 Vue.use(BootstrapVue)
 
 /**
@@ -25,9 +25,8 @@ Vue.use(BootstrapVue)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('verse', require('./components/Verse.vue').default);
-Vue.component('verseInPlay', {
-  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
+Vue.component('Sura', require('./components/Sura.vue').default);
+// Vue.component('verseInPlay', {  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
 Vue.component('verses-list', require('./components/VersesList.vue').default);
 
 /**

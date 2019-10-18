@@ -19,7 +19,6 @@
             <div class="starBlock">
             </div>
         </div>
-        <!-- <verseInPlay :verseInPlay  "verseInPlay"></verseInPlay> -->
     </div>
 </template> 
 
@@ -27,26 +26,23 @@
 <script>
 
     export default {
-        // props:['verseInPlay'],
+        props:{ 
+            suraFileName: '',
+            watch: {
+                suraFileName: function(){console.log(this.changingSura.fetchVerse)}
+            }
+        },
         data() {
             return {
             verses: [],
             verse: {
                     verseText: '',
                 },
-            detailShow: false
+            detailShow: false,
             }
         },
-        methods: {
-            fetchVerse(){
-                fetch(('api/verses-map/002البقرة'),{method: 'GET',})
-                .then(res => res.json())
-                .then(res=> {
-                    this.verses = res
-                });
-            },
+        methods: { 
             showDetail(verse){ 
-                console.log(verse)
                 this.verse.verseText = verse.verseText
                 this.verse.NumberOfLetters = verse.NumberOfLetters
                 this.verse.NumberOfWords = verse.NumberOfWords
@@ -54,8 +50,16 @@
                 return this.verse
             }
         },
-        mounted() {
-            this.fetchVerse();
+        computed: {
+            fetchVerse: function(){
+                fetch(('api/verses-map/' + this.suraFileName),{method: 'GET',})
+                .then(res => res.json())
+                .then(res=> {
+                    this.verses = res
+                });
+            },   
+        },
+        mounted() {   
         },
     }
 </script>

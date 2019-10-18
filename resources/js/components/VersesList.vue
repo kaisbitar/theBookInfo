@@ -1,33 +1,43 @@
 <template>
-    <div>
-        <div>
-            <b-spinner v-if="loading" small label="Small Spinner" variant="info"></b-spinner>
+    <div> 
+
+        <div id="quranIndex" class="container-fluid">      
+            <div class="container-fluid">
+                <b-spinner v-if="loading" small label="Small Spinner" variant="info"></b-spinner>
+            </div>
+            <ul  class="suraItemBlock block" >
+                <li  v-bind:class="{ smallList: isActive}" class="suraIndexItem btn btn-info" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName)">
+                    <label> سورة {{suraIndexItem.suraName}}</label>
+                    <label>{{suraIndexItem.suraIndex}} </label>
+                </li>
+            </ul>
         </div>
-        <!-- <button @click="isActive = !isActive">show</button> -->
-        <ul  class="suraItemBlock block" >
-            <li  v-bind:class="{ smallList: isActive}" class="suraIndexItem btn btn-info" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName)">
-                <label> سورة {{suraIndexItem.suraName}}</label>
-                <label>{{suraIndexItem.suraIndex}} </label>
-            </li>
-        </ul>
+
+        <Sura ref="changingSura" v-if="showSura" v-bind:suraFileName = "suraFileName"></Sura> 
+
     </div>
+
 </template> 
 
 
 <script>
-// import verseInPlay from './Verse.vue';
-
+    import Sura from './Sura.vue'
     export default {
-        //  components: {
-        //     verseInPlay
-        // },
+        components:{
+            Sura,
+            props:'suraFileName',
+            watch: {
+                // suraFileName: this.$refs.changingSura.fetchVerse()
+            }
+        } ,
         data() {
             return {
                 surasList: [],
                 suraName: '',
                 isActive: true,
                 loading: true,
-                verseInPlay: '001الفاتحة'
+                suraFileName:'001الفاتحة',
+                showSura: true
             }
         },
         methods: {
@@ -35,22 +45,29 @@
                 fetch(('api/quran-index'),{method: 'GET',})
                 .then(res => res.json())
                 .then(res => {
-                    this.surasList = res;console.log(this.surasList)
+                    this.surasList = res
                     this.suraName = this.surasList.suraName
-                    this.loading = false
+                    this.loading = true
                 })
             },
             setSuraInPlay(fileName){
-                this.verseInPlay = fileName;console.log(this.verseInPlay)
+                this.suraFileName = fileName
+                this.showSura = true
+                this.$refs.changingSura.fetchVerse
             }
         },
-        mounted() {
-            this.fetchList();
-        },
+        created() {
+            this.fetchList()
+                            
+
+        }
     }
 </script>
 
 <style scoped>
+    #quranIndex{
+        display: block;
+    }
     .suraIndexItem{
         width: 101px;
         margin-bottom: 4px;
