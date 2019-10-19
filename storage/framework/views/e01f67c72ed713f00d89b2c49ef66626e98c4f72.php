@@ -21,11 +21,14 @@
     body{
         direction: rtl;
     }
+    .hide{
+        display: none;
+    }
     </style>
     <body>
         <div id="app"> 
             <div class="container">
-                <verses-list></verses-list>
+                <suras-list></suras-list>
             </div> 
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -34,3 +37,4 @@
         <script src="<?php echo e(asset('js/app.js')); ?>"></script>
     </body>
 </html>
+<?php /**PATH C:\test\quran_parser_test\resources\views/welcome.blade.php ENDPATH**/ ?>

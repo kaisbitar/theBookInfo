@@ -27,7 +27,7 @@ Vue.use(BootstrapVue)
 
 Vue.component('Sura', require('./components/Sura.vue').default);
 // Vue.component('verseInPlay', {  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
-Vue.component('verses-list', require('./components/VersesList.vue').default);
+Vue.component('suras-list', require('./components/SurasList.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
