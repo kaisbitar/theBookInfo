@@ -56,7 +56,7 @@
                 this.isActive =  true
                 this.suraNumber = parseInt(fileName, 10);
                 this.suraName = this.suraFileName.replace(/[0-9]/g, '');
-                this.$refs.changingSura.fetchVerse
+                this.$refs.changingSura.fetchSura
                 this.smallList = true
             }
         }, 
@@ -64,7 +64,7 @@
             this.fetchList()
         },
         updated(){
-            this.$refs.changingSura.fetchVerse
+            this.$refs.changingSura.fetchSura
         }
     }
 </script>
@@ -75,7 +75,7 @@
     }
     #quranIndex{
         display: block;
-        background: #f8f9fa;
+        /* background: #eed191; */
     }
     .suraIndexItem{
         width: 75px;
@@ -85,8 +85,8 @@
         height: 81px;
         cursor: pointer;
         font-size: 14px;
-        border-color: #000000;
-        box-shadow: 0 0.09rem 0.1rem #000;
+        /* border-color: #000000;
+        box-shadow: 0 0.09rem 0.1rem #000; */
     }
     .suraIndexItem label{
         cursor: pointer;

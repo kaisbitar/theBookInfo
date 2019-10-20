@@ -1726,19 +1726,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    suraFileName: '',
-    suraName: ''
-  },
+  props: ['suraFileName', 'suraName'],
   data: function data() {
     return {
+      sura: [],
       verses: [],
-      verse: {
-        verseText: ''
-      },
+      verse: [],
       detailShow: false,
-      loading: false
+      loading: false,
+      showSura: false
     };
   },
   methods: {
@@ -1751,21 +1785,44 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    fetchVerse: function fetchVerse() {
+    fetchVerses: function fetchVerses() {
       var _this = this;
 
       if (this.suraFileName == '') {
+        this.loading = false;
         return;
       }
 
-      this.loading = true;
       fetch('api/verses-map/' + this.suraFileName, {
         method: 'GET'
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
         _this.verses = res;
+        _this.showSura = true;
         _this.loading = false;
+      });
+    },
+    fetchSura: function fetchSura() {
+      var _this2 = this;
+
+      this.showSura = false;
+
+      if (this.suraFileName == '') {
+        this.loading = false;
+        return;
+      }
+
+      this.loading = true;
+      fetch('api/sura-map/' + this.suraFileName, {
+        method: 'GET'
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this2.sura.NumberOfLetters = res.NumberOfLetters;
+        _this2.sura.NumberOfVerses = res.NumberOfVerses;
+        _this2.sura.NumberOfWords = res.NumberOfWords;
+        _this2.fetchVerses;
       });
     }
   },
@@ -1846,7 +1903,7 @@ __webpack_require__.r(__webpack_exports__);
       this.isActive = true;
       this.suraNumber = parseInt(fileName, 10);
       this.suraName = this.suraFileName.replace(/[0-9]/g, '');
-      this.$refs.changingSura.fetchVerse;
+      this.$refs.changingSura.fetchSura;
       this.smallList = true;
     }
   },
@@ -1854,7 +1911,7 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchList();
   },
   updated: function updated() {
-    this.$refs.changingSura.fetchVerse;
+    this.$refs.changingSura.fetchSura;
   }
 });
 
@@ -34612,7 +34669,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nul.SuraLettersCount[data-v-4307127c] {\n    list-style: none;\n    display: flex;\n}\n.spinner-box[data-v-4307127c]{\n    margin-left: auto;\n    max-width: 50px;\n}\n.suraName[data-v-4307127c]{\n    text-align: right;\n    font-size: 32px;\n}\n.verse[data-v-4307127c] {\n    direction: rtl;        \n    list-style: none;\n    display: inline;\n}\n.verse a[data-v-4307127c]{\n    color: #000;\n}\n.verse a[data-v-4307127c]:hover{\n    color: red;\n    text-decoration: none;\n}\n.star[data-v-4307127c] {\n    padding: 5px;\n    font-size: 75%;\n    line-height: 1;\n    text-align: center;\n    border-radius: 1.25rem;\n    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;\n    width: 28px;\n    background: #28a745;\n    color: white;\n}\nul.suraBlock[data-v-4307127c] {\n    text-align: justify;\n    line-height: 2.2;\n    transition: all 1s ease;\n}\n.detail[data-v-4307127c]{\n    display: sticky;\n}\n.suraContainer[data-v-4307127c]{\n    background: #f8f9fa;\n}\n/* .shadow-sm {\n    box-shadow: 0 0.125rem 0.25rem #C5E275 !important; */\n/* } */\n", ""]);
+exports.push([module.i, "\n.spinner-box[data-v-4307127c]{\n    margin-left: auto;\n    max-width: 50px;\n}\n.suraInfoBlock[data-v-4307127c]{\n    list-style: none;\n    margin-left: auto;    \n    padding: 0;\n    display: flex;\n    margin: 0px;\n    margin-bottom: -7px;\n}\n.suraInfoBlock li > h2 > span[data-v-4307127c]{\n    width: 254px;\n    text-align: center;\n}\n.suraInfo[data-v-4307127c]{\n    width: 150px;\n    margin-left: 4px;\n}\n.suraName[data-v-4307127c]{\n    text-align: right;\n    font-size: 32px;\n    text-align: center;\n    margin-top: -6px;\n}\n.suraTitle[data-v-4307127c]{\n    display: grid;\n    max-width: 304px;\n}\n.titleBlock[data-v-4307127c] {\n    display: grid;\n}\n.suraInfoWords[data-v-4307127c]{\n    width:305px;\n}\nul.SuraLettersCount[data-v-4307127c] {\n    list-style: none;\n    display: flex;\n    padding: 0;\n    font-size: 13px;\n}\n.suraContainer[data-v-4307127c]{\n    background: #f8f9fa;\n}\n.verse[data-v-4307127c] {\n    direction: rtl;        \n    list-style: none;\n    /* display: flex; */\n    margin-bottom: 18px;\n}\n.verse a[data-v-4307127c]{\n    color: #000;\n}\n.verse a[data-v-4307127c]:hover{\n    color: red;\n    text-decoration: none;\n}\n/* ul.suraBlock {\n    text-align: justify;\n    line-height: 2.2;\n    transition: all 1s ease; \n} */\nul.versesBlock[data-v-4307127c]{\n    text-align: justify;\n    line-height: 2.2;\n    transition: all 1s ease;\n}\n.detail[data-v-4307127c]{\n    display: sticky;\n}\n.verseIndex[data-v-4307127c]{\n    max-width: 103px;\n}\n.verseInfo[data-v-4307127c]{\n    width: 50px;\n    margin-left: 2px;\n}\n", ""]);
 
 // exports
 
@@ -34631,7 +34688,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.spinner-box[data-v-b97fd736]{\n    width: 62px;\n}\n#quranIndex[data-v-b97fd736]{\n    display: block;\n    background: #f8f9fa;\n}\n.suraIndexItem[data-v-b97fd736]{\n    width: 75px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    color: black;\n    height: 81px;\n    cursor: pointer;\n    font-size: 14px;\n    border-color: #000000;\n    box-shadow: 0 0.09rem 0.1rem #000;\n}\n.suraIndexItem label[data-v-b97fd736]{\n    cursor: pointer;\n    margin-bottom: 0px;\n}\n.badge[data-v-b97fd736] {\n    background: yellowgreen;\n    margin-left: 6px;\n    color: white;\n}\n.suraItemBlock[data-v-b97fd736]{\n    list-style: none;\n    padding: 0;\n    margin-left: 23px;\n    transition: all 1s ease;\n}\n.smallList[data-v-b97fd736] {\n    transition: all 1s ease;\n    color: black;\n    cursor: pointer;\n}\n.smallListItems[data-v-b97fd736] {\n    width: 51px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    color: black;\n    height: 22px;\n    cursor: pointer;\n    font-size: 12px;\n    padding: 0;\n    font-weight: bolder;\n    /* text-shadow: 0 0.09rem 0.1rem #000; */\n    transition: all 1s ease;\n}\n.isActive[data-v-b97fd736]{\n    background: #28a745;\n}\nul.verseBlock[data-v-b97fd736] {\n    text-align: justify;\n    padding-right: 28px;\n}\n/* ::-webkit-scrollbar {\n    width: 1em;\n}\n::-webkit-scrollbar-track {\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);\n}\n::-webkit-scrollbar-thumb {\n    background-color: #6c757d;\n    outline: 1px solid slategrey;\n} */\n", ""]);
+exports.push([module.i, "\n.spinner-box[data-v-b97fd736]{\n    width: 62px;\n}\n#quranIndex[data-v-b97fd736]{\n    display: block;\n    /* background: #eed191; */\n}\n.suraIndexItem[data-v-b97fd736]{\n    width: 75px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    color: black;\n    height: 81px;\n    cursor: pointer;\n    font-size: 14px;\n    /* border-color: #000000;\n    box-shadow: 0 0.09rem 0.1rem #000; */\n}\n.suraIndexItem label[data-v-b97fd736]{\n    cursor: pointer;\n    margin-bottom: 0px;\n}\n.badge[data-v-b97fd736] {\n    background: yellowgreen;\n    margin-left: 6px;\n    color: white;\n}\n.suraItemBlock[data-v-b97fd736]{\n    list-style: none;\n    padding: 0;\n    margin-left: 23px;\n    transition: all 1s ease;\n}\n.smallList[data-v-b97fd736] {\n    transition: all 1s ease;\n    color: black;\n    cursor: pointer;\n}\n.smallListItems[data-v-b97fd736] {\n    width: 51px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    color: black;\n    height: 22px;\n    cursor: pointer;\n    font-size: 12px;\n    padding: 0;\n    font-weight: bolder;\n    /* text-shadow: 0 0.09rem 0.1rem #000; */\n    transition: all 1s ease;\n}\n.isActive[data-v-b97fd736]{\n    background: #28a745;\n}\nul.verseBlock[data-v-b97fd736] {\n    text-align: justify;\n    padding-right: 28px;\n}\n/* ::-webkit-scrollbar {\n    width: 1em;\n}\n::-webkit-scrollbar-track {\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);\n}\n::-webkit-scrollbar-thumb {\n    background-color: #6c757d;\n    outline: 1px solid slategrey;\n} */\n", ""]);
 
 // exports
 
@@ -66811,137 +66868,230 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        !_vm.loading
-          ? _c(
-              "h2",
-              {
-                staticClass: "suraName display-3",
-                class: { hide: _vm.suraName === "" }
-              },
-              [_vm._v("سورة " + _vm._s(_vm.suraName))]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.loading
-          ? _c(
-              "ul",
-              {
-                staticClass: "suraBlock",
-                class: { hide: _vm.suraName === "" }
-              },
-              _vm._l(_vm.verses, function(verse, index) {
-                return _c(
-                  "li",
-                  {
-                    key: index,
-                    staticClass: "verse list-inline",
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.showDetail(verse)
-                      }
-                    }
-                  },
-                  [
-                    index != "SuraLettersCount"
-                      ? _c("ul", { staticClass: "SuraLettersCount" }, [
-                          _c("li", [
-                            _c("span", { staticClass: "badge badge-primary" }, [
-                              _vm._v(_vm._s(verse.NumberOfWords) + " كلمة")
-                            ])
-                          ]),
+        _vm.showSura
+          ? _c("div", { staticClass: "suraBlock" }, [
+              _c(
+                "div",
+                { staticClass: "titleBlock row justify-content-center" },
+                [
+                  _c("ul", { staticClass: "suraInfoBlock" }, [
+                    _c("li", [
+                      _c("h5", [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "suraInfo badge badge-primary col-sm"
+                          },
+                          [
+                            _vm._v(
+                              "\n                                عدد الكلمات " +
+                                _vm._s(_vm.sura.NumberOfWords) +
+                                "\n                            "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c("h5", [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "suraInfo badge badge-secondary col-sm"
+                          },
+                          [
+                            _vm._v(
+                              "\n                                عدد الحروف " +
+                                _vm._s(_vm.sura.NumberOfLetters) +
+                                "\n                            "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "suraTitle" }, [
+                    _c("h5", [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "suraInfo badge badge-warning col-sm suraInfoWords"
+                        },
+                        [
+                          _vm._v(
+                            "\n                            عدد الآيات" +
+                              _vm._s(_vm.sura.NumberOfVerses) +
+                              "\n                        "
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("h2", { staticClass: "suraName display-3" }, [
+                      _vm._v("سورة " + _vm._s(_vm.suraName))
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _vm.showSura
+                ? _c(
+                    "ul",
+                    { staticClass: "versesBlock" },
+                    _vm._l(_vm.verses, function(verse, index) {
+                      return _c(
+                        "li",
+                        {
+                          key: index,
+                          staticClass: "verse list-inline",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.showDetail(verse)
+                            }
+                          }
+                        },
+                        [
+                          index != "SuraLettersCount"
+                            ? _c("ul", { staticClass: "SuraLettersCount" }, [
+                                _c("li", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "verseInfo badge badge-primary"
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(verse.NumberOfWords) + " كلمة"
+                                      )
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "verseInfo badge badge-secondary"
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(verse.NumberOfLetters) + " حرف"
+                                      )
+                                    ]
+                                  )
+                                ])
+                              ])
+                            : _vm._e(),
                           _vm._v(" "),
-                          _c("li", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: verse.verseText,
+                                expression: "verse.verseText"
+                              }
+                            ],
+                            attrs: { type: "hidden" },
+                            domProps: { value: verse.verseText },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  verse,
+                                  "verseText",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: verse.NumberOfLetters,
+                                expression: "verse.NumberOfLetters"
+                              }
+                            ],
+                            attrs: { type: "hidden" },
+                            domProps: { value: verse.NumberOfLetters },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  verse,
+                                  "NumberOfLetters",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: verse.NumberOfWords,
+                                expression: "verse.NumberOfWords"
+                              }
+                            ],
+                            attrs: { type: "hidden" },
+                            domProps: { value: verse.NumberOfWords },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  verse,
+                                  "NumberOfWords",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticStyle: { display: "grid" } }, [
                             _c(
                               "span",
-                              { staticClass: "badge badge-secondary" },
-                              [_vm._v(_vm._s(verse.NumberOfLetters) + " حرف")]
-                            )
+                              { staticClass: "verseIndex badge badge-warning" },
+                              [
+                                _vm._v(
+                                  "\n                            آية رقم: " +
+                                    _vm._s(index) +
+                                    " \n                        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("span", [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(verse.verseText) +
+                                  "\n                        "
+                              )
+                            ])
                           ])
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: verse.verseText,
-                          expression: "verse.verseText"
-                        }
-                      ],
-                      attrs: { type: "hidden" },
-                      domProps: { value: verse.verseText },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(verse, "verseText", $event.target.value)
-                        }
-                      }
+                        ]
+                      )
                     }),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: verse.NumberOfLetters,
-                          expression: "verse.NumberOfLetters"
-                        }
-                      ],
-                      attrs: { type: "hidden" },
-                      domProps: { value: verse.NumberOfLetters },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            verse,
-                            "NumberOfLetters",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: verse.NumberOfWords,
-                          expression: "verse.NumberOfWords"
-                        }
-                      ],
-                      attrs: { type: "hidden" },
-                      domProps: { value: verse.NumberOfWords },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(verse, "NumberOfWords", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(verse.verseText) +
-                        "\n                "
-                    ),
-                    index != "SuraLettersCount"
-                      ? _c("label", { staticClass: "badge star" }, [
-                          _vm._v(_vm._s(index))
-                        ])
-                      : _vm._e()
-                  ]
-                )
-              }),
-              0
-            )
+                    0
+                  )
+                : _vm._e()
+            ])
           : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "starBlock" })
