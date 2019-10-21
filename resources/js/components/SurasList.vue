@@ -1,18 +1,21 @@
 <template>
     <div> 
-        <div id="quranIndex" class="card container-fluid" ref="quranIndexHeight">      
-            <h2 class="indexTitle display-3 container-fluid" :class="{smallListTitle: smallList}" >
-                <span class="badge badge-danger">قائمة الكتاب</span>
-            </h2>
-            <div class="container-fluid spinner-box">
-                <b-spinner v-if="loading" small label="Small Spinner" variant="info"></b-spinner>
-            </div>
-            <ul  class="suraItemBlock block" :class="{smallList: smallList}">
-                <li :class="{ isActive: activeSura === index, smallListItems: smallList}" class="suraIndexItem btn btn-info" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName, index)">
+        <div id="quranIndex" class="card" ref="quranIndexHeight">      
+            <div  class="suraItemBlock" :class="{smallList: smallList}">
+                <div v-if="loading" class="container spinner-box">
+                    <b-spinner  label="Small Spinner" variant="info"></b-spinner>
+                </div>
+                <div v-if="!loading" class="indexTitle" :class="{smallListTitle: smallList}" >
+                    <span class="btn">قائمة الكتاب</span>
+                </div>
+                <div v-scroll-to="'#quranIndex'" :class="{ isActive: activeSura === index, smallListItems: smallList}" class="suraIndexItem btn" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName, index)">
                     <label>  {{suraIndexItem.suraName}}</label>
-                    <label style="font-size: 11px;" ><label :class="{ hide: smallList}">سورة</label> <sup>{{parseInt(suraIndexItem.suraIndex, 10)}}</sup></label>
-                </li>
-            </ul>
+                    <label style="font-size: 11px;" >
+                        <label :class="{ hide: smallList}">سورة</label> 
+                        <sup>{{parseInt(suraIndexItem.suraIndex, 10)}}</sup>
+                    </label>
+                </div>
+            </div>
         </div>
         <!-- <div class="btn btn-success"></div> -->
         <Sura ref="changingSura" v-if="showSura" :suraFileName = "suraFileName" :suraName = "suraName" :quranIndexHeight= "quranIndexHeight"></Sura> 
@@ -59,6 +62,11 @@
                 this.suraName = this.suraFileName.replace(/[0-9]/g, '');
                 this.$refs.changingSura.fetchSura
                 this.smallList = true
+                let windos = this.$el.querySelector("#quranIndex");
+                // return 
+                scroll = (0)
+                console.log(scroll) 
+                // windos.scrollDown = scroll -200
             }
         }, 
         created() {
@@ -67,6 +75,10 @@
         updated(){
             this.$refs.changingSura.fetchSura
             this.quranIndexHeight = (this.$refs.quranIndexHeight.clientHeight)
+            // console.log(this.quranIndexHeight) 
+            // return
+            //     var container = this.$ref.quranIndexHeight.querySelector(".quranIndex");
+            //     container.scrollDown = container.scrollHeight;
         },
         computed:{ s: function(){this.quranIndexHeight = (this.$refs.quranIndexHeight.clientHeight)}
         },
@@ -78,77 +90,77 @@
 </script>
 
 <style scoped>
-    .indexTitle{
-        width: 214px;
-        font-size: 42px;
-        margin-bottom: 3px;
+    .btn{
+        border-color: rgba(0, 0, 0, 0.125) !important;
     }
-    .smallListTitle{
-        width: 163px;
-        font-size: 29px;
-        transition: all 1s ease;
-    }
-    .indexTitle > span{
-        font-weight: 400;
+    div#quranIndex {
+        margin-top: 15px;
+        padding: 15px;
+        background: #093f900f;
     }
     .spinner-box{
         width: 62px;
     }
-    #quranIndex{
+    .indexTitle{
+        margin-bottom: 4px;
+        width: max-content;
+        transition: all 1s ease;
+    }
+    .indexTitle > span{
         display: block;
-        margin-bottom: -11px;        
-        margin-top: 3px;
+        font-size: 45px;
+        font-weight: 300;
+        color: black;
+        padding: 15px 15px 19px 15px;
+        background: #b8611738;
+        transition: all 1s ease;
     }
     .suraIndexItem{
         width: 75px;
+        height: 51px;
+        font-size: 14px;
         margin-bottom: 4px;
         margin-left: 4px;
+        float: right;
         color: black;
-        height: 51px;
         cursor: pointer;
-        font-size: 14px;
+        background-color: #17a2b838;
+        transition: all 1s ease;
     }
     .suraIndexItem label{
         cursor: pointer;
         margin-bottom: 0px;
     }
-    /* .badge {
-        background: yellowgreen;
-        margin-left: 6px;
-        color: white;
-    } */
-    .suraItemBlock{
-        list-style: none;
-        padding: 0;
-        margin-left: 23px;
-        padding-top: 6px;
+    .suraItemBlock {
         transition: all 1s ease;
-
     }
     .smallList {
         transition: all 1s ease;
-        color: black;
-        cursor: pointer;
-        padding: 23px;
-        padding-top: 2px;
     } 
+    .smallListTitle {
+        height: 48px;
+        margin-left: 4px;
+        float: right;
+        transition: all 1s ease;
+    }
+    .smallListTitle > span {
+        font-size: 26px !important;
+        padding: 0;
+        padding-bottom: 8px;
+        transition: all 1s ease;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
     .smallListItems {
         width: 63px;
-        margin-bottom: 4px;
-        margin-left: 4px;
-        color: black;
         height: 22px;
-        cursor: pointer;
         font-size: 12px;
         padding: 0;
         font-weight: bolder;
         transition: all 1s ease;
     }
     .isActive{
-        background: #28a745;
+        background: #9fe83e4f;
     }
-    ul.verseBlock {
-        text-align: justify;
-        padding-right: 28px;
-    }
+
 </style>

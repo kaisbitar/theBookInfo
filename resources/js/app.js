@@ -13,7 +13,11 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import FixedHeader from 'vue-fixed-header'
 
 window.Vue = require('vue');   
+var VueScrollTo = require('vue-scrollto');
+
 Vue.use(BootstrapVue)
+Vue.use(VueScrollTo)
+
 // Vue.use(FixedHeader)
 
 /**

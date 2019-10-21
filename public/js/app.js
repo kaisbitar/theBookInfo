@@ -1692,8 +1692,12 @@ module.exports = {
 /*!*********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SearchSura.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 //
 //
@@ -1717,32 +1721,32 @@ module.exports = {
 //
 //
 //
-// class Post {
-//   constructor(title, link, author, img) {
-//     this.title = title;
-//     this.link = link;
-//     this.author = author;
-//     this.img = img;
-//   }
-// }
-//     export default {
-//         props: ['verses'],
-//         data() {
-//             return {
-//                 search: '',
-//                 postList : [this.verses]
-//         }
-//     },
-//     computed: {
-//         filteredList() {
-//             return this.postList.filter(post => {
-//                 console.log(post.verseText)
-//                 // return
-//                 return post.verseText.includes(this.search)
-//             })
-//         }
-//     }
-// }
+var Post = function Post(title, link, author, img) {
+  _classCallCheck(this, Post);
+
+  this.title = title;
+  this.link = link;
+  this.author = author;
+  this.img = img;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['verses'],
+  data: function data() {
+    return {
+      search: '',
+      postList: [this.verses]
+    };
+  },
+  computed: {
+    filteredList: function filteredList() {
+      return this.postList.filter(function (post) {// console.log(post.verseText)
+        // return
+        // return post.verseText.includes(this.search)
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -1756,9 +1760,6 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SearchSura_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchSura.vue */ "./resources/js/components/SearchSura.vue");
-//
-//
-//
 //
 //
 //
@@ -1937,6 +1938,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1980,6 +1984,10 @@ __webpack_require__.r(__webpack_exports__);
       this.suraName = this.suraFileName.replace(/[0-9]/g, '');
       this.$refs.changingSura.fetchSura;
       this.smallList = true;
+      var windos = this.$el.querySelector("#quranIndex"); // return 
+
+      scroll = 0;
+      console.log(scroll); // windos.scrollDown = scroll -200
     }
   },
   created: function created() {
@@ -1987,7 +1995,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   updated: function updated() {
     this.$refs.changingSura.fetchSura;
-    this.quranIndexHeight = this.$refs.quranIndexHeight.clientHeight;
+    this.quranIndexHeight = this.$refs.quranIndexHeight.clientHeight; // console.log(this.quranIndexHeight) 
+    // return
+    //     var container = this.$ref.quranIndexHeight.querySelector(".quranIndex");
+    //     container.scrollDown = container.scrollHeight;
   },
   computed: {
     s: function s() {
@@ -34753,7 +34764,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.spinner-box[data-v-4307127c] {\n    margin-left: auto;\n    max-width: 50px;\n}\n.suraInfoBlock[data-v-4307127c] {\n    list-style: none;\n    margin-left: auto;    \n    padding: 0;\n    display: flex;\n    margin: 0px;\n    margin-bottom: -7px;\n}\n.suraInfoBlock li > h2 > span[data-v-4307127c] {\n    width: 254px;\n    text-align: center;\n}\n.suraInfo[data-v-4307127c] {\n    width: 150px;\n    margin-left: 4px;\n}\n.suraName[data-v-4307127c] {\n    text-align: right;\n    font-size: 32px;\n    text-align: center;\n    margin-top: -6px;\n}\n.suraTitle[data-v-4307127c] {\n    display: grid;\n    max-width: 304px;\n}\n.titleBlock[data-v-4307127c] {\n    display: grid;\n    transition: all 1s ease;\n}\n.titleBlock.vue-fixed-header--isFixed[data-v-4307127c] {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100vw;\n    background: #f8f9fa;\n    border: 1px solid #ccc;\n    z-index: 1;\n    transition: all .11s ease;\n}\n.suraContainer[data-v-4307127c] {\n    min-height: 512px;\n}\n.suraInfoWords[data-v-4307127c]{\n    width:305px;\n}\nul.SuraLettersCount[data-v-4307127c] {\n    list-style: none;\n    display: flex;\n    padding: 0;\n    font-size: 13px;\n    width: 112px;\n}\n.SuraLettersCount[data-v-4307127c] {\n    width: 128px;\n    margin-left: auto;\n    margin-right: auto;\n}\n.suraBlock.card[data-v-4307127c] {\n    padding-top: 24px;\n    margin-top: 15px;\n}\n.verse[data-v-4307127c] {\n    direction: rtl;\n    list-style: none;\n    margin-bottom: 3px;\n    float: right;\n    margin-left: 3px;\n    padding: 0px;\n    background: #f6eeef6b;\n}\n.verse a[data-v-4307127c] {\n    color: #000;\n}\n.verse a[data-v-4307127c]:hover {\n    color: red;\n    text-decoration: none;\n}\nul.versesBlock[data-v-4307127c] {\n    text-align: justify;\n    line-height: 2.2;\n    padding: 0px;\n    transition: all 1s ease;\n}\n.detail[data-v-4307127c] {\n    display: sticky;\n}\n.verseIndex[data-v-4307127c] {\n    width: 128px;\n    margin-left: auto;\n    margin-right: auto;\n}\n.verseInfo[data-v-4307127c] {\n    width: 60px;\n    margin-left: 2px;\n    margin-right: 2px;\n}\n.verseText[data-v-4307127c] {\n    text-align: center;\n}\n", ""]);
+exports.push([module.i, "\n.badge[data-v-4307127c]{\r\n        border-color: rgba(0, 0, 0, 0.125) !important;\n}\n.spinner-box[data-v-4307127c] {\r\n        margin-left: auto;\r\n        max-width: 50px;\n}\n.suraInfoBlock[data-v-4307127c] {\r\n        list-style: none;\r\n        margin-left: auto;    \r\n        padding: 0;\r\n        display: flex;\r\n        margin: 0px;\r\n        margin-bottom: -7px;\n}\n.suraInfoBlock li > h2 > span[data-v-4307127c] {\r\n        width: 254px;\r\n        text-align: center;\n}\n.suraInfo[data-v-4307127c] {\r\n        width: 150px;\r\n        margin-left: 4px;\n}\n.suraName[data-v-4307127c] {\r\n        font-size: 32px;\r\n        text-align: center;\r\n        margin-top: -3px;\r\n        font-weight: 100;\r\n        width: 304px;\r\n        color: black;\r\n        padding-top: 4px;\r\n        padding-bottom: 11px;\n}\n.suraTitle[data-v-4307127c] {\r\n        display: grid;\r\n        max-width: 304px;\n}\n.titleBlock[data-v-4307127c] {\r\n        display: grid;\r\n        max-width: 306px;\r\n        margin: auto;\r\n        transition: all 1s ease;\n}\n.titleContainer.vue-fixed-header--isFixed[data-v-4307127c] {\r\n        position: fixed;\r\n        left: 0;\r\n        top: 0;\r\n        width: 100vw;\r\n        background: #f8f9fa;\r\n        border: 1px solid #ccc;\r\n        z-index: 1;\r\n        transition: all .11s ease;\n}\n.suraContainer[data-v-4307127c] {\r\n        min-height: 512px;\n}\n.suraInfoWords[data-v-4307127c]{\r\n        width:305px;\n}\nul.SuraLettersCount[data-v-4307127c] {\r\n        list-style: none;\r\n        display: flex;\r\n        padding: 0;\r\n        font-size: 13px;\r\n        width: 112px;\n}\n.SuraLettersCount[data-v-4307127c] {\r\n        width: 128px;\r\n        margin-left: auto;\r\n        margin-right: auto;\n}\n.suraBlock.card[data-v-4307127c] {\r\n        margin-top: 3px;\n}\n.verse[data-v-4307127c] {\r\n        direction: rtl;\r\n        list-style: none;\r\n        margin-bottom: 3px;\r\n        float: right;\r\n        margin-left: 3px;\r\n        padding: 0px;\r\n        background: #f6eeef6b;\n}\n.verse a[data-v-4307127c] {\r\n        color: #000;\n}\n.verse a[data-v-4307127c]:hover {\r\n        color: red;\r\n        text-decoration: none;\n}\n.versesBlock[data-v-4307127c] {\r\n        text-align: justify;\r\n        line-height: 2.2;\r\n        padding: 3px 3px 3px 15px;\r\n        transition: all 1s ease;\n}\n.detail[data-v-4307127c] {\r\n        display: sticky;\n}\n.verseIndex[data-v-4307127c] {\r\n        width: 128px;\r\n        margin-left: auto;\r\n        margin-right: auto;\n}\n.verseInfo[data-v-4307127c] {\r\n        width: 60px;\r\n        margin-left: 2px;\r\n        margin-right: 2px;\n}\n.badge-primary[data-v-4307127c]{\r\n        background-color: #007bff94;\n}\n.badge-secondary[data-v-4307127c]{\r\n        background-color: #6c757db0;\n}\n.badge-warning[data-v-4307127c]{\r\n        background-color: #ffc10796;\n}\n.badge-success[data-v-4307127c]{\r\n        background-color: #28a74557;\n}\n.verseText[data-v-4307127c] {\r\n        text-align: center;\n}\r\n", ""]);
 
 // exports
 
@@ -34772,7 +34783,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.indexTitle[data-v-b97fd736]{\n    width: 214px;\n    font-size: 42px;\n    margin-bottom: 3px;\n}\n.smallListTitle[data-v-b97fd736]{\n    width: 163px;\n    font-size: 29px;\n    transition: all 1s ease;\n}\n.indexTitle > span[data-v-b97fd736]{\n    font-weight: 400;\n}\n.spinner-box[data-v-b97fd736]{\n    width: 62px;\n}\n#quranIndex[data-v-b97fd736]{\n    display: block;\n    margin-bottom: -11px;        \n    margin-top: 3px;\n}\n.suraIndexItem[data-v-b97fd736]{\n    width: 75px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    color: black;\n    height: 51px;\n    cursor: pointer;\n    font-size: 14px;\n}\n.suraIndexItem label[data-v-b97fd736]{\n    cursor: pointer;\n    margin-bottom: 0px;\n}\n/* .badge {\n    background: yellowgreen;\n    margin-left: 6px;\n    color: white;\n} */\n.suraItemBlock[data-v-b97fd736]{\n    list-style: none;\n    padding: 0;\n    margin-left: 23px;\n    padding-top: 6px;\n    transition: all 1s ease;\n}\n.smallList[data-v-b97fd736] {\n    transition: all 1s ease;\n    color: black;\n    cursor: pointer;\n    padding: 23px;\n    padding-top: 2px;\n}\n.smallListItems[data-v-b97fd736] {\n    width: 63px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    color: black;\n    height: 22px;\n    cursor: pointer;\n    font-size: 12px;\n    padding: 0;\n    font-weight: bolder;\n    transition: all 1s ease;\n}\n.isActive[data-v-b97fd736]{\n    background: #28a745;\n}\nul.verseBlock[data-v-b97fd736] {\n    text-align: justify;\n    padding-right: 28px;\n}\n", ""]);
+exports.push([module.i, "\n.btn[data-v-b97fd736]{\n    border-color: rgba(0, 0, 0, 0.125) !important;\n}\ndiv#quranIndex[data-v-b97fd736] {\n    margin-top: 15px;\n    padding: 15px;\n    background: #093f900f;\n}\n.spinner-box[data-v-b97fd736]{\n    width: 62px;\n}\n.indexTitle[data-v-b97fd736]{\n    margin-bottom: 4px;\n    width: -webkit-max-content;\n    width: -moz-max-content;\n    width: max-content;\n    transition: all 1s ease;\n}\n.indexTitle > span[data-v-b97fd736]{\n    display: block;\n    font-size: 45px;\n    font-weight: 300;\n    color: black;\n    padding: 15px 15px 19px 15px;\n    background: #b8611738;\n    transition: all 1s ease;\n}\n.suraIndexItem[data-v-b97fd736]{\n    width: 75px;\n    height: 51px;\n    font-size: 14px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    float: right;\n    color: black;\n    cursor: pointer;\n    background-color: #17a2b838;\n    transition: all 1s ease;\n}\n.suraIndexItem label[data-v-b97fd736]{\n    cursor: pointer;\n    margin-bottom: 0px;\n}\n.suraItemBlock[data-v-b97fd736] {\n    transition: all 1s ease;\n}\n.smallList[data-v-b97fd736] {\n    transition: all 1s ease;\n}\n.smallListTitle[data-v-b97fd736] {\n    height: 48px;\n    margin-left: 4px;\n    float: right;\n    transition: all 1s ease;\n}\n.smallListTitle > span[data-v-b97fd736] {\n    font-size: 26px !important;\n    padding: 0;\n    padding-bottom: 8px;\n    transition: all 1s ease;\n    padding-left: 5px;\n    padding-right: 5px;\n}\n.smallListItems[data-v-b97fd736] {\n    width: 63px;\n    height: 22px;\n    font-size: 12px;\n    padding: 0;\n    font-weight: bolder;\n    transition: all 1s ease;\n}\n.isActive[data-v-b97fd736]{\n    background: #9fe83e4f;\n}\n\n", ""]);
 
 // exports
 
@@ -70004,7 +70015,48 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid" })
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "search-wrapper" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.search,
+            expression: "search"
+          }
+        ],
+        attrs: { type: "text", placeholder: "Search title.." },
+        domProps: { value: _vm.search },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.search = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("label", [_vm._v("Search title:")])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "wrapper" },
+      _vm._l(_vm.filteredList, function(post) {
+        return _c("div", { staticClass: "card" }, [
+          _c("a", { attrs: { href: post.link, target: "_blank" } }, [
+            _c("img", { attrs: { src: post.img } }),
+            _vm._v(" "),
+            _c("small", [_vm._v("posted by: " + _vm._s(post.author))]),
+            _vm._v("\n            " + _vm._s(post.title) + "\n        ")
+          ])
+        ])
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -70049,10 +70101,8 @@ var render = function() {
             { staticClass: "suraBlock card" },
             [
               _c("fixedheader", { attrs: { threshold: _vm.matchHeight } }, [
-                _c(
-                  "div",
-                  { staticClass: "titleBlock row justify-content-center" },
-                  [
+                _c("div", { staticClass: "titleContainer card-header" }, [
+                  _c("div", { staticClass: "titleBlock" }, [
                     _c("ul", { staticClass: "suraInfoBlock " }, [
                       _c("li", [
                         _c("h5", [
@@ -70102,7 +70152,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                عدد الآيات" +
+                              "\n                                عدد الآيات " +
                                 _vm._s(_vm.sura.NumberOfVerses) +
                                 "\n                            "
                             )
@@ -70110,196 +70160,181 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("h2", { staticClass: "suraName display-3" }, [
-                        _vm._v("سورة " + _vm._s(_vm.suraName))
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _vm.showSura
-                      ? _c(
-                          "SearchSura",
-                          { ref: "searchSura", attrs: { verses: _vm.verses } },
-                          [_vm._v("SearchSura")]
-                        )
-                      : _vm._e()
-                  ],
-                  1
-                )
+                      _c(
+                        "h2",
+                        { staticClass: "suraName badge badge-success" },
+                        [_vm._v("سورة " + _vm._s(_vm.suraName))]
+                      )
+                    ])
+                  ])
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "row justify-content-center" }, [
-                _vm.showSura
-                  ? _c("ul", { staticClass: "versesBlock" }, [
-                      _c(
-                        "div",
-                        { staticClass: "card-body" },
-                        _vm._l(_vm.verses, function(verse, index) {
-                          return _c(
-                            "li",
-                            {
-                              key: index,
-                              staticClass: "verse card",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.showDetail(verse)
-                                }
-                              }
-                            },
-                            [
-                              index != "SuraLettersCount"
-                                ? _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "SuraLettersCount row justify-content-center"
-                                    },
-                                    [
-                                      _c("li", [
-                                        _c(
-                                          "span",
-                                          {
-                                            staticClass:
-                                              "verseInfo badge badge-primary"
-                                          },
-                                          [
-                                            _vm._v(
-                                              _vm._s(verse.NumberOfWords) +
-                                                " كلمة"
-                                            )
-                                          ]
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("li", [
-                                        _c(
-                                          "span",
-                                          {
-                                            staticClass:
-                                              "verseInfo badge badge-secondary"
-                                          },
-                                          [
-                                            _vm._v(
-                                              _vm._s(verse.NumberOfLetters) +
-                                                " حرف"
-                                            )
-                                          ]
-                                        )
-                                      ])
-                                    ]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _c(
-                                "span",
+              _vm.showSura
+                ? _c(
+                    "div",
+                    { staticClass: "versesBlock" },
+                    _vm._l(_vm.verses, function(verse, index) {
+                      return _c(
+                        "li",
+                        {
+                          key: index,
+                          staticClass: "verse card",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.showDetail(verse)
+                            }
+                          }
+                        },
+                        [
+                          index != "SuraLettersCount"
+                            ? _c(
+                                "div",
                                 {
-                                  staticClass: "verseIndex badge badge-warning"
+                                  staticClass:
+                                    "SuraLettersCount row justify-content-center"
                                 },
                                 [
-                                  _vm._v(
-                                    "\n                                    آية رقم: " +
-                                      _vm._s(index) +
-                                      " \n                                "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: verse.verseText,
-                                    expression: "verse.verseText"
-                                  }
-                                ],
-                                attrs: { type: "hidden" },
-                                domProps: { value: verse.verseText },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      verse,
-                                      "verseText",
-                                      $event.target.value
+                                  _c("div", [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "verseInfo badge badge-primary"
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(verse.NumberOfWords) + " كلمة"
+                                        )
+                                      ]
                                     )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: verse.NumberOfLetters,
-                                    expression: "verse.NumberOfLetters"
-                                  }
-                                ],
-                                attrs: { type: "hidden" },
-                                domProps: { value: verse.NumberOfLetters },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      verse,
-                                      "NumberOfLetters",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: verse.NumberOfWords,
-                                    expression: "verse.NumberOfWords"
-                                  }
-                                ],
-                                attrs: { type: "hidden" },
-                                domProps: { value: verse.NumberOfWords },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      verse,
-                                      "NumberOfWords",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "verseText container-fluid" },
-                                [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                                    " +
-                                        _vm._s(verse.verseText) +
-                                        "\n                                "
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "verseInfo badge badge-secondary"
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(verse.NumberOfLetters) + " حرف"
+                                        )
+                                      ]
                                     )
                                   ])
                                 ]
                               )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "verseIndex badge badge-warning" },
+                            [
+                              _vm._v(
+                                "\n                                    آية رقم: " +
+                                  _vm._s(index) +
+                                  " \n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: verse.verseText,
+                                expression: "verse.verseText"
+                              }
+                            ],
+                            attrs: { type: "hidden" },
+                            domProps: { value: verse.verseText },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  verse,
+                                  "verseText",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: verse.NumberOfLetters,
+                                expression: "verse.NumberOfLetters"
+                              }
+                            ],
+                            attrs: { type: "hidden" },
+                            domProps: { value: verse.NumberOfLetters },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  verse,
+                                  "NumberOfLetters",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: verse.NumberOfWords,
+                                expression: "verse.NumberOfWords"
+                              }
+                            ],
+                            attrs: { type: "hidden" },
+                            domProps: { value: verse.NumberOfWords },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  verse,
+                                  "NumberOfWords",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "verseText container-fluid" },
+                            [
+                              _c("span", [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(verse.verseText) +
+                                    "\n                                "
+                                )
+                              ])
                             ]
                           )
-                        }),
-                        0
+                        ]
                       )
-                    ])
-                  : _vm._e()
-              ])
+                    }),
+                    0
+                  )
+                : _vm._e()
             ],
             1
           )
@@ -70336,78 +70371,88 @@ var render = function() {
         "div",
         {
           ref: "quranIndexHeight",
-          staticClass: "card container-fluid",
+          staticClass: "card",
           attrs: { id: "quranIndex" }
         },
         [
           _c(
-            "h2",
-            {
-              staticClass: "indexTitle display-3 container-fluid",
-              class: { smallListTitle: _vm.smallList }
-            },
-            [
-              _c("span", { staticClass: "badge badge-danger" }, [
-                _vm._v("قائمة الكتاب")
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
             "div",
-            { staticClass: "container-fluid spinner-box" },
-            [
-              _vm.loading
-                ? _c("b-spinner", {
-                    attrs: {
-                      small: "",
-                      label: "Small Spinner",
-                      variant: "info"
-                    }
-                  })
-                : _vm._e()
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "ul",
             {
-              staticClass: "suraItemBlock block",
+              staticClass: "suraItemBlock",
               class: { smallList: _vm.smallList }
             },
-            _vm._l(_vm.surasList, function(suraIndexItem, index) {
-              return _c(
-                "li",
-                {
-                  key: index,
-                  staticClass: "suraIndexItem btn btn-info",
-                  class: {
-                    isActive: _vm.activeSura === index,
-                    smallListItems: _vm.smallList
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.setSuraInPlay(suraIndexItem.fileName, index)
+            [
+              _vm.loading
+                ? _c(
+                    "div",
+                    { staticClass: "container spinner-box" },
+                    [
+                      _c("b-spinner", {
+                        attrs: { label: "Small Spinner", variant: "info" }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.loading
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "indexTitle",
+                      class: { smallListTitle: _vm.smallList }
+                    },
+                    [
+                      _c("span", { staticClass: "btn" }, [
+                        _vm._v("قائمة الكتاب")
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.surasList, function(suraIndexItem, index) {
+                return _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "scroll-to",
+                        rawName: "v-scroll-to",
+                        value: "#quranIndex",
+                        expression: "'#quranIndex'"
+                      }
+                    ],
+                    key: index,
+                    staticClass: "suraIndexItem btn",
+                    class: {
+                      isActive: _vm.activeSura === index,
+                      smallListItems: _vm.smallList
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.setSuraInPlay(suraIndexItem.fileName, index)
+                      }
                     }
-                  }
-                },
-                [
-                  _c("label", [_vm._v("  " + _vm._s(suraIndexItem.suraName))]),
-                  _vm._v(" "),
-                  _c("label", { staticStyle: { "font-size": "11px" } }, [
-                    _c("label", { class: { hide: _vm.smallList } }, [
-                      _vm._v("سورة")
+                  },
+                  [
+                    _c("label", [
+                      _vm._v("  " + _vm._s(suraIndexItem.suraName))
                     ]),
                     _vm._v(" "),
-                    _c("sup", [
-                      _vm._v(_vm._s(parseInt(suraIndexItem.suraIndex, 10)))
+                    _c("label", { staticStyle: { "font-size": "11px" } }, [
+                      _c("label", { class: { hide: _vm.smallList } }, [
+                        _vm._v("سورة")
+                      ]),
+                      _vm._v(" "),
+                      _c("sup", [
+                        _vm._v(_vm._s(parseInt(suraIndexItem.suraIndex, 10)))
+                      ])
                     ])
-                  ])
-                ]
-              )
-            }),
-            0
+                  ]
+                )
+              })
+            ],
+            2
           )
         ]
       ),
@@ -70536,6 +70581,534 @@ function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-scrollto/vue-scrollto.js":
+/*!***************************************************!*\
+  !*** ./node_modules/vue-scrollto/vue-scrollto.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+  * vue-scrollto v2.17.1
+  * (c) 2019 Randjelovic Igor
+  * @license MIT
+  */
+(function (global, factory) {
+   true ? module.exports = factory() :
+  undefined;
+}(this, function () { 'use strict';
+
+  function _typeof(obj) {
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function (obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof = function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof(obj);
+  }
+
+  function _extends() {
+    _extends = Object.assign || function (target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+
+      return target;
+    };
+
+    return _extends.apply(this, arguments);
+  }
+
+  /**
+   * https://github.com/gre/bezier-easing
+   * BezierEasing - use bezier curve for transition easing function
+   * by Gaëtan Renaudeau 2014 - 2015 – MIT License
+   */
+
+  // These values are established by empiricism with tests (tradeoff: performance VS precision)
+  var NEWTON_ITERATIONS = 4;
+  var NEWTON_MIN_SLOPE = 0.001;
+  var SUBDIVISION_PRECISION = 0.0000001;
+  var SUBDIVISION_MAX_ITERATIONS = 10;
+
+  var kSplineTableSize = 11;
+  var kSampleStepSize = 1.0 / (kSplineTableSize - 1.0);
+
+  var float32ArraySupported = typeof Float32Array === 'function';
+
+  function A (aA1, aA2) { return 1.0 - 3.0 * aA2 + 3.0 * aA1; }
+  function B (aA1, aA2) { return 3.0 * aA2 - 6.0 * aA1; }
+  function C (aA1)      { return 3.0 * aA1; }
+
+  // Returns x(t) given t, x1, and x2, or y(t) given t, y1, and y2.
+  function calcBezier (aT, aA1, aA2) { return ((A(aA1, aA2) * aT + B(aA1, aA2)) * aT + C(aA1)) * aT; }
+
+  // Returns dx/dt given t, x1, and x2, or dy/dt given t, y1, and y2.
+  function getSlope (aT, aA1, aA2) { return 3.0 * A(aA1, aA2) * aT * aT + 2.0 * B(aA1, aA2) * aT + C(aA1); }
+
+  function binarySubdivide (aX, aA, aB, mX1, mX2) {
+    var currentX, currentT, i = 0;
+    do {
+      currentT = aA + (aB - aA) / 2.0;
+      currentX = calcBezier(currentT, mX1, mX2) - aX;
+      if (currentX > 0.0) {
+        aB = currentT;
+      } else {
+        aA = currentT;
+      }
+    } while (Math.abs(currentX) > SUBDIVISION_PRECISION && ++i < SUBDIVISION_MAX_ITERATIONS);
+    return currentT;
+  }
+
+  function newtonRaphsonIterate (aX, aGuessT, mX1, mX2) {
+   for (var i = 0; i < NEWTON_ITERATIONS; ++i) {
+     var currentSlope = getSlope(aGuessT, mX1, mX2);
+     if (currentSlope === 0.0) {
+       return aGuessT;
+     }
+     var currentX = calcBezier(aGuessT, mX1, mX2) - aX;
+     aGuessT -= currentX / currentSlope;
+   }
+   return aGuessT;
+  }
+
+  function LinearEasing (x) {
+    return x;
+  }
+
+  var src = function bezier (mX1, mY1, mX2, mY2) {
+    if (!(0 <= mX1 && mX1 <= 1 && 0 <= mX2 && mX2 <= 1)) {
+      throw new Error('bezier x values must be in [0, 1] range');
+    }
+
+    if (mX1 === mY1 && mX2 === mY2) {
+      return LinearEasing;
+    }
+
+    // Precompute samples table
+    var sampleValues = float32ArraySupported ? new Float32Array(kSplineTableSize) : new Array(kSplineTableSize);
+    for (var i = 0; i < kSplineTableSize; ++i) {
+      sampleValues[i] = calcBezier(i * kSampleStepSize, mX1, mX2);
+    }
+
+    function getTForX (aX) {
+      var intervalStart = 0.0;
+      var currentSample = 1;
+      var lastSample = kSplineTableSize - 1;
+
+      for (; currentSample !== lastSample && sampleValues[currentSample] <= aX; ++currentSample) {
+        intervalStart += kSampleStepSize;
+      }
+      --currentSample;
+
+      // Interpolate to provide an initial guess for t
+      var dist = (aX - sampleValues[currentSample]) / (sampleValues[currentSample + 1] - sampleValues[currentSample]);
+      var guessForT = intervalStart + dist * kSampleStepSize;
+
+      var initialSlope = getSlope(guessForT, mX1, mX2);
+      if (initialSlope >= NEWTON_MIN_SLOPE) {
+        return newtonRaphsonIterate(aX, guessForT, mX1, mX2);
+      } else if (initialSlope === 0.0) {
+        return guessForT;
+      } else {
+        return binarySubdivide(aX, intervalStart, intervalStart + kSampleStepSize, mX1, mX2);
+      }
+    }
+
+    return function BezierEasing (x) {
+      // Because JavaScript number are imprecise, we should guarantee the extremes are right.
+      if (x === 0) {
+        return 0;
+      }
+      if (x === 1) {
+        return 1;
+      }
+      return calcBezier(getTForX(x), mY1, mY2);
+    };
+  };
+
+  var easings = {
+    ease: [0.25, 0.1, 0.25, 1.0],
+    linear: [0.0, 0.0, 1.0, 1.0],
+    'ease-in': [0.42, 0.0, 1.0, 1.0],
+    'ease-out': [0.0, 0.0, 0.58, 1.0],
+    'ease-in-out': [0.42, 0.0, 0.58, 1.0]
+  };
+
+  // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
+  var supportsPassive = false;
+
+  try {
+    var opts = Object.defineProperty({}, 'passive', {
+      get: function get() {
+        supportsPassive = true;
+      }
+    });
+    window.addEventListener('test', null, opts);
+  } catch (e) {}
+
+  var _ = {
+    $: function $(selector) {
+      if (typeof selector !== 'string') {
+        return selector;
+      }
+
+      return document.querySelector(selector);
+    },
+    on: function on(element, events, handler) {
+      var opts = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
+        passive: false
+      };
+
+      if (!(events instanceof Array)) {
+        events = [events];
+      }
+
+      for (var i = 0; i < events.length; i++) {
+        element.addEventListener(events[i], handler, supportsPassive ? opts : false);
+      }
+    },
+    off: function off(element, events, handler) {
+      if (!(events instanceof Array)) {
+        events = [events];
+      }
+
+      for (var i = 0; i < events.length; i++) {
+        element.removeEventListener(events[i], handler);
+      }
+    },
+    cumulativeOffset: function cumulativeOffset(element) {
+      var top = 0;
+      var left = 0;
+
+      do {
+        top += element.offsetTop || 0;
+        left += element.offsetLeft || 0;
+        element = element.offsetParent;
+      } while (element);
+
+      return {
+        top: top,
+        left: left
+      };
+    }
+  };
+
+  var abortEvents = ['mousedown', 'wheel', 'DOMMouseScroll', 'mousewheel', 'keyup', 'touchmove'];
+  var defaults = {
+    container: 'body',
+    duration: 500,
+    easing: 'ease',
+    offset: 0,
+    force: true,
+    cancelable: true,
+    onStart: false,
+    onDone: false,
+    onCancel: false,
+    x: false,
+    y: true
+  };
+  function setDefaults(options) {
+    defaults = _extends({}, defaults, options);
+  }
+  var scroller = function scroller() {
+    var element; // element to scroll to
+
+    var container; // container to scroll
+
+    var duration; // duration of the scrolling
+
+    var easing; // easing to be used when scrolling
+
+    var offset; // offset to be added (subtracted)
+
+    var force; // force scroll, even if element is visible
+
+    var cancelable; // indicates if user can cancel the scroll or not.
+
+    var onStart; // callback when scrolling is started
+
+    var onDone; // callback when scrolling is done
+
+    var onCancel; // callback when scrolling is canceled / aborted
+
+    var x; // scroll on x axis
+
+    var y; // scroll on y axis
+
+    var initialX; // initial X of container
+
+    var targetX; // target X of container
+
+    var initialY; // initial Y of container
+
+    var targetY; // target Y of container
+
+    var diffX; // difference
+
+    var diffY; // difference
+
+    var abort; // is scrolling aborted
+
+    var abortEv; // event that aborted scrolling
+
+    var abortFn = function abortFn(e) {
+      if (!cancelable) return;
+      abortEv = e;
+      abort = true;
+    };
+
+    var easingFn;
+    var timeStart; // time when scrolling started
+
+    var timeElapsed; // time elapsed since scrolling started
+
+    var progress; // progress
+
+    function scrollTop(container) {
+      var scrollTop = container.scrollTop;
+
+      if (container.tagName.toLowerCase() === 'body') {
+        // in firefox body.scrollTop always returns 0
+        // thus if we are trying to get scrollTop on a body tag
+        // we need to get it from the documentElement
+        scrollTop = scrollTop || document.documentElement.scrollTop;
+      }
+
+      return scrollTop;
+    }
+
+    function scrollLeft(container) {
+      var scrollLeft = container.scrollLeft;
+
+      if (container.tagName.toLowerCase() === 'body') {
+        // in firefox body.scrollLeft always returns 0
+        // thus if we are trying to get scrollLeft on a body tag
+        // we need to get it from the documentElement
+        scrollLeft = scrollLeft || document.documentElement.scrollLeft;
+      }
+
+      return scrollLeft;
+    }
+
+    function step(timestamp) {
+      if (abort) return done();
+      if (!timeStart) timeStart = timestamp;
+      timeElapsed = timestamp - timeStart;
+      progress = Math.min(timeElapsed / duration, 1);
+      progress = easingFn(progress);
+      topLeft(container, initialY + diffY * progress, initialX + diffX * progress);
+      timeElapsed < duration ? window.requestAnimationFrame(step) : done();
+    }
+
+    function done() {
+      if (!abort) topLeft(container, targetY, targetX);
+      timeStart = false;
+
+      _.off(container, abortEvents, abortFn);
+
+      if (abort && onCancel) onCancel(abortEv, element);
+      if (!abort && onDone) onDone(element);
+    }
+
+    function topLeft(element, top, left) {
+      if (y) element.scrollTop = top;
+      if (x) element.scrollLeft = left;
+
+      if (element.tagName.toLowerCase() === 'body') {
+        // in firefox body.scrollTop doesn't scroll the page
+        // thus if we are trying to scrollTop on a body tag
+        // we need to scroll on the documentElement
+        if (y) document.documentElement.scrollTop = top;
+        if (x) document.documentElement.scrollLeft = left;
+      }
+    }
+
+    function scrollTo(target, _duration) {
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+      if (_typeof(_duration) === 'object') {
+        options = _duration;
+      } else if (typeof _duration === 'number') {
+        options.duration = _duration;
+      }
+
+      element = _.$(target);
+
+      if (!element) {
+        return console.warn('[vue-scrollto warn]: Trying to scroll to an element that is not on the page: ' + target);
+      }
+
+      container = _.$(options.container || defaults.container);
+      duration = options.duration || defaults.duration;
+      easing = options.easing || defaults.easing;
+      offset = options.offset || defaults.offset;
+      force = options.hasOwnProperty('force') ? options.force !== false : defaults.force;
+      cancelable = options.hasOwnProperty('cancelable') ? options.cancelable !== false : defaults.cancelable;
+      onStart = options.onStart || defaults.onStart;
+      onDone = options.onDone || defaults.onDone;
+      onCancel = options.onCancel || defaults.onCancel;
+      x = options.x === undefined ? defaults.x : options.x;
+      y = options.y === undefined ? defaults.y : options.y;
+
+      var cumulativeOffsetContainer = _.cumulativeOffset(container);
+
+      var cumulativeOffsetElement = _.cumulativeOffset(element);
+
+      if (typeof offset === 'function') {
+        offset = offset(element, container);
+      }
+
+      initialY = scrollTop(container);
+      targetY = cumulativeOffsetElement.top - cumulativeOffsetContainer.top + offset;
+      initialX = scrollLeft(container);
+      targetX = cumulativeOffsetElement.left - cumulativeOffsetContainer.left + offset;
+      abort = false;
+      diffY = targetY - initialY;
+      diffX = targetX - initialX;
+
+      if (!force) {
+        // When the container is the default (body) we need to use the viewport
+        // height, not the entire body height
+        var containerHeight = container.tagName.toLowerCase() === 'body' ? document.documentElement.clientHeight || window.innerHeight : container.offsetHeight;
+        var containerTop = initialY;
+        var containerBottom = containerTop + containerHeight;
+        var elementTop = targetY - offset;
+        var elementBottom = elementTop + element.offsetHeight;
+
+        if (elementTop >= containerTop && elementBottom <= containerBottom) {
+          // make sure to call the onDone callback even if there is no need to
+          // scroll the container. Fixes #111 (ref #118)
+          if (onDone) onDone(element);
+          return;
+        }
+      }
+
+      if (onStart) onStart(element);
+
+      if (!diffY && !diffX) {
+        if (onDone) onDone(element);
+        return;
+      }
+
+      if (typeof easing === 'string') {
+        easing = easings[easing] || easings['ease'];
+      }
+
+      easingFn = src.apply(src, easing);
+
+      _.on(container, abortEvents, abortFn, {
+        passive: true
+      });
+
+      window.requestAnimationFrame(step);
+      return function () {
+        abortEv = null;
+        abort = true;
+      };
+    }
+
+    return scrollTo;
+  };
+
+  var _scroller = scroller();
+
+  var bindings = []; // store binding data
+
+  function deleteBinding(el) {
+    for (var i = 0; i < bindings.length; ++i) {
+      if (bindings[i].el === el) {
+        bindings.splice(i, 1);
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  function findBinding(el) {
+    for (var i = 0; i < bindings.length; ++i) {
+      if (bindings[i].el === el) {
+        return bindings[i];
+      }
+    }
+  }
+
+  function getBinding(el) {
+    var binding = findBinding(el);
+
+    if (binding) {
+      return binding;
+    }
+
+    bindings.push(binding = {
+      el: el,
+      binding: {}
+    });
+    return binding;
+  }
+
+  function handleClick(e) {
+    e.preventDefault();
+    var ctx = getBinding(this).binding;
+
+    if (typeof ctx.value === 'string') {
+      return _scroller(ctx.value);
+    }
+
+    _scroller(ctx.value.el || ctx.value.element, ctx.value);
+  }
+
+  var VueScrollTo = {
+    bind: function bind(el, binding) {
+      getBinding(el).binding = binding;
+
+      _.on(el, 'click', handleClick);
+    },
+    unbind: function unbind(el) {
+      deleteBinding(el);
+
+      _.off(el, 'click', handleClick);
+    },
+    update: function update(el, binding) {
+      getBinding(el).binding = binding;
+    },
+    scrollTo: _scroller,
+    bindings: bindings
+  };
+
+  var install = function install(Vue, options) {
+    if (options) setDefaults(options);
+    Vue.directive('scroll-to', VueScrollTo);
+    Vue.prototype.$scrollTo = VueScrollTo.scrollTo;
+  };
+
+  if (typeof window !== 'undefined' && window.Vue) {
+    window.VueScrollTo = VueScrollTo;
+    window.VueScrollTo.setDefaults = setDefaults;
+    window.Vue.use(install);
+  }
+
+  VueScrollTo.install = install;
+
+  return VueScrollTo;
+
+}));
 
 
 /***/ }),
@@ -82600,7 +83173,11 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_1__["default"]); // Vue.use(FixedHeader)
+
+var VueScrollTo = __webpack_require__(/*! vue-scrollto */ "./node_modules/vue-scrollto/vue-scrollto.js");
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(VueScrollTo); // Vue.use(FixedHeader)
 
 /**
  * The following block of code may be used to automatically register your
@@ -82690,15 +83267,14 @@ if (token) {
 /*!************************************************!*\
   !*** ./resources/js/components/SearchSura.vue ***!
   \************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SearchSura_vue_vue_type_template_id_a8dc2bf8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchSura.vue?vue&type=template&id=a8dc2bf8&scoped=true& */ "./resources/js/components/SearchSura.vue?vue&type=template&id=a8dc2bf8&scoped=true&");
 /* harmony import */ var _SearchSura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchSura.vue?vue&type=script&lang=js& */ "./resources/js/components/SearchSura.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _SearchSura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _SearchSura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -82728,15 +83304,13 @@ component.options.__file = "resources/js/components/SearchSura.vue"
 /*!*************************************************************************!*\
   !*** ./resources/js/components/SearchSura.vue?vue&type=script&lang=js& ***!
   \*************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchSura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./SearchSura.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SearchSura.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchSura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchSura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchSura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchSura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchSura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchSura_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

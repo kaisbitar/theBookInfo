@@ -6,7 +6,8 @@
             </div>
             <div v-if="showSura" class="suraBlock card">
                 <fixedheader :threshold="matchHeight">
-                    <div class="titleBlock row justify-content-center">
+                    <div class="titleContainer card-header">
+                    <div class="titleBlock">
                         <ul class="suraInfoBlock ">
                             <li>
                                 <h5>
@@ -26,26 +27,24 @@
                         <div class="suraTitle">
                             <h5>
                                 <span class="suraInfo badge badge-warning col-sm suraInfoWords ">
-                                    عدد الآيات{{sura.NumberOfVerses}}
+                                    عدد الآيات {{sura.NumberOfVerses}}
                                 </span>
                             </h5>
-                            <h2 class="suraName display-3" >سورة {{suraName}}</h2>
+                            <h2 class="suraName badge badge-success" >سورة {{suraName}}</h2>
                         </div>
-                        <SearchSura ref="searchSura" v-if="showSura" :verses = "verses">SearchSura</SearchSura>                         
+                        <!-- <SearchSura ref="searchSura" v-if="showSura" :verses = "verses">SearchSura</SearchSura>                          -->
                     </div>
-                    
+                    </div>
                 </fixedheader>
-                <div class="row justify-content-center">
-                    <ul v-if="showSura" class="versesBlock" >
-                        <div class="card-body">
+                    <div v-if="showSura" class="versesBlock" >
                             <li class="verse card" v-for="(verse, index) in verses" v-bind:key="index"  @click.prevent="showDetail(verse)">
                                 <div v-if="index!='SuraLettersCount'" class="SuraLettersCount row justify-content-center">
-                                    <li>
+                                    <div>
                                         <span class="verseInfo badge badge-primary">{{verse.NumberOfWords}} كلمة</span>
-                                    </li>
-                                    <li>
+                                    </div>
+                                    <div>
                                         <span class="verseInfo badge badge-secondary">{{verse.NumberOfLetters}} حرف</span>
-                                    </li>
+                                    </div>
                                 </div>  
                                 <span class="verseIndex badge badge-warning">
                                         آية رقم: {{index}} 
@@ -61,9 +60,7 @@
                                     </span>
                                 </div> 
                             </li>
-                        </div>                  
-                    </ul>       
-                </div>
+                    </div>       
             </div>
         </div> 
     </div>
@@ -139,6 +136,9 @@
 </script>
 
 <style scoped>
+.badge{
+        border-color: rgba(0, 0, 0, 0.125) !important;
+}
     .spinner-box {
         margin-left: auto;
         max-width: 50px;
@@ -160,10 +160,14 @@
         margin-left: 4px;        
     }
     .suraName {
-        text-align: right;
         font-size: 32px;
         text-align: center;
-        margin-top: -6px;
+        margin-top: -3px;
+        font-weight: 100;
+        width: 304px;
+        color: black;
+        padding-top: 4px;
+        padding-bottom: 11px;
     }
     .suraTitle {
         display: grid;
@@ -171,9 +175,11 @@
     }
     .titleBlock {
         display: grid;
+        max-width: 306px;
+        margin: auto;
         transition: all 1s ease; 
     }
-    .titleBlock.vue-fixed-header--isFixed {
+    .titleContainer.vue-fixed-header--isFixed {
         position: fixed;
         left: 0;
         top: 0;
@@ -202,8 +208,7 @@
         margin-right: auto;
     }
     .suraBlock.card {
-        padding-top: 24px;
-        margin-top: 15px;
+        margin-top: 3px;
     }
     .verse {
         direction: rtl;
@@ -221,10 +226,10 @@
         color: red;
         text-decoration: none;
     }
-    ul.versesBlock {
+    .versesBlock {
         text-align: justify;
         line-height: 2.2;
-        padding: 0px;
+        padding: 3px 3px 3px 15px;
         transition: all 1s ease;
     }
     .detail {
@@ -239,6 +244,18 @@
         width: 60px;
         margin-left: 2px;
         margin-right: 2px;
+    }
+    .badge-primary{
+        background-color: #007bff94;
+    }
+    .badge-secondary{
+        background-color: #6c757db0;
+    }
+    .badge-warning{
+        background-color: #ffc10796;
+    }
+    .badge-success{
+        background-color: #28a74557;
     }
     .verseText {
         text-align: center;
