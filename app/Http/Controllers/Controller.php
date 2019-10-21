@@ -70,6 +70,9 @@ class Controller extends BaseController
         $surasFiles = scandir(storage_path('SanatizedSuras'));
         foreach ($surasFiles as $suraFileName) {
             if (($suraFileName != '.')&&($suraFileName != '..')) {
+                $suraFile = File::get(storage_path('sanatizedSuras' . '/' .$suraFileName));
+                $fullSura = new FullSura($suraFile);
+                $fullSura->Name = $suraFileName;
                 $fullSura = new CalculatorController($suraFileName);    
                 $fullSura->mapSura();
                 $fullSura->mapVerses();

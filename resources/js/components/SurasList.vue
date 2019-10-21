@@ -1,15 +1,28 @@
 <template>
-  <div id="theBook" class="card" ref="theBookHeight">
-    <div class="suraItemBlock" :class="{smallList: smallList}">
-      <div v-if="loading" class="container spinner-box">
-        <b-spinner label="Small Spinner" variant="info"></b-spinner>
+  <div
+    id="theBook"
+    class="card"
+    ref="theBookHeight"
+  >
+    <div class="suraItemBlock smallList">
+      <div
+        v-if="loading"
+        class="container spinner-box"
+      >
+        <b-spinner
+          label="Small Spinner"
+          variant="info"
+        ></b-spinner>
       </div>
-      <div v-if="!loading" class="indexTitle" :class="{smallListTitle: smallList}">
+      <div
+        v-if="!loading"
+        class="indexTitle smallList"
+      >
         <span class="btn">قائمة الكتاب</span>
       </div>
       <div
         v-scroll-to="'#theBook'"
-        :class="{ isActive: activeSura === index, smallListItems: smallList}"
+        :class="{ isActive: activeSura === index}"
         class="suraIndexItem btn"
         v-for="(suraIndexItem, index) in surasList"
         v-bind:key="index"
@@ -17,18 +30,27 @@
       >
         <label>{{suraIndexItem.suraName}}</label>
         <label style="font-size: 11px;">
-          <label :class="{ hide: smallList}">سورة</label>
+          <label class="smallList">سورة</label>
           <sup>{{parseInt(suraIndexItem.suraIndex, 10)}}</sup>
         </label>
       </div>
     </div>
-    <Sura
-      ref="changingSura"
-      v-if="showSura"
-      :suraFileName="suraFileName"
-      :suraName="suraName"
-      :theBookHeight="theBookHeight"
-    ></Sura>
+    <div v-if="showSura">
+      <!-- <Sura
+        ref="changingSura"
+        v-for="(sura, index) in surasList"
+        v-bind:key="index"
+        :suraFileName="suraFileName"
+        :suraName="suraName"
+        :theBookHeight="theBookHeight"
+      ></Sura> -->
+      <Sura
+        ref="changingSura"
+        :suraFileName="suraFileName"
+        :suraName="suraName"
+        :theBookHeight="theBookHeight"
+      ></Sura>
+    </div>
   </div>
   <!-- <div class="btn btn-success"></div> -->
 </template> 
@@ -51,8 +73,8 @@ export default {
       showSura: true,
       isActive: false,
       loading: true,
-      activeSura: 0, //0 to default to الفاتحة this can be dynamic later on for user experience purposes
-      smallList: false
+      activeSura: 0 //0 to default to الفاتحة this can be dynamic later on for user experience purposes
+      // smallList: false
     };
   },
   methods: {

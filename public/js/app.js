@@ -1811,13 +1811,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     SearchSura: _SearchSura_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     props: ["verses"]
   },
-  props: ['suraFileName', 'suraName', 'quranIndexHeight'],
+  props: ["suraFileName", "suraName", "quranIndexHeight"],
   data: function data() {
     return {
       sura: [],
@@ -1841,13 +1870,13 @@ __webpack_require__.r(__webpack_exports__);
     fetchVerses: function fetchVerses() {
       var _this = this;
 
-      if (this.suraFileName == '') {
+      if (this.suraFileName == "") {
         this.loading = false;
         return;
       }
 
-      fetch('api/verses-map/' + this.suraFileName, {
-        method: 'GET'
+      fetch("api/verses-map/" + this.suraFileName, {
+        method: "GET"
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
@@ -1861,14 +1890,14 @@ __webpack_require__.r(__webpack_exports__);
 
       this.showSura = false;
 
-      if (this.suraFileName == '') {
+      if (this.suraFileName == "") {
         this.loading = false;
         return;
       }
 
       this.loading = true;
-      fetch('api/sura-map/' + this.suraFileName, {
-        method: 'GET'
+      fetch("api/sura-map/" + this.suraFileName, {
+        method: "GET"
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
@@ -1921,33 +1950,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Sura: _Sura_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    props: ['suraFileName', 'suraName', 'theBookHeight']
+    props: ["suraFileName", "suraName", "theBookHeight"]
   },
   data: function data() {
     return {
       surasList: [],
-      suraName: '',
-      suraNumber: '',
-      suraFileName: '',
-      theBookHeight: '',
+      suraName: "",
+      suraNumber: "",
+      suraFileName: "",
+      theBookHeight: "",
       showSura: true,
       isActive: false,
       loading: true,
-      activeSura: 0,
-      //0 to default to الفاتحة this can be dynamic later on for user experience purposes
-      smallList: false
+      activeSura: 0 //0 to default to الفاتحة this can be dynamic later on for user experience purposes
+      // smallList: false
+
     };
   },
   methods: {
     fetchList: function fetchList() {
       var _this = this;
 
-      fetch('api/quran-index', {
-        method: 'GET'
+      fetch("api/quran-index", {
+        method: "GET"
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
@@ -1961,7 +2025,7 @@ __webpack_require__.r(__webpack_exports__);
       this.activeSura = index;
       this.isActive = true;
       this.suraNumber = parseInt(fileName, 10);
-      this.suraName = this.suraFileName.replace(/[0-9]/g, '');
+      this.suraName = this.suraFileName.replace(/[0-9]/g, "");
       this.$refs.changingSura.fetchSura;
       this.smallList = true;
       var windos = this.$el.querySelector("#theBook");
@@ -34740,7 +34804,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn[data-v-4307127c]{\n    padding: 0;\n    color: #000;\n}\n.spinner-box[data-v-4307127c] {\n    margin-top: 15px;\n}\n.suraInfoBlock[data-v-4307127c] {\n    display: flex;\n}\n.suraInfoBlock li > h2 > span[data-v-4307127c] {\n    width: 254px;\n    text-align: center;\n}\n.suraInfo[data-v-4307127c] {\n    margin: 0px 1px 2px 1px;\n}\n.suraName[data-v-4307127c] {\n    width: 303px;\n    font-size: 32px;\n    padding-bottom: 9px;\n    color: black;\n}\n.suraTitle[data-v-4307127c] {\n    max-width: 304px;\n}\n.titleContainer[data-v-4307127c]  {\n    padding: 4px 0px 4px 0px;\n    background-color: #fbf5ef;\n    transition: all 1s ease;\n}\n.titleBlock[data-v-4307127c] {\n    max-width: 306px;\n    margin: auto;\n    transition: all 1s ease;\n}\n.titleContainer.vue-fixed-header--isFixed[data-v-4307127c] {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100vw;\n    background: #f8f9fa;\n    border: 1px solid #00000020;\n    z-index: 1;\n    transition: all .11s ease;\n}\n.suraContainer[data-v-4307127c] {\n    /* min-height: 512px; */\n}\n.suraVersesNum[data-v-4307127c]{\n}\n.SuraLettersCount[data-v-4307127c] {\n    width: 128px;\n    margin-left: auto;\n    margin-right: auto;\n}\n.verse[data-v-4307127c] {\n    margin-left: 3px;\n    margin-bottom: 3px;\n    padding: 2px;\n    float: right;\n    background: #f6eeef6b;\n}\n.verse a[data-v-4307127c] {\n    color: #000;\n}\n.verse a[data-v-4307127c]:hover {\n    color: red;\n    text-decoration: none;\n}\n.versesBlock[data-v-4307127c] {\n    padding: 3px 3px 3px 1px;\n    transition: all 1s ease;\n}\n.detail[data-v-4307127c] {\n    display: sticky;\n}\n.verseIndex[data-v-4307127c] {\n    width: 128px;\n    margin-left: auto;\n    margin-right: auto;\n}\n.verseInfo[data-v-4307127c] {\n    font-size: 14px;\n}\n.verseInfo .verseIndex[data-v-4307127c]  {\n    font-size: 14px;\n}\n.btn-custom-orange[data-v-4307127c]{\n    background-color: #ff750094;\n    border-color: #e17c25;\n}\n.btn-secondary[data-v-4307127c]{\n    background-color: #6c757db0;\n}\n.btn-warning[data-v-4307127c]{\n    background-color: #ffc10796;\n}\n.btn-success[data-v-4307127c]{\n    background-color: #28a74557;\n}\n.verseText[data-v-4307127c] {\n    text-align: center;\n    margin-bottom: 5px;\n}\n", ""]);
+exports.push([module.i, "\n.btn[data-v-4307127c] {\r\n  padding: 0;\r\n  color: #000;\n}\n.spinner-box[data-v-4307127c] {\r\n  margin-top: 15px;\n}\n.suraInfoBlock[data-v-4307127c] {\r\n  display: flex;\n}\n.suraInfoBlock li > h2 > span[data-v-4307127c] {\r\n  width: 254px;\r\n  text-align: center;\n}\n.suraInfo[data-v-4307127c] {\r\n  margin: 0px 1px 2px 1px;\n}\n.suraName[data-v-4307127c] {\r\n  width: 303px;\r\n  font-size: 32px;\r\n  padding-bottom: 9px;\r\n  color: black;\n}\n.suraTitle[data-v-4307127c] {\r\n  max-width: 304px;\n}\n.titleContainer[data-v-4307127c] {\r\n  padding: 4px 0px 4px 0px;\r\n  background-color: #fbf5ef;\r\n  transition: all 1s ease;\n}\n.titleBlock[data-v-4307127c] {\r\n  max-width: 306px;\r\n  margin: auto;\r\n  transition: all 1s ease;\n}\n.titleContainer.vue-fixed-header--isFixed[data-v-4307127c] {\r\n  position: fixed;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100vw;\r\n  background: #f8f9fa;\r\n  border: 1px solid #00000020;\r\n  z-index: 1;\r\n  transition: all 0.11s ease;\n}\n.suraContainer[data-v-4307127c] {\r\n  /* min-height: 512px; */\n}\n.suraVersesNum[data-v-4307127c] {\n}\n.SuraLettersCount[data-v-4307127c] {\r\n  width: 128px;\r\n  margin-left: auto;\r\n  margin-right: auto;\n}\n.verse[data-v-4307127c] {\r\n  margin-left: 3px;\r\n  margin-bottom: 3px;\r\n  padding: 2px;\r\n  float: right;\r\n  background: #f6eeef6b;\n}\n.verse a[data-v-4307127c] {\r\n  color: #000;\n}\n.verse a[data-v-4307127c]:hover {\r\n  color: red;\r\n  text-decoration: none;\n}\n.versesBlock[data-v-4307127c] {\r\n  padding: 3px 3px 3px 1px;\r\n  transition: all 1s ease;\n}\n.detail[data-v-4307127c] {\r\n  display: sticky;\n}\n.verseIndex[data-v-4307127c] {\r\n  width: 128px;\r\n  margin-left: auto;\r\n  margin-right: auto;\n}\n.verseInfo[data-v-4307127c] {\r\n  font-size: 14px;\n}\n.verseInfo .verseIndex[data-v-4307127c] {\r\n  font-size: 14px;\n}\n.btn-custom-orange[data-v-4307127c] {\r\n  background-color: #ff750094;\r\n  border-color: #e17c25;\n}\n.btn-secondary[data-v-4307127c] {\r\n  background-color: #6c757db0;\n}\n.btn-warning[data-v-4307127c] {\r\n  background-color: #ffc10796;\n}\n.btn-success[data-v-4307127c] {\r\n  background-color: #28a74557;\n}\n.verseText[data-v-4307127c] {\r\n  text-align: center;\r\n  margin-bottom: 5px;\n}\r\n", ""]);
 
 // exports
 
@@ -34759,7 +34823,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn[data-v-b97fd736]{\n    border-color: #00000020 !important;\n}\ndiv#theBook[data-v-b97fd736] {\n    margin-top: 3px;\n    padding: 3px;\n    background: #093f900f;\n}\n.indexTitle[data-v-b97fd736]{\n    margin-bottom: 4px;\n    width: -webkit-max-content;\n    width: -moz-max-content;\n    width: max-content;\n    transition: all 1s ease;\n}\n.indexTitle > span[data-v-b97fd736]{\n    display: block;\n    font-size: 45px;\n    font-weight: 300;\n    color: black;\n    padding: 15px 15px 19px 15px;\n    background: #b8611738;\n    transition: all 1s ease;\n}\n.suraIndexItem[data-v-b97fd736]{\n    width: 75px;\n    height: 51px;\n    font-size: 14px;\n    margin-bottom: 4px;\n    margin-left: 4px;\n    float: right;\n    color: black;\n    cursor: pointer;\n    background-color: #17a2b838;\n    transition: all 1s ease;\n}\n.suraIndexItem label[data-v-b97fd736]{\n    cursor: pointer;\n    margin-bottom: 0px;\n}\n.suraItemBlock[data-v-b97fd736] {\n    transition: all 1s ease;\n}\n.smallList[data-v-b97fd736] {\n    transition: all 1s ease;\n}\n.smallListTitle[data-v-b97fd736] {\n    height: 48px;\n    margin-left: 4px;\n    float: right;\n    transition: all 1s ease;\n}\n.smallListTitle > span[data-v-b97fd736] {\n    font-size: 26px !important;\n    padding: 0;\n    padding-bottom: 7px;\n    transition: all 1s ease;\n    padding-left: 5px;\n    padding-right: 5px;\n}\n.smallListItems[data-v-b97fd736] {\n    width: 63px;\n    height: 22px;\n    font-size: 12px;\n    padding: 0;\n    /* font-weight: bolder; */\n    transition: all 1s ease;\n}\n.isActive[data-v-b97fd736]{\n    background: #9fe83e4f;\n}\n\n", ""]);
+exports.push([module.i, "\n.btn[data-v-b97fd736] {\r\n  border-color: #00000020 !important;\n}\ndiv#theBook[data-v-b97fd736] {\r\n  margin-top: 3px;\r\n  padding: 3px;\r\n  background: #093f900f;\n}\n.indexTitle[data-v-b97fd736] {\r\n  margin-bottom: 4px;\r\n  width: -webkit-max-content;\r\n  width: -moz-max-content;\r\n  width: max-content;\r\n  transition: all 1s ease;\n}\n.indexTitle > span[data-v-b97fd736] {\r\n  display: block;\r\n  font-size: 45px;\r\n  font-weight: 300;\r\n  color: black;\r\n  padding: 15px 15px 19px 15px;\r\n  background: #b8611738;\r\n  transition: all 1s ease;\n}\n.suraIndexItem[data-v-b97fd736] {\r\n  width: 75px;\r\n  height: 51px;\r\n  font-size: 14px;\r\n  margin-bottom: 4px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  color: black;\r\n  cursor: pointer;\r\n  background-color: #17a2b838;\r\n  transition: all 1s ease;\n}\n.suraIndexItem label[data-v-b97fd736] {\r\n  cursor: pointer;\r\n  margin-bottom: 0px;\n}\n.suraItemBlock[data-v-b97fd736] {\r\n  transition: all 1s ease;\n}\n.smallList[data-v-b97fd736] {\r\n  transition: all 1s ease;\n}\n.smallListTitle[data-v-b97fd736] {\r\n  height: 48px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  transition: all 1s ease;\n}\n.smallListTitle > span[data-v-b97fd736] {\r\n  font-size: 26px !important;\r\n  padding: 0;\r\n  padding-bottom: 7px;\r\n  transition: all 1s ease;\r\n  padding-left: 5px;\r\n  padding-right: 5px;\n}\n.smallListItems[data-v-b97fd736] {\r\n  width: 63px;\r\n  height: 22px;\r\n  font-size: 12px;\r\n  padding: 0;\r\n  /* font-weight: bolder; */\r\n  transition: all 1s ease;\n}\n.isActive[data-v-b97fd736] {\r\n  background: #9fe83e4f;\n}\r\n", ""]);
 
 // exports
 
@@ -70083,9 +70147,9 @@ var render = function() {
                     { staticClass: "suraInfo btn btn-custom-orange col-sm" },
                     [
                       _vm._v(
-                        "\n                        عدد الكلمات " +
+                        "\n            عدد الكلمات " +
                           _vm._s(_vm.sura.NumberOfWords) +
-                          "\n                    "
+                          "\n          "
                       )
                     ]
                   ),
@@ -70095,9 +70159,9 @@ var render = function() {
                     { staticClass: "suraInfo btn btn-secondary col-sm" },
                     [
                       _vm._v(
-                        "\n                        عدد الحروف " +
+                        "\n            عدد الحروف " +
                           _vm._s(_vm.sura.NumberOfLetters) +
-                          "\n                    "
+                          "\n          "
                       )
                     ]
                   )
@@ -70112,9 +70176,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        عدد الآيات " +
+                        "\n            عدد الآيات " +
                           _vm._s(_vm.sura.NumberOfVerses) +
-                          "\n                    "
+                          "\n          "
                       )
                     ]
                   ),
@@ -70163,11 +70227,7 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _c("span", { staticClass: "verseIndex btn btn-warning" }, [
-                    _vm._v(
-                      "\n                        آية رقم: " +
-                        _vm._s(index) +
-                        " \n                    "
-                    )
+                    _vm._v("\n        آية رقم: " + _vm._s(index) + "\n      ")
                   ]),
                   _vm._v(" "),
                   _c("input", {
@@ -70236,9 +70296,7 @@ var render = function() {
                   _c("div", { staticClass: "verseText container-fluid" }, [
                     _c("span", [
                       _vm._v(
-                        "\n                        " +
-                          _vm._s(verse.verseText) +
-                          "\n                    "
+                        "\n          " + _vm._s(verse.verseText) + "\n        "
                       )
                     ])
                   ])
@@ -70280,7 +70338,7 @@ var render = function() {
     [
       _c(
         "div",
-        { staticClass: "suraItemBlock", class: { smallList: _vm.smallList } },
+        { staticClass: "suraItemBlock smallList" },
         [
           _vm.loading
             ? _c(
@@ -70296,14 +70354,9 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           !_vm.loading
-            ? _c(
-                "div",
-                {
-                  staticClass: "indexTitle",
-                  class: { smallListTitle: _vm.smallList }
-                },
-                [_c("span", { staticClass: "btn" }, [_vm._v("قائمة الكتاب")])]
-              )
+            ? _c("div", { staticClass: "indexTitle smallList" }, [
+                _c("span", { staticClass: "btn" }, [_vm._v("قائمة الكتاب")])
+              ])
             : _vm._e(),
           _vm._v(" "),
           _vm._l(_vm.surasList, function(suraIndexItem, index) {
@@ -70320,10 +70373,7 @@ var render = function() {
                 ],
                 key: index,
                 staticClass: "suraIndexItem btn",
-                class: {
-                  isActive: _vm.activeSura === index,
-                  smallListItems: _vm.smallList
-                },
+                class: { isActive: _vm.activeSura === index },
                 on: {
                   click: function($event) {
                     return _vm.setSuraInPlay(suraIndexItem.fileName, index)
@@ -70331,12 +70381,10 @@ var render = function() {
                 }
               },
               [
-                _c("label", [_vm._v("  " + _vm._s(suraIndexItem.suraName))]),
+                _c("label", [_vm._v(_vm._s(suraIndexItem.suraName))]),
                 _vm._v(" "),
                 _c("label", { staticStyle: { "font-size": "11px" } }, [
-                  _c("label", { class: { hide: _vm.smallList } }, [
-                    _vm._v("سورة")
-                  ]),
+                  _c("label", { staticClass: "smallList" }, [_vm._v("سورة")]),
                   _vm._v(" "),
                   _c("sup", [
                     _vm._v(_vm._s(parseInt(suraIndexItem.suraIndex, 10)))
@@ -70348,18 +70396,24 @@ var render = function() {
         ],
         2
       ),
+      _vm._v(" "),
       _vm.showSura
-        ? _c("Sura", {
-            ref: "changingSura",
-            attrs: {
-              suraFileName: _vm.suraFileName,
-              suraName: _vm.suraName,
-              theBookHeight: _vm.theBookHeight
-            }
-          })
+        ? _c(
+            "div",
+            [
+              _c("Sura", {
+                ref: "changingSura",
+                attrs: {
+                  suraFileName: _vm.suraFileName,
+                  suraName: _vm.suraName,
+                  theBookHeight: _vm.theBookHeight
+                }
+              })
+            ],
+            1
+          )
         : _vm._e()
-    ],
-    1
+    ]
   )
 }
 var staticRenderFns = []
