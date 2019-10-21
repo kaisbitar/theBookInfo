@@ -10,7 +10,6 @@
         </script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
-        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
         <title>Quran</title>
  
         <!-- Fonts -->
@@ -28,8 +27,9 @@
     </style>
     <body>
         <div id="app"> 
-            <div class="container">
+            <div class="container-fluid">
                 <suras-list></suras-list>
+                <!-- <suras-list></suras-list> -->
             </div> 
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

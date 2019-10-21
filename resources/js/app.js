@@ -10,9 +10,11 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import FixedHeader from 'vue-fixed-header'
 
-window.Vue = require('vue');  
+window.Vue = require('vue');   
 Vue.use(BootstrapVue)
+// Vue.use(FixedHeader)
 
 /**
  * The following block of code may be used to automatically register your
@@ -28,6 +30,7 @@ Vue.use(BootstrapVue)
 Vue.component('Sura', require('./components/Sura.vue').default);
 // Vue.component('verseInPlay', {  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
 Vue.component('suras-list', require('./components/SurasList.vue').default);
+Vue.component('fixedheader', FixedHeader);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

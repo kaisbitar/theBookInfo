@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.0.4",
-        "eslint": "^6.5.1"
+        "eslint": "^6.5.1",
+        "vue-fixed-header": "^3.2.2"
     }
 }

@@ -1,22 +1,22 @@
 <template>
     <div> 
-
-        <div id="quranIndex" class="shadow-sm p-3 mb-5 rounded container-fluid">      
+        <div id="quranIndex" class="card container-fluid" ref="quranIndexHeight">      
+            <h2 class="indexTitle display-3 container-fluid" :class="{smallListTitle: smallList}" >
+                <span class="badge badge-danger">قائمة الكتاب</span>
+            </h2>
             <div class="container-fluid spinner-box">
                 <b-spinner v-if="loading" small label="Small Spinner" variant="info"></b-spinner>
             </div>
             <ul  class="suraItemBlock block" :class="{smallList: smallList}">
                 <li :class="{ isActive: activeSura === index, smallListItems: smallList}" class="suraIndexItem btn btn-info" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName, index)">
                     <label>  {{suraIndexItem.suraName}}</label>
-                    <label :class="{ hide: smallList}">سورة {{parseInt(suraIndexItem.suraIndex, 10)}} </label>
+                    <label style="font-size: 11px;" ><label :class="{ hide: smallList}">سورة</label> <sup>{{parseInt(suraIndexItem.suraIndex, 10)}}</sup></label>
                 </li>
             </ul>
         </div>
-
-        <Sura ref="changingSura" v-if="showSura" :suraFileName = "suraFileName" :suraName = "suraName"></Sura> 
-
+        <!-- <div class="btn btn-success"></div> -->
+        <Sura ref="changingSura" v-if="showSura" :suraFileName = "suraFileName" :suraName = "suraName" :quranIndexHeight= "quranIndexHeight"></Sura> 
     </div>
-
 </template> 
 
 
@@ -25,14 +25,15 @@
     export default {
         components:{
             Sura,
-            props:['suraFileName', 'suraName'],
-        } ,
+            props:['suraFileName', 'suraName','quranIndexHeight'],
+        },
         data() {
             return {
                 surasList: [],
                 suraName: '',
                 suraNumber: '',
-                suraFileName:'',
+                suraFileName: '',
+                quranIndexHeight: '',
                 showSura: true, 
                 isActive: false,
                 loading: true,
@@ -65,42 +66,62 @@
         },
         updated(){
             this.$refs.changingSura.fetchSura
+            this.quranIndexHeight = (this.$refs.quranIndexHeight.clientHeight)
+        },
+        computed:{ s: function(){this.quranIndexHeight = (this.$refs.quranIndexHeight.clientHeight)}
+        },
+        mounted(){
+            this.$refs.quranIndexHeight.matchHeight
+
         }
     }
 </script>
 
 <style scoped>
+    .indexTitle{
+        width: 214px;
+        font-size: 42px;
+        margin-bottom: 3px;
+    }
+    .smallListTitle{
+        width: 163px;
+        font-size: 29px;
+        transition: all 1s ease;
+    }
+    .indexTitle > span{
+        font-weight: 400;
+    }
     .spinner-box{
         width: 62px;
     }
     #quranIndex{
         display: block;
-        /* background: #eed191; */
+        margin-bottom: -11px;        
+        margin-top: 3px;
     }
     .suraIndexItem{
         width: 75px;
         margin-bottom: 4px;
         margin-left: 4px;
         color: black;
-        height: 81px;
+        height: 51px;
         cursor: pointer;
         font-size: 14px;
-        /* border-color: #000000;
-        box-shadow: 0 0.09rem 0.1rem #000; */
     }
     .suraIndexItem label{
         cursor: pointer;
         margin-bottom: 0px;
     }
-    .badge {
+    /* .badge {
         background: yellowgreen;
         margin-left: 6px;
         color: white;
-    }
+    } */
     .suraItemBlock{
         list-style: none;
         padding: 0;
         margin-left: 23px;
+        padding-top: 6px;
         transition: all 1s ease;
 
     }
@@ -108,9 +129,11 @@
         transition: all 1s ease;
         color: black;
         cursor: pointer;
-    }
+        padding: 23px;
+        padding-top: 2px;
+    } 
     .smallListItems {
-        width: 51px;
+        width: 63px;
         margin-bottom: 4px;
         margin-left: 4px;
         color: black;
@@ -119,9 +142,7 @@
         font-size: 12px;
         padding: 0;
         font-weight: bolder;
-        /* text-shadow: 0 0.09rem 0.1rem #000; */
         transition: all 1s ease;
-
     }
     .isActive{
         background: #28a745;
@@ -130,14 +151,4 @@
         text-align: justify;
         padding-right: 28px;
     }
-    /* ::-webkit-scrollbar {
-        width: 1em;
-    }
-    ::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
-    }
-    ::-webkit-scrollbar-thumb {
-        background-color: #6c757d;
-        outline: 1px solid slategrey;
-    } */
 </style>

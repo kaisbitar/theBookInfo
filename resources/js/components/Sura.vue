@@ -1,73 +1,83 @@
 <template>
-    <div class="row justify-content-center">
-        <div class="suraContainer container-fluid shadow-sm p-3 mb-5 rounded" >
+    <div class="container-fluid p-0">
+        <div class="suraContainer" >
             <div class="container-fluid spinner-box">
                 <b-spinner v-if="loading" small label="Small Spinner" variant="success"></b-spinner>
             </div>
-            <div v-if="showSura" class="suraBlock">
-                <div class="titleBlock row justify-content-center">
-                    <ul class="suraInfoBlock">
-                        <li>
+            <div v-if="showSura" class="suraBlock card">
+                <fixedheader :threshold="matchHeight">
+                    <div class="titleBlock row justify-content-center">
+                        <ul class="suraInfoBlock ">
+                            <li>
+                                <h5>
+                                    <span class="suraInfo badge badge-primary col-sm">
+                                        عدد الكلمات {{sura.NumberOfWords}}
+                                    </span>
+                                </h5>
+                            </li>
+                            <li>
+                                <h5>
+                                    <span class="suraInfo badge badge-secondary col-sm">
+                                        عدد الحروف {{sura.NumberOfLetters}}
+                                    </span>
+                                </h5>
+                            </li>
+                        </ul>
+                        <div class="suraTitle">
                             <h5>
-                                <span class="suraInfo badge badge-primary col-sm">
-                                    عدد الكلمات {{sura.NumberOfWords}}
+                                <span class="suraInfo badge badge-warning col-sm suraInfoWords ">
+                                    عدد الآيات{{sura.NumberOfVerses}}
                                 </span>
                             </h5>
-                        </li>
-                        <li>
-                            <h5>
-                                <span class="suraInfo badge badge-secondary col-sm">
-                                    عدد الحروف {{sura.NumberOfLetters}}
-                                </span>
-                            </h5>
-                        </li>
-                    </ul>
-                    <div class="suraTitle">
-                        <h5>
-                            <span class="suraInfo badge badge-warning col-sm suraInfoWords">
-                                عدد الآيات{{sura.NumberOfVerses}}
-                            </span>
-                        </h5>
-                        <h2 class="suraName display-3" >سورة {{suraName}}</h2>
+                            <h2 class="suraName display-3" >سورة {{suraName}}</h2>
+                        </div>
+                        <SearchSura ref="searchSura" v-if="showSura" :verses = "verses">SearchSura</SearchSura>                         
                     </div>
-                                        
+                    
+                </fixedheader>
+                <div class="row justify-content-center">
+                    <ul v-if="showSura" class="versesBlock" >
+                        <div class="card-body">
+                            <li class="verse card" v-for="(verse, index) in verses" v-bind:key="index"  @click.prevent="showDetail(verse)">
+                                <div v-if="index!='SuraLettersCount'" class="SuraLettersCount row justify-content-center">
+                                    <li>
+                                        <span class="verseInfo badge badge-primary">{{verse.NumberOfWords}} كلمة</span>
+                                    </li>
+                                    <li>
+                                        <span class="verseInfo badge badge-secondary">{{verse.NumberOfLetters}} حرف</span>
+                                    </li>
+                                </div>  
+                                <span class="verseIndex badge badge-warning">
+                                        آية رقم: {{index}} 
+                                    </span>  
+                                <!-- hidden inputs for holding data -->
+                                <input type="hidden" v-model="verse.verseText">
+                                <input type="hidden" v-model="verse.NumberOfLetters">
+                                <input type="hidden" v-model="verse.NumberOfWords">
+                                <!--  -->
+                                <div class="verseText container-fluid">
+                                    <span>
+                                        {{verse.verseText}}
+                                    </span>
+                                </div> 
+                            </li>
+                        </div>                  
+                    </ul>       
                 </div>
-                <ul v-if="showSura" class="versesBlock" >
-                    <li class="verse list-inline" v-for="(verse, index) in verses" v-bind:key="index"  @click.prevent="showDetail(verse)">
-                        <ul v-if="index!='SuraLettersCount'" class="SuraLettersCount">
-                            <li>
-                                <span class="verseInfo badge badge-primary">{{verse.NumberOfWords}} كلمة</span>
-                            </li>
-                            <li>
-                                <span class="verseInfo badge badge-secondary">{{verse.NumberOfLetters}} حرف</span>
-                            </li>
-                        </ul>    
-                        <!-- hidden inputs for holding data -->
-                        <input type="hidden" v-model="verse.verseText">
-                        <input type="hidden" v-model="verse.NumberOfLetters">
-                        <input type="hidden" v-model="verse.NumberOfWords">
-                        <!--  -->
-                        <div style="display: grid;">
-                            <span class="verseIndex badge badge-warning">
-                                آية رقم: {{index}} 
-                            </span>
-                            <span>
-                                {{verse.verseText}}
-                            </span>
-                        </div> 
-                    </li>
-                </ul>
             </div>
-            <div class="starBlock"></div>
-        </div>
+        </div> 
     </div>
 </template> 
 
 <!-- Lib for stars -->
 <script>
-
+    import SearchSura from './SearchSura.vue'
     export default {
-        props: ['suraFileName', 'suraName'],
+        components:{
+            SearchSura,
+            props:["verses"]
+        },
+        props: ['suraFileName', 'suraName','quranIndexHeight'],
         data() { 
             return {
             sura: [],
@@ -116,20 +126,24 @@
                     this.sura.NumberOfVerses = res.NumberOfVerses
                     this.sura.NumberOfWords = res.NumberOfWords
                     this.fetchVerses
+                    this.matchHeight
                 });
-            },  
+            },
+            matchHeight: function(){
+                return (this.quranIndexHeight)/2
+            }            
         },
-        mounted() {
-        },
+        mounted () {
+        }
     }
 </script>
 
 <style scoped>
-    .spinner-box{
+    .spinner-box {
         margin-left: auto;
         max-width: 50px;
     }
-    .suraInfoBlock{
+    .suraInfoBlock {
         list-style: none;
         margin-left: auto;    
         padding: 0;
@@ -137,26 +151,40 @@
         margin: 0px;
         margin-bottom: -7px;
     }
-    .suraInfoBlock li > h2 > span{
+    .suraInfoBlock li > h2 > span {
         width: 254px;
         text-align: center;
     }
-    .suraInfo{
+    .suraInfo {
         width: 150px;
         margin-left: 4px;        
     }
-    .suraName{
+    .suraName {
         text-align: right;
         font-size: 32px;
         text-align: center;
         margin-top: -6px;
     }
-    .suraTitle{
+    .suraTitle {
         display: grid;
         max-width: 304px;
     }
     .titleBlock {
         display: grid;
+        transition: all 1s ease; 
+    }
+    .titleBlock.vue-fixed-header--isFixed {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        background: #f8f9fa;
+        border: 1px solid #ccc;
+        z-index: 1;
+        transition: all .11s ease; 
+    }
+    .suraContainer {
+        min-height: 512px;
     }
     .suraInfoWords{
         width:305px;
@@ -166,41 +194,53 @@
         display: flex;
         padding: 0;
         font-size: 13px;
+        width: 112px;
     }
-    .suraContainer{
-        background: #f8f9fa;
+    .SuraLettersCount {
+        width: 128px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .suraBlock.card {
+        padding-top: 24px;
+        margin-top: 15px;
     }
     .verse {
-        direction: rtl;        
+        direction: rtl;
         list-style: none;
-        /* display: flex; */
-        margin-bottom: 18px;
+        margin-bottom: 3px;
+        float: right;
+        margin-left: 3px;
+        padding: 0px;
+        background: #f6eeef6b;
     }
-    .verse a{
+    .verse a {
         color: #000;
     }
-    .verse a:hover{
+    .verse a:hover {
         color: red;
         text-decoration: none;
     }
-    /* ul.suraBlock {
+    ul.versesBlock {
         text-align: justify;
         line-height: 2.2;
-        transition: all 1s ease; 
-    } */
-    ul.versesBlock{
-        text-align: justify;
-        line-height: 2.2;
+        padding: 0px;
         transition: all 1s ease;
     }
-    .detail{
+    .detail {
         display: sticky;
     }
-    .verseIndex{
-        max-width: 103px;
+    .verseIndex {
+        width: 128px;
+        margin-left: auto;
+        margin-right: auto;
     }
-    .verseInfo{
-        width: 50px;
+    .verseInfo {
+        width: 60px;
         margin-left: 2px;
+        margin-right: 2px;
+    }
+    .verseText {
+        text-align: center;
     }
 </style>
