@@ -1,6 +1,5 @@
 <template>
-    <div> 
-        <div id="quranIndex" class="card" ref="quranIndexHeight">      
+        <div id="theBook" class="card" ref="theBookHeight">      
             <div  class="suraItemBlock" :class="{smallList: smallList}">
                 <div v-if="loading" class="container spinner-box">
                     <b-spinner  label="Small Spinner" variant="info"></b-spinner>
@@ -8,18 +7,17 @@
                 <div v-if="!loading" class="indexTitle" :class="{smallListTitle: smallList}" >
                     <span class="btn">قائمة الكتاب</span>
                 </div>
-                <div v-scroll-to="'#quranIndex'" :class="{ isActive: activeSura === index, smallListItems: smallList}" class="suraIndexItem btn" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName, index)">
+                <div v-scroll-to="'#theBook'" :class="{ isActive: activeSura === index, smallListItems: smallList}" class="suraIndexItem btn" v-for="(suraIndexItem, index) in surasList" v-bind:key="index" @click="setSuraInPlay(suraIndexItem.fileName, index)">
                     <label>  {{suraIndexItem.suraName}}</label>
                     <label style="font-size: 11px;" >
                         <label :class="{ hide: smallList}">سورة</label> 
                         <sup>{{parseInt(suraIndexItem.suraIndex, 10)}}</sup>
                     </label>
                 </div>
-            </div>
+            </div><Sura ref="changingSura" v-if="showSura" :suraFileName = "suraFileName" :suraName = "suraName" :theBookHeight= "theBookHeight"></Sura> 
         </div>
         <!-- <div class="btn btn-success"></div> -->
-        <Sura ref="changingSura" v-if="showSura" :suraFileName = "suraFileName" :suraName = "suraName" :quranIndexHeight= "quranIndexHeight"></Sura> 
-    </div>
+        
 </template> 
 
 
@@ -28,7 +26,7 @@
     export default {
         components:{
             Sura,
-            props:['suraFileName', 'suraName','quranIndexHeight'],
+            props:['suraFileName', 'suraName','theBookHeight'],
         },
         data() {
             return {
@@ -36,7 +34,7 @@
                 suraName: '',
                 suraNumber: '',
                 suraFileName: '',
-                quranIndexHeight: '',
+                theBookHeight: '',
                 showSura: true, 
                 isActive: false,
                 loading: true,
@@ -62,8 +60,7 @@
                 this.suraName = this.suraFileName.replace(/[0-9]/g, '');
                 this.$refs.changingSura.fetchSura
                 this.smallList = true
-                let windos = this.$el.querySelector("#quranIndex");
-                // return 
+                let windos = this.$el.querySelector("#theBook");
                 scroll = (0)
                 console.log(scroll) 
                 // windos.scrollDown = scroll -200
@@ -74,16 +71,12 @@
         },
         updated(){
             this.$refs.changingSura.fetchSura
-            this.quranIndexHeight = (this.$refs.quranIndexHeight.clientHeight)
-            // console.log(this.quranIndexHeight) 
-            // return
-            //     var container = this.$ref.quranIndexHeight.querySelector(".quranIndex");
-            //     container.scrollDown = container.scrollHeight;
+            this.theBookHeight = (this.$refs.theBookHeight.clientHeight)
         },
-        computed:{ s: function(){this.quranIndexHeight = (this.$refs.quranIndexHeight.clientHeight)}
+        computed:{ s: function(){this.theBookHeight = (this.$refs.theBookHeight.clientHeight)}
         },
         mounted(){
-            this.$refs.quranIndexHeight.matchHeight
+            this.$refs.theBookHeight.matchHeight
 
         }
     }
@@ -91,15 +84,12 @@
 
 <style scoped>
     .btn{
-        border-color: rgba(0, 0, 0, 0.125) !important;
+        border-color: #00000020 !important;
     }
-    div#quranIndex {
-        margin-top: 15px;
-        padding: 15px;
+    div#theBook {
+        margin-top: 3px;
+        padding: 3px;
         background: #093f900f;
-    }
-    .spinner-box{
-        width: 62px;
     }
     .indexTitle{
         margin-bottom: 4px;
@@ -146,7 +136,7 @@
     .smallListTitle > span {
         font-size: 26px !important;
         padding: 0;
-        padding-bottom: 8px;
+        padding-bottom: 7px;
         transition: all 1s ease;
         padding-left: 5px;
         padding-right: 5px;
@@ -156,7 +146,7 @@
         height: 22px;
         font-size: 12px;
         padding: 0;
-        font-weight: bolder;
+        /* font-weight: bolder; */
         transition: all 1s ease;
     }
     .isActive{

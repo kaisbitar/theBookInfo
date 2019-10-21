@@ -21,6 +21,9 @@
     body{
         direction: rtl;
     }
+    .spinner-box{
+        width: 62px !important;
+    }
     .hide{
         display: none;
     }
