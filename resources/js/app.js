@@ -10,9 +10,15 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import FixedHeader from 'vue-fixed-header'
 
-window.Vue = require('vue'); 
+window.Vue = require('vue');   
+var VueScrollTo = require('vue-scrollto');
+
 Vue.use(BootstrapVue)
+Vue.use(VueScrollTo)
+
+// Vue.use(FixedHeader)
 
 /**
  * The following block of code may be used to automatically register your
@@ -25,10 +31,10 @@ Vue.use(BootstrapVue)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('verse', require('./components/Verse.vue').default);
-Vue.component('verseInPlay', {
-  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
-Vue.component('verses-list', require('./components/VersesList.vue').default);
+Vue.component('Sura', require('./components/Sura.vue').default);
+// Vue.component('verseInPlay', {  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
+Vue.component('suras-list', require('./components/SurasList.vue').default);
+Vue.component('fixedheader', FixedHeader);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
