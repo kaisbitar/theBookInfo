@@ -29,6 +29,10 @@
     .hide{
         display: none;
     }
+    body{
+        zoom: 1.1;
+        -moz-transform: scale(0.5);
+    }
     </style>
     <body>
         <div id="app"> 
