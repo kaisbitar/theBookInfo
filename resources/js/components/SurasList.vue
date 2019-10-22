@@ -4,7 +4,7 @@
     class="card"
     ref="theBookHeight"
   >
-    <div class="suraItemBlock smallList">
+    <div class="suraItemBlock">
       <div
         v-if="loading"
         class="container spinner-box"
@@ -16,14 +16,14 @@
       </div>
       <div
         v-if="!loading"
-        class="indexTitle smallList"
+        class="indexTitle smallListTitle"
       >
         <span class="btn">قائمة الكتاب</span>
       </div>
       <div
-        v-scroll-to="'#theBook'"
+        v-scroll-to="''"
         :class="{ isActive: activeSura === index}"
-        class="suraIndexItem btn"
+        class="suraIndexItem smallListItems btn"
         v-for="(suraIndexItem, index) in surasList"
         v-bind:key="index"
         @click="setSuraInPlay(suraIndexItem.fileName, index)"
@@ -96,7 +96,7 @@ export default {
       this.$refs.changingSura.fetchSura;
       this.smallList = true;
       let windos = this.$el.querySelector("#theBook");
-      scroll = 0;
+      // scroll = 0;
       console.log(scroll);
       // windos.scrollDown = scroll -200
     }
@@ -125,7 +125,7 @@ export default {
 }
 div#theBook {
   margin-top: 3px;
-  padding: 3px;
+  padding: 6px;
   background: #093f900f;
 }
 .indexTitle {
@@ -149,7 +149,6 @@ div#theBook {
   margin-bottom: 4px;
   margin-left: 4px;
   float: right;
-  color: black;
   cursor: pointer;
   background-color: #17a2b838;
   transition: all 1s ease;
@@ -165,13 +164,14 @@ div#theBook {
   transition: all 1s ease;
 }
 .smallListTitle {
-  height: 48px;
+  height: 38px;
   margin-left: 4px;
   float: right;
   transition: all 1s ease;
+  display: flex;
 }
 .smallListTitle > span {
-  font-size: 26px !important;
+  font-size: 21.7px  !important;
   padding: 0;
   padding-bottom: 7px;
   transition: all 1s ease;
@@ -179,8 +179,8 @@ div#theBook {
   padding-right: 5px;
 }
 .smallListItems {
-  width: 63px;
-  height: 22px;
+  width: 53px;
+  height: 38px;
   font-size: 12px;
   padding: 0;
   /* font-weight: bolder; */

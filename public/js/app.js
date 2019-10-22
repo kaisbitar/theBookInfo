@@ -1840,6 +1840,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2028,8 +2030,8 @@ __webpack_require__.r(__webpack_exports__);
       this.suraName = this.suraFileName.replace(/[0-9]/g, "");
       this.$refs.changingSura.fetchSura;
       this.smallList = true;
-      var windos = this.$el.querySelector("#theBook");
-      scroll = 0;
+      var windos = this.$el.querySelector("#theBook"); // scroll = 0;
+
       console.log(scroll); // windos.scrollDown = scroll -200
     }
   },
@@ -34804,7 +34806,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn[data-v-4307127c] {\r\n  padding: 0;\r\n  color: #000;\n}\n.spinner-box[data-v-4307127c] {\r\n  margin-top: 15px;\n}\n.suraInfoBlock[data-v-4307127c] {\r\n  display: flex;\n}\n.suraInfoBlock li > h2 > span[data-v-4307127c] {\r\n  width: 254px;\r\n  text-align: center;\n}\n.suraInfo[data-v-4307127c] {\r\n  margin: 0px 1px 2px 1px;\n}\n.suraName[data-v-4307127c] {\r\n  width: 303px;\r\n  font-size: 32px;\r\n  padding-bottom: 9px;\r\n  color: black;\n}\n.suraTitle[data-v-4307127c] {\r\n  max-width: 304px;\n}\n.titleContainer[data-v-4307127c] {\r\n  padding: 4px 0px 4px 0px;\r\n  background-color: #fbf5ef;\r\n  transition: all 1s ease;\n}\n.titleBlock[data-v-4307127c] {\r\n  max-width: 306px;\r\n  margin: auto;\r\n  transition: all 1s ease;\n}\n.titleContainer.vue-fixed-header--isFixed[data-v-4307127c] {\r\n  position: fixed;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100vw;\r\n  background: #f8f9fa;\r\n  border: 1px solid #00000020;\r\n  z-index: 1;\r\n  transition: all 0.11s ease;\n}\n.suraContainer[data-v-4307127c] {\r\n  /* min-height: 512px; */\n}\n.suraVersesNum[data-v-4307127c] {\n}\n.SuraLettersCount[data-v-4307127c] {\r\n  width: 128px;\r\n  margin-left: auto;\r\n  margin-right: auto;\n}\n.verse[data-v-4307127c] {\r\n  margin-left: 3px;\r\n  margin-bottom: 3px;\r\n  padding: 2px;\r\n  float: right;\r\n  background: #f6eeef6b;\n}\n.verse a[data-v-4307127c] {\r\n  color: #000;\n}\n.verse a[data-v-4307127c]:hover {\r\n  color: red;\r\n  text-decoration: none;\n}\n.versesBlock[data-v-4307127c] {\r\n  padding: 3px 3px 3px 1px;\r\n  transition: all 1s ease;\n}\n.detail[data-v-4307127c] {\r\n  display: sticky;\n}\n.verseIndex[data-v-4307127c] {\r\n  width: 128px;\r\n  margin-left: auto;\r\n  margin-right: auto;\n}\n.verseInfo[data-v-4307127c] {\r\n  font-size: 14px;\n}\n.verseInfo .verseIndex[data-v-4307127c] {\r\n  font-size: 14px;\n}\n.btn-custom-orange[data-v-4307127c] {\r\n  background-color: #ff750094;\r\n  border-color: #e17c25;\n}\n.btn-secondary[data-v-4307127c] {\r\n  background-color: #6c757db0;\n}\n.btn-warning[data-v-4307127c] {\r\n  background-color: #ffc10796;\n}\n.btn-success[data-v-4307127c] {\r\n  background-color: #28a74557;\n}\n.verseText[data-v-4307127c] {\r\n  text-align: center;\r\n  margin-bottom: 5px;\n}\r\n", ""]);
+exports.push([module.i, "\n.btn[data-v-4307127c] {    \r\n  padding: 0;\r\n  color: #000;\n}\n.spinner-box[data-v-4307127c] {\r\n  margin-top: 15px;\n}\n.suraInfoBlock[data-v-4307127c] {\r\n  display: flex;\n}\n.suraInfoBlock li > h2 > span[data-v-4307127c] {\r\n  width: 254px;\r\n  text-align: center;\n}\n.suraInfo[data-v-4307127c] {\r\n  margin: 0px 2px 0px 2px;\r\n  font-size: 12px;\n}\n.suraName[data-v-4307127c] {\r\n  width: 224.4px;\r\n  margin-left: -2px;\r\n  font-size: 20px;\r\n  /* padding-bottom: 9px; */\r\n  color: black;\r\n  height: 40px;\r\n  margin-top: 3px;\n}\n.suraTitle[data-v-4307127c] {\r\n  max-width: 224.4px;\r\n  margin-top: -1px;\n}\n.titleContainer[data-v-4307127c] {\r\n  padding: 4px 0px 4px 0px;\r\n  background-color: #fbf5ef;\r\n  transition: all 1s ease;\n}\n.titleBlock[data-v-4307127c] {\r\n  max-width: 228px;\r\n  margin: auto;\r\n  transition: all 1s ease;\n}\n.titleContainer.vue-fixed-header--isFixed[data-v-4307127c] {\r\n  position: fixed;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100vw;\r\n  background: #f8f9fa;\r\n  border: 1px solid #00000020;\r\n  z-index: 1;\r\n  transition: all 0.11s ease;\n}\n.suraBlock[data-v-4307127c] {\r\n  min-height: 512px;\n}\nspan.verseInfo.btn-custom-orange[data-v-4307127c] {\r\n    margin-left: 3px;\n}\n.SuraLettersCount[data-v-4307127c] {\r\n  margin-left: auto;\r\n  margin-right: auto;\n}\n.verse[data-v-4307127c] {\r\n  margin-left: 4px;\r\n  margin-bottom: 4px;\r\n  padding: 4px;\r\n  float: right;\r\n  background: #f6eeef6b;\n}\n.verse a[data-v-4307127c] {\r\n  color: #000;\n}\n.verse a[data-v-4307127c]:hover {\r\n  color: red;\r\n  text-decoration: none;\n}\n.versesBlock[data-v-4307127c] {\r\n  padding: 4px 4px 4px 1px;\r\n  transition: all 1s ease;\n}\n.detail[data-v-4307127c] {\r\n  display: sticky;\n}\n.verseIndex[data-v-4307127c] {\r\n\tfont-size: 12px;\r\n\twidth: 110px;\n}\n.verseInfo[data-v-4307127c] {\r\n\tfont-size: 12px;\r\n\t/* margin: 4px 0px 4px 4px; */\r\n\twidth: 53.4px;\n}\n.verseInfo .verseIndex[data-v-4307127c] {\r\n  font-size: 12px;\n}\n.btn-custom-orange[data-v-4307127c] {\r\n  background-color: #ff750094;\r\n  border-color: #e17c25;\n}\n.btn-secondary[data-v-4307127c] {\r\n  background-color: #6c757db0;\n}\n.btn-warning[data-v-4307127c] {\r\n  background-color: #ffc10796;\n}\n.btn-success[data-v-4307127c] {\r\n  background-color: #28a74557;\n}\n.verseCounts[data-v-4307127c]{\r\n  display: flex;\n}\n.verseText[data-v-4307127c] {\r\n  text-align: center;\r\n\tmargin-top: 3px;\r\n\tpadding: 2px;\r\n\tpadding-bottom: 0px;\r\n  /* margin-bottom: 5px;\r\n\tpadding: 11px; */\n}\n.verseText.container-fluid .btn[data-v-4307127c] {\r\n\tpadding: 4px;\r\n\tfont-size: 14px;\n}\r\n", ""]);
 
 // exports
 
@@ -34823,7 +34825,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn[data-v-b97fd736] {\r\n  border-color: #00000020 !important;\n}\ndiv#theBook[data-v-b97fd736] {\r\n  margin-top: 3px;\r\n  padding: 3px;\r\n  background: #093f900f;\n}\n.indexTitle[data-v-b97fd736] {\r\n  margin-bottom: 4px;\r\n  width: -webkit-max-content;\r\n  width: -moz-max-content;\r\n  width: max-content;\r\n  transition: all 1s ease;\n}\n.indexTitle > span[data-v-b97fd736] {\r\n  display: block;\r\n  font-size: 45px;\r\n  font-weight: 300;\r\n  color: black;\r\n  padding: 15px 15px 19px 15px;\r\n  background: #b8611738;\r\n  transition: all 1s ease;\n}\n.suraIndexItem[data-v-b97fd736] {\r\n  width: 75px;\r\n  height: 51px;\r\n  font-size: 14px;\r\n  margin-bottom: 4px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  color: black;\r\n  cursor: pointer;\r\n  background-color: #17a2b838;\r\n  transition: all 1s ease;\n}\n.suraIndexItem label[data-v-b97fd736] {\r\n  cursor: pointer;\r\n  margin-bottom: 0px;\n}\n.suraItemBlock[data-v-b97fd736] {\r\n  transition: all 1s ease;\n}\n.smallList[data-v-b97fd736] {\r\n  transition: all 1s ease;\n}\n.smallListTitle[data-v-b97fd736] {\r\n  height: 48px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  transition: all 1s ease;\n}\n.smallListTitle > span[data-v-b97fd736] {\r\n  font-size: 26px !important;\r\n  padding: 0;\r\n  padding-bottom: 7px;\r\n  transition: all 1s ease;\r\n  padding-left: 5px;\r\n  padding-right: 5px;\n}\n.smallListItems[data-v-b97fd736] {\r\n  width: 63px;\r\n  height: 22px;\r\n  font-size: 12px;\r\n  padding: 0;\r\n  /* font-weight: bolder; */\r\n  transition: all 1s ease;\n}\n.isActive[data-v-b97fd736] {\r\n  background: #9fe83e4f;\n}\r\n", ""]);
+exports.push([module.i, "\n.btn[data-v-b97fd736] {\r\n  border-color: #00000020 !important;\n}\ndiv#theBook[data-v-b97fd736] {\r\n  margin-top: 3px;\r\n  padding: 6px;\r\n  background: #093f900f;\n}\n.indexTitle[data-v-b97fd736] {\r\n  margin-bottom: 4px;\r\n  width: -webkit-max-content;\r\n  width: -moz-max-content;\r\n  width: max-content;\r\n  transition: all 1s ease;\n}\n.indexTitle > span[data-v-b97fd736] {\r\n  display: block;\r\n  font-size: 45px;\r\n  font-weight: 300;\r\n  color: black;\r\n  padding: 15px 15px 19px 15px;\r\n  background: #b8611738;\r\n  transition: all 1s ease;\n}\n.suraIndexItem[data-v-b97fd736] {\r\n  width: 75px;\r\n  height: 51px;\r\n  font-size: 14px;\r\n  margin-bottom: 4px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  cursor: pointer;\r\n  background-color: #17a2b838;\r\n  transition: all 1s ease;\n}\n.suraIndexItem label[data-v-b97fd736] {\r\n  cursor: pointer;\r\n  margin-bottom: 0px;\n}\n.suraItemBlock[data-v-b97fd736] {\r\n  transition: all 1s ease;\n}\n.smallList[data-v-b97fd736] {\r\n  transition: all 1s ease;\n}\n.smallListTitle[data-v-b97fd736] {\r\n  height: 38px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  transition: all 1s ease;\r\n  display: flex;\n}\n.smallListTitle > span[data-v-b97fd736] {\r\n  font-size: 21.7px  !important;\r\n  padding: 0;\r\n  padding-bottom: 7px;\r\n  transition: all 1s ease;\r\n  padding-left: 5px;\r\n  padding-right: 5px;\n}\n.smallListItems[data-v-b97fd736] {\r\n  width: 53px;\r\n  height: 38px;\r\n  font-size: 12px;\r\n  padding: 0;\r\n  /* font-weight: bolder; */\r\n  transition: all 1s ease;\n}\n.isActive[data-v-b97fd736] {\r\n  background: #9fe83e4f;\n}\r\n", ""]);
 
 // exports
 
@@ -70212,23 +70214,33 @@ var render = function() {
                 [
                   index != "SuraLettersCount"
                     ? _c("div", { staticClass: "SuraLettersCount" }, [
-                        _c(
-                          "span",
-                          { staticClass: "verseInfo btn btn-custom-orange" },
-                          [_vm._v(_vm._s(verse.NumberOfWords) + " كلمة")]
-                        ),
+                        _c("div", { staticClass: "verseCounts" }, [
+                          _c(
+                            "span",
+                            { staticClass: "verseInfo btn btn-custom-orange" },
+                            [_vm._v(_vm._s(verse.NumberOfWords) + " كلمة")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "verseInfo btn btn-secondary" },
+                            [_vm._v(_vm._s(verse.NumberOfLetters) + " حرف")]
+                          )
+                        ]),
                         _vm._v(" "),
                         _c(
                           "span",
-                          { staticClass: "verseInfo btn btn-secondary" },
-                          [_vm._v(_vm._s(verse.NumberOfLetters) + " حرف")]
+                          { staticClass: "verseIndex btn btn-warning" },
+                          [
+                            _vm._v(
+                              "\n            آية رقم: " +
+                                _vm._s(index) +
+                                "\n          "
+                            )
+                          ]
                         )
                       ])
                     : _vm._e(),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "verseIndex btn btn-warning" }, [
-                    _vm._v("\n        آية رقم: " + _vm._s(index) + "\n      ")
-                  ]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -70294,7 +70306,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("div", { staticClass: "verseText container-fluid" }, [
-                    _c("span", [
+                    _c("span", { staticClass: "btn btn-success" }, [
                       _vm._v(
                         "\n          " + _vm._s(verse.verseText) + "\n        "
                       )
@@ -70338,7 +70350,7 @@ var render = function() {
     [
       _c(
         "div",
-        { staticClass: "suraItemBlock smallList" },
+        { staticClass: "suraItemBlock" },
         [
           _vm.loading
             ? _c(
@@ -70354,7 +70366,7 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           !_vm.loading
-            ? _c("div", { staticClass: "indexTitle smallList" }, [
+            ? _c("div", { staticClass: "indexTitle smallListTitle" }, [
                 _c("span", { staticClass: "btn" }, [_vm._v("قائمة الكتاب")])
               ])
             : _vm._e(),
@@ -70367,12 +70379,12 @@ var render = function() {
                   {
                     name: "scroll-to",
                     rawName: "v-scroll-to",
-                    value: "#theBook",
-                    expression: "'#theBook'"
+                    value: "",
+                    expression: "''"
                   }
                 ],
                 key: index,
-                staticClass: "suraIndexItem btn",
+                staticClass: "suraIndexItem smallListItems btn",
                 class: { isActive: _vm.activeSura === index },
                 on: {
                   click: function($event) {

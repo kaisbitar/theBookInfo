@@ -23,7 +23,6 @@ class CalculatorController extends Controller
         $this->counter = new Counter();
         $this->indexer = new Indexer();
         
-        
         if($request->path() == ("api/quran-index")){
             $fileName = 'quran-index';
             $this->service = new CalculatorService(null, $fileName);
@@ -38,7 +37,6 @@ class CalculatorController extends Controller
             if (!($suraFile)) {
                 throw new \Exception("Sura file not found");
             }
-        
             $this->service = new CalculatorService($suraFile, $fileName);
         }
     }

@@ -47,12 +47,14 @@
           v-if="index!='SuraLettersCount'"
           class="SuraLettersCount"
         >
-          <span class="verseInfo btn btn-custom-orange">{{verse.NumberOfWords}} كلمة</span>
-          <span class="verseInfo btn btn-secondary">{{verse.NumberOfLetters}} حرف</span>
+          <div class="verseCounts">
+            <span class="verseInfo btn btn-custom-orange">{{verse.NumberOfWords}} كلمة</span>
+            <span class="verseInfo btn btn-secondary">{{verse.NumberOfLetters}} حرف</span>
+          </div>
+            <span class="verseIndex btn btn-warning">
+              آية رقم: {{index}}
+            </span>
         </div>
-        <span class="verseIndex btn btn-warning">
-          آية رقم: {{index}}
-        </span>
         <!-- hidden inputs for holding data -->
         <input
           type="hidden"
@@ -68,7 +70,7 @@
         >
         <!--  -->
         <div class="verseText container-fluid">
-          <span>
+          <span class = "btn btn-success">
             {{verse.verseText}}
           </span>
         </div>
@@ -145,10 +147,10 @@ export default {
 </script>
 
 <style scoped>
-.btn {
+.btn {    
   padding: 0;
   color: #000;
-}
+  }
 .spinner-box {
   margin-top: 15px;
 }
@@ -160,16 +162,21 @@ export default {
   text-align: center;
 }
 .suraInfo {
-  margin: 0px 1px 2px 1px;
+  margin: 0px 2px 0px 2px;
+  font-size: 12px;
 }
 .suraName {
-  width: 303px;
-  font-size: 32px;
-  padding-bottom: 9px;
+  width: 224.4px;
+  margin-left: -2px;
+  font-size: 20px;
+  /* padding-bottom: 9px; */
   color: black;
+  height: 40px;
+  margin-top: 3px;
 }
 .suraTitle {
-  max-width: 304px;
+  max-width: 224.4px;
+  margin-top: -1px;
 }
 .titleContainer {
   padding: 4px 0px 4px 0px;
@@ -177,7 +184,7 @@ export default {
   transition: all 1s ease;
 }
 .titleBlock {
-  max-width: 306px;
+  max-width: 228px;
   margin: auto;
   transition: all 1s ease;
 }
@@ -191,21 +198,21 @@ export default {
   z-index: 1;
   transition: all 0.11s ease;
 }
-.suraContainer {
-  /* min-height: 512px; */
+.suraBlock {
+  min-height: 512px;
 }
-.suraVersesNum {
+span.verseInfo.btn-custom-orange {
+    margin-left: 3px;
 }
 .SuraLettersCount {
-  width: 128px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .verse {
-  margin-left: 3px;
-  margin-bottom: 3px;
-  padding: 2px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  padding: 4px;
   float: right;
   background: #f6eeef6b;
 }
@@ -217,22 +224,23 @@ export default {
   text-decoration: none;
 }
 .versesBlock {
-  padding: 3px 3px 3px 1px;
+  padding: 4px 4px 4px 1px;
   transition: all 1s ease;
 }
 .detail {
   display: sticky;
 }
 .verseIndex {
-  width: 128px;
-  margin-left: auto;
-  margin-right: auto;
+	font-size: 12px;
+	width: 110px;
 }
 .verseInfo {
-  font-size: 14px;
-}
+	font-size: 12px;
+	/* margin: 4px 0px 4px 4px; */
+	width: 53.4px;
+} 
 .verseInfo .verseIndex {
-  font-size: 14px;
+  font-size: 12px;
 }
 .btn-custom-orange {
   background-color: #ff750094;
@@ -247,8 +255,19 @@ export default {
 .btn-success {
   background-color: #28a74557;
 }
+.verseCounts{
+  display: flex;
+}
 .verseText {
   text-align: center;
-  margin-bottom: 5px;
+	margin-top: 3px;
+	padding: 2px;
+	padding-bottom: 0px;
+  /* margin-bottom: 5px;
+	padding: 11px; */
+}
+.verseText.container-fluid .btn {
+	padding: 4px;
+	font-size: 14px;
 }
 </style>
