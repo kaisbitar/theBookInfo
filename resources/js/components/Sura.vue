@@ -171,7 +171,7 @@ export default {
   font-size: 20px;
   /* padding-bottom: 9px; */
   color: black;
-  height: 40px;
+  height: 36px;
   margin-top: 3px;
 }
 .suraTitle {
@@ -269,5 +269,6 @@ span.verseInfo.btn-custom-orange {
 .verseText.container-fluid .btn {
 	padding: 4px;
 	font-size: 14px;
+	padding-top: 0px;
 }
 </style>
