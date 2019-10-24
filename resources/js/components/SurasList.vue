@@ -21,7 +21,6 @@
         <span class="btn">قائمة الكتاب</span>
       </div>
       <div
-        v-scroll-to="''"
         :class="{ isActive: activeSura === index}"
         class="suraIndexItem smallListItems btn"
         v-for="(suraIndexItem, index) in surasList"
@@ -36,20 +35,20 @@
       </div>
     </div>
     <div v-if="showSura">
-      <!-- <Sura
+      <Sura
         ref="changingSura"
         v-for="(sura, index) in surasList"
         v-bind:key="index"
         :suraFileName="suraFileName"
         :suraName="suraName"
         :theBookHeight="theBookHeight"
-      ></Sura> -->
-      <Sura
+      ></Sura>
+      <!-- <Sura
         ref="changingSura"
         :suraFileName="suraFileName"
         :suraName="suraName"
         :theBookHeight="theBookHeight"
-      ></Sura>
+      ></Sura> -->
     </div>
   </div>
   <!-- <div class="btn btn-success"></div> -->
@@ -95,9 +94,9 @@ export default {
       this.suraName = this.suraFileName.replace(/[0-9]/g, "");
       this.$refs.changingSura.fetchSura;
       this.smallList = true;
-      let windos = this.$el.querySelector("#theBook");
+      // let windos = this.$el.querySelector("#theBook");
       // scroll = 0;
-      console.log(scroll);
+      // console.log(scroll);
       // windos.scrollDown = scroll -200
     }
   },

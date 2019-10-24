@@ -1986,7 +1986,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2029,10 +2028,10 @@ __webpack_require__.r(__webpack_exports__);
       this.suraNumber = parseInt(fileName, 10);
       this.suraName = this.suraFileName.replace(/[0-9]/g, "");
       this.$refs.changingSura.fetchSura;
-      this.smallList = true;
-      var windos = this.$el.querySelector("#theBook"); // scroll = 0;
-
-      console.log(scroll); // windos.scrollDown = scroll -200
+      this.smallList = true; // let windos = this.$el.querySelector("#theBook");
+      // scroll = 0;
+      // console.log(scroll);
+      // windos.scrollDown = scroll -200
     }
   },
   created: function created() {
@@ -70375,14 +70374,6 @@ var render = function() {
             return _c(
               "div",
               {
-                directives: [
-                  {
-                    name: "scroll-to",
-                    rawName: "v-scroll-to",
-                    value: "",
-                    expression: "''"
-                  }
-                ],
                 key: index,
                 staticClass: "suraIndexItem smallListItems btn",
                 class: { isActive: _vm.activeSura === index },
@@ -70412,16 +70403,18 @@ var render = function() {
       _vm.showSura
         ? _c(
             "div",
-            [
-              _c("Sura", {
+            _vm._l(_vm.surasList, function(sura, index) {
+              return _c("Sura", {
+                key: index,
                 ref: "changingSura",
+                refInFor: true,
                 attrs: {
                   suraFileName: _vm.suraFileName,
                   suraName: _vm.suraName,
                   theBookHeight: _vm.theBookHeight
                 }
               })
-            ],
+            }),
             1
           )
         : _vm._e()
@@ -83481,8 +83474,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\test\quran_parser_test\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\test\quran_parser_test\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\quran_parser_test\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\quran_parser_test\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

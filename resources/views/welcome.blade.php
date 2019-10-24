@@ -30,7 +30,7 @@
         display: none;
     }
     body{
-        zoom: 1.20;
+        zoom: 1.30;
         -moz-transform: scale(0.5);
     }
     </style>
