@@ -70403,18 +70403,16 @@ var render = function() {
       _vm.showSura
         ? _c(
             "div",
-            _vm._l(_vm.surasList, function(sura, index) {
-              return _c("Sura", {
-                key: index,
+            [
+              _c("Sura", {
                 ref: "changingSura",
-                refInFor: true,
                 attrs: {
                   suraFileName: _vm.suraFileName,
                   suraName: _vm.suraName,
                   theBookHeight: _vm.theBookHeight
                 }
               })
-            }),
+            ],
             1
           )
         : _vm._e()

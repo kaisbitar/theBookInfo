@@ -35,20 +35,20 @@
       </div>
     </div>
     <div v-if="showSura">
-      <Sura
+      <!-- <Sura
         ref="changingSura"
         v-for="(sura, index) in surasList"
         v-bind:key="index"
         :suraFileName="suraFileName"
         :suraName="suraName"
         :theBookHeight="theBookHeight"
-      ></Sura>
-      <!-- <Sura
+      ></Sura> -->
+      <Sura
         ref="changingSura"
         :suraFileName="suraFileName"
         :suraName="suraName"
         :theBookHeight="theBookHeight"
-      ></Sura> -->
+      ></Sura>
     </div>
   </div>
   <!-- <div class="btn btn-success"></div> -->
