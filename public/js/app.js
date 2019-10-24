@@ -1842,13 +1842,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     SearchSura: _SearchSura_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     props: ["verses"]
   },
-  props: ["suraFileName", "suraName", "quranIndexHeight"],
+  props: ["suraFileName", "screen"],
   data: function data() {
     return {
       sura: [],
@@ -1866,6 +1867,9 @@ __webpack_require__.r(__webpack_exports__);
       this.verse.NumberOfWords = verse.NumberOfWords;
       this.detailShow = true;
       return this.verse;
+    },
+    changeToScreen: function changeToScreen() {
+      this.$emit("changingScreen", this.screen);
     }
   },
   computed: {
@@ -1906,12 +1910,11 @@ __webpack_require__.r(__webpack_exports__);
         _this2.sura.NumberOfLetters = res.NumberOfLetters;
         _this2.sura.NumberOfVerses = res.NumberOfVerses;
         _this2.sura.NumberOfWords = res.NumberOfWords;
+        console.log(res.Name);
+        _this2.sura.suraName = res.Name;
+        console.log(res.Name);
         _this2.fetchVerses;
-        _this2.matchHeight;
       });
-    },
-    matchHeight: function matchHeight() {
-      return this.quranIndexHeight / 2;
     }
   },
   mounted: function mounted() {}
@@ -1985,12 +1988,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Sura: _Sura_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    props: ["suraFileName", "suraName", "theBookHeight"]
+    props: ["suraFileName", "screen"]
   },
   data: function data() {
     return {
@@ -1998,10 +2000,10 @@ __webpack_require__.r(__webpack_exports__);
       suraName: "",
       suraNumber: "",
       suraFileName: "",
-      theBookHeight: "",
       showSura: true,
       isActive: false,
       loading: true,
+      screen: 1,
       activeSura: 0 //0 to default to الفاتحة this can be dynamic later on for user experience purposes
       // smallList: false
 
@@ -2025,29 +2027,28 @@ __webpack_require__.r(__webpack_exports__);
       this.showSura = true;
       this.activeSura = index;
       this.isActive = true;
-      this.suraNumber = parseInt(fileName, 10);
-      this.suraName = this.suraFileName.replace(/[0-9]/g, "");
-      this.$refs.changingSura.fetchSura;
-      this.smallList = true; // let windos = this.$el.querySelector("#theBook");
-      // scroll = 0;
-      // console.log(scroll);
-      // windos.scrollDown = scroll -200
+      this.suraNumber = parseInt(fileName, 10); // this.suraName = this.suraFileName.replace(/[0-9]/g, "");
+
+      this.smallList = true;
+    },
+    changeScreen: function changeScreen(screen) {
+      this.screen = screen;
     }
   },
   created: function created() {
     this.fetchList();
   },
   updated: function updated() {
-    this.$refs.changingSura.fetchSura;
-    this.theBookHeight = this.$refs.theBookHeight.clientHeight;
-  },
-  computed: {
-    s: function s() {
-      this.theBookHeight = this.$refs.theBookHeight.clientHeight;
+    if (this.screen == 1) {
+      this.suraName = this.suraFileName.replace(/[0-9]/g, "");
+      this.$refs.screen1.fetchSura;
+    } else {
+      this.$refs.screen2.fetchSura;
+      this.suraName = this.suraFileName.replace(/[0-9]/g, "");
     }
   },
-  mounted: function mounted() {
-    this.$refs.theBookHeight.matchHeight;
+  computed: {},
+  mounted: function mounted() {// this.$refs.screen1.fetchSura;
   }
 });
 
@@ -34805,7 +34806,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn[data-v-4307127c] {    \r\n  padding: 0;\r\n  color: #000;\n}\n.spinner-box[data-v-4307127c] {\r\n  margin-top: 15px;\n}\n.suraInfoBlock[data-v-4307127c] {\r\n  display: flex;\n}\n.suraInfoBlock li > h2 > span[data-v-4307127c] {\r\n  width: 254px;\r\n  text-align: center;\n}\n.suraInfo[data-v-4307127c] {\r\n  margin: 0px 2px 0px 2px;\r\n  font-size: 12px;\n}\n.suraName[data-v-4307127c] {\r\n  width: 224.4px;\r\n  margin-left: -2px;\r\n  font-size: 20px;\r\n  /* padding-bottom: 9px; */\r\n  color: black;\r\n  height: 36px;\r\n  margin-top: 3px;\n}\n.suraTitle[data-v-4307127c] {\r\n  max-width: 224.4px;\r\n  margin-top: -1px;\n}\n.titleContainer[data-v-4307127c] {\r\n  padding: 4px 0px 4px 0px;\r\n  background-color: #fbf5ef;\r\n  transition: all 1s ease;\n}\n.titleBlock[data-v-4307127c] {\r\n  max-width: 228px;\r\n  margin: auto;\r\n  transition: all 1s ease;\n}\n.titleContainer.vue-fixed-header--isFixed[data-v-4307127c] {\r\n  position: fixed;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100vw;\r\n  background: #f8f9fa;\r\n  border: 1px solid #00000020;\r\n  z-index: 1;\r\n  transition: all 0.11s ease;\n}\n.suraBlock[data-v-4307127c] {\r\n  min-height: 512px;\n}\nspan.verseInfo.btn-custom-orange[data-v-4307127c] {\r\n    margin-left: 3px;\n}\n.SuraLettersCount[data-v-4307127c] {\r\n  margin-left: auto;\r\n  margin-right: auto;\n}\n.verse[data-v-4307127c] {\r\n  margin-left: 4px;\r\n  margin-bottom: 4px;\r\n  padding: 4px;\r\n  float: right;\r\n  background: #f6eeef6b;\n}\n.verse a[data-v-4307127c] {\r\n  color: #000;\n}\n.verse a[data-v-4307127c]:hover {\r\n  color: red;\r\n  text-decoration: none;\n}\n.versesBlock[data-v-4307127c] {\r\n  padding: 4px 4px 4px 1px;\r\n  transition: all 1s ease;\n}\n.detail[data-v-4307127c] {\r\n  display: sticky;\n}\n.verseIndex[data-v-4307127c] {\r\n\tfont-size: 12px;\r\n\twidth: 110px;\n}\n.verseInfo[data-v-4307127c] {\r\n\tfont-size: 12px;\r\n\t/* margin: 4px 0px 4px 4px; */\r\n\twidth: 53.4px;\n}\n.verseInfo .verseIndex[data-v-4307127c] {\r\n  font-size: 12px;\n}\n.btn-custom-orange[data-v-4307127c] {\r\n  background-color: #ff750094;\r\n  border-color: #e17c25;\n}\n.btn-secondary[data-v-4307127c] {\r\n  background-color: #6c757db0;\n}\n.btn-warning[data-v-4307127c] {\r\n  background-color: #ffc10796;\n}\n.btn-success[data-v-4307127c] {\r\n  background-color: #28a74557;\n}\n.verseCounts[data-v-4307127c]{\r\n  display: flex;\n}\n.verseText[data-v-4307127c] {\r\n  text-align: center;\r\n\tmargin-top: 3px;\r\n\tpadding: 2px;\r\n\tpadding-bottom: 0px;\r\n  /* margin-bottom: 5px;\r\n\tpadding: 11px; */\n}\n.verseText.container-fluid .btn[data-v-4307127c] {\r\n\tpadding: 4px;\r\n\tfont-size: 14px;\r\n\tpadding-top: 0px;\n}\r\n", ""]);
+exports.push([module.i, "\n.btn[data-v-4307127c] {\r\n  padding: 0;\r\n  color: #000;\n}\n.spinner-box[data-v-4307127c] {\r\n  margin-top: 15px;\n}\n.suraInfoBlock[data-v-4307127c] {\r\n  display: flex;\n}\n.suraInfoBlock li > h2 > span[data-v-4307127c] {\r\n  width: 254px;\r\n  text-align: center;\n}\n.suraInfo[data-v-4307127c] {\r\n  margin: 0px 2px 0px 2px;\r\n  font-size: 12px;\n}\n.suraName[data-v-4307127c] {\r\n  width: 224.4px;\r\n  margin-left: -2px;\r\n  font-size: 20px;\r\n  /* padding-bottom: 9px; */\r\n  color: black;\r\n  height: 36px;\r\n  margin-top: 3px;\n}\n.suraTitle[data-v-4307127c] {\r\n  max-width: 224.4px;\r\n  margin-top: -1px;\n}\n.titleContainer[data-v-4307127c] {\r\n  padding: 4px 0px 4px 0px;\r\n  background-color: #fbf5ef;\r\n  transition: all 1s ease;\n}\n.titleBlock[data-v-4307127c] {\r\n  max-width: 228px;\r\n  margin: auto;\r\n  transition: all 1s ease;\n}\n.titleBlock.vue-fixed-header--isFixed[data-v-4307127c] {\r\n  position: fixed;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100vw;\r\n  background: #f8f9fa;\r\n  border: 1px solid #00000020;\r\n  z-index: 1;\r\n  transition: all 0.11s ease;\n}\n.suraBlock[data-v-4307127c] {\r\n  /* min-height: 512px; */\n}\nspan.verseInfo.btn-custom-orange[data-v-4307127c] {\r\n  margin-left: 3px;\n}\n.SuraLettersCount[data-v-4307127c] {\r\n  margin-left: auto;\r\n  margin-right: auto;\n}\n.verse[data-v-4307127c] {\r\n  margin-left: 4px;\r\n  margin-bottom: 4px;\r\n  padding: 4px;\r\n  float: right;\r\n  background: #f6eeef6b;\n}\n.verse a[data-v-4307127c] {\r\n  color: #000;\n}\n.verse a[data-v-4307127c]:hover {\r\n  color: red;\r\n  text-decoration: none;\n}\n.versesBlock[data-v-4307127c] {\r\n  padding: 4px 4px 4px 1px;\r\n  transition: all 1s ease;\n}\n.detail[data-v-4307127c] {\r\n  display: sticky;\n}\n.verseIndex[data-v-4307127c] {\r\n  font-size: 12px;\r\n  width: 110px;\n}\n.verseInfo[data-v-4307127c] {\r\n  font-size: 12px;\r\n  /* margin: 4px 0px 4px 4px; */\r\n  width: 53.4px;\n}\n.verseInfo .verseIndex[data-v-4307127c] {\r\n  font-size: 12px;\n}\n.btn-custom-orange[data-v-4307127c] {\r\n  background-color: #ff750094;\r\n  border-color: #e17c25;\n}\n.btn-secondary[data-v-4307127c] {\r\n  background-color: #6c757db0;\n}\n.btn-warning[data-v-4307127c] {\r\n  background-color: #ffc10796;\n}\n.btn-success[data-v-4307127c] {\r\n  background-color: #28a74557;\n}\n.verseCounts[data-v-4307127c] {\r\n  display: flex;\n}\n.verseText[data-v-4307127c] {\r\n  text-align: center;\r\n  margin-top: 3px;\r\n  padding: 2px;\r\n  padding-bottom: 0px;\r\n  /* margin-bottom: 5px;\r\n\tpadding: 11px; */\n}\n.verseText.container-fluid .btn[data-v-4307127c] {\r\n  padding: 4px;\r\n  font-size: 14px;\r\n  padding-top: 0px;\n}\r\n", ""]);
 
 // exports
 
@@ -34824,7 +34825,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn[data-v-b97fd736] {\r\n  border-color: #00000020 !important;\n}\ndiv#theBook[data-v-b97fd736] {\r\n  margin-top: 3px;\r\n  padding: 6px;\r\n  background: #093f900f;\n}\n.indexTitle[data-v-b97fd736] {\r\n  margin-bottom: 4px;\r\n  width: -webkit-max-content;\r\n  width: -moz-max-content;\r\n  width: max-content;\r\n  transition: all 1s ease;\n}\n.indexTitle > span[data-v-b97fd736] {\r\n  display: block;\r\n  font-size: 45px;\r\n  font-weight: 300;\r\n  color: black;\r\n  padding: 15px 15px 19px 15px;\r\n  background: #b8611738;\r\n  transition: all 1s ease;\n}\n.suraIndexItem[data-v-b97fd736] {\r\n  width: 75px;\r\n  height: 51px;\r\n  font-size: 14px;\r\n  margin-bottom: 4px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  cursor: pointer;\r\n  background-color: #17a2b838;\r\n  transition: all 1s ease;\n}\n.suraIndexItem label[data-v-b97fd736] {\r\n  cursor: pointer;\r\n  margin-bottom: 0px;\n}\n.suraItemBlock[data-v-b97fd736] {\r\n  transition: all 1s ease;\n}\n.smallList[data-v-b97fd736] {\r\n  transition: all 1s ease;\n}\n.smallListTitle[data-v-b97fd736] {\r\n  height: 38px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  transition: all 1s ease;\r\n  display: flex;\n}\n.smallListTitle > span[data-v-b97fd736] {\r\n  font-size: 21.7px  !important;\r\n  padding: 0;\r\n  padding-bottom: 7px;\r\n  transition: all 1s ease;\r\n  padding-left: 5px;\r\n  padding-right: 5px;\n}\n.smallListItems[data-v-b97fd736] {\r\n  width: 53px;\r\n  height: 38px;\r\n  font-size: 12px;\r\n  padding: 0;\r\n  /* font-weight: bolder; */\r\n  transition: all 1s ease;\n}\n.isActive[data-v-b97fd736] {\r\n  background: #9fe83e4f;\n}\r\n", ""]);
+exports.push([module.i, "\n.btn[data-v-b97fd736] {\r\n  border-color: #00000020 !important;\n}\ndiv#theBook[data-v-b97fd736] {\r\n  margin-top: 3px;\r\n  padding: 6px;\r\n  background: #093f900f;\n}\n.indexTitle[data-v-b97fd736] {\r\n  margin-bottom: 4px;\r\n  width: -webkit-max-content;\r\n  width: -moz-max-content;\r\n  width: max-content;\r\n  transition: all 1s ease;\n}\n.indexTitle > span[data-v-b97fd736] {\r\n  display: block;\r\n  font-size: 45px;\r\n  font-weight: 300;\r\n  color: black;\r\n  padding: 15px 15px 19px 15px;\r\n  background: #b8611738;\r\n  transition: all 1s ease;\n}\n.suraIndexItem[data-v-b97fd736] {\r\n  width: 75px;\r\n  height: 51px;\r\n  font-size: 14px;\r\n  margin-bottom: 4px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  cursor: pointer;\r\n  background-color: #17a2b838;\r\n  transition: all 1s ease;\n}\n.suraIndexItem label[data-v-b97fd736] {\r\n  cursor: pointer;\r\n  margin-bottom: 0px;\n}\n.suraItemBlock[data-v-b97fd736] {\r\n  transition: all 1s ease;\n}\n.smallList[data-v-b97fd736] {\r\n  transition: all 1s ease;\n}\n.smallListTitle[data-v-b97fd736] {\r\n  height: 38px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  transition: all 1s ease;\r\n  display: flex;\n}\n.smallListTitle > span[data-v-b97fd736] {\r\n  font-size: 21.7px !important;\r\n  padding: 0;\r\n  padding-bottom: 7px;\r\n  transition: all 1s ease;\r\n  padding-left: 5px;\r\n  padding-right: 5px;\n}\n.smallListItems[data-v-b97fd736] {\r\n  width: 53px;\r\n  height: 38px;\r\n  font-size: 12px;\r\n  padding: 0;\r\n  transition: all 1s ease;\n}\n.isActive[data-v-b97fd736] {\r\n  background: #9fe83e4f;\n}\n#surasGroup[data-v-b97fd736] {\r\n  display: grid;\r\n  grid-template-columns: 50% 50%;\n}\r\n", ""]);
 
 // exports
 
@@ -70123,7 +70124,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "suraBlock card" },
+    { staticClass: "suraBlock card", on: { click: _vm.changeToScreen } },
     [
       _vm.loading
         ? _c(
@@ -70138,60 +70139,65 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.showSura
-        ? _c("fixedheader", { attrs: { threshold: _vm.matchHeight } }, [
-            _c("div", { staticClass: "titleContainer card-header" }, [
-              _c("div", { staticClass: "titleBlock" }, [
-                _c("div", { staticClass: "suraInfoBlock " }, [
-                  _c(
-                    "span",
-                    { staticClass: "suraInfo btn btn-custom-orange col-sm" },
-                    [
-                      _vm._v(
-                        "\n            عدد الكلمات " +
-                          _vm._s(_vm.sura.NumberOfWords) +
-                          "\n          "
-                      )
-                    ]
-                  ),
+      _c(
+        "div",
+        { staticClass: "titleContainer card-header" },
+        [
+          _vm.showSura
+            ? _c("fixedheader", [
+                _c("div", { staticClass: "titleBlock" }, [
+                  _c("div", { staticClass: "suraInfoBlock " }, [
+                    _c(
+                      "span",
+                      { staticClass: "suraInfo btn btn-custom-orange col-sm" },
+                      [
+                        _vm._v(
+                          "\n            عدد الكلمات " +
+                            _vm._s(_vm.sura.NumberOfWords) +
+                            "\n          "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { staticClass: "suraInfo btn btn-secondary col-sm" },
+                      [
+                        _vm._v(
+                          "\n            عدد الحروف " +
+                            _vm._s(_vm.sura.NumberOfLetters) +
+                            "\n          "
+                        )
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
-                  _c(
-                    "span",
-                    { staticClass: "suraInfo btn btn-secondary col-sm" },
-                    [
-                      _vm._v(
-                        "\n            عدد الحروف " +
-                          _vm._s(_vm.sura.NumberOfLetters) +
-                          "\n          "
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "suraTitle" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "suraInfo btn btn-warning col-sm suraVersesNum "
-                    },
-                    [
-                      _vm._v(
-                        "\n            عدد الآيات " +
-                          _vm._s(_vm.sura.NumberOfVerses) +
-                          "\n          "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "suraName btn btn-success" }, [
-                    _vm._v("سورة " + _vm._s(_vm.suraName))
+                  _c("div", { staticClass: "suraTitle" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "suraInfo btn btn-warning col-sm suraVersesNum "
+                      },
+                      [
+                        _vm._v(
+                          "\n            عدد الآيات " +
+                            _vm._s(_vm.sura.NumberOfVerses) +
+                            "\n          "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "suraName btn btn-success" }, [
+                      _vm._v("سورة " + _vm._s(_vm.sura.suraName))
+                    ])
                   ])
                 ])
               ])
-            ])
-          ])
-        : _vm._e(),
+            : _vm._e()
+        ],
+        1
+      ),
       _vm._v(" "),
       _vm.showSura
         ? _c(
@@ -70232,9 +70238,9 @@ var render = function() {
                           { staticClass: "verseIndex btn btn-warning" },
                           [
                             _vm._v(
-                              "\n            آية رقم: " +
+                              "\n          آية رقم: " +
                                 _vm._s(index) +
-                                "\n          "
+                                "\n        "
                             )
                           ]
                         )
@@ -70317,8 +70323,7 @@ var render = function() {
             0
           )
         : _vm._e()
-    ],
-    1
+    ]
   )
 }
 var staticRenderFns = []
@@ -70343,81 +70348,87 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { ref: "theBookHeight", staticClass: "card", attrs: { id: "theBook" } },
-    [
-      _c(
-        "div",
-        { staticClass: "suraItemBlock" },
-        [
-          _vm.loading
-            ? _c(
-                "div",
-                { staticClass: "container spinner-box" },
-                [
-                  _c("b-spinner", {
-                    attrs: { label: "Small Spinner", variant: "info" }
-                  })
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.loading
-            ? _c("div", { staticClass: "indexTitle smallListTitle" }, [
-                _c("span", { staticClass: "btn" }, [_vm._v("قائمة الكتاب")])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm._l(_vm.surasList, function(suraIndexItem, index) {
-            return _c(
+  return _c("div", { staticClass: "card", attrs: { id: "theBook" } }, [
+    _c(
+      "div",
+      { staticClass: "suraItemBlock" },
+      [
+        _vm.loading
+          ? _c(
               "div",
-              {
-                key: index,
-                staticClass: "suraIndexItem smallListItems btn",
-                class: { isActive: _vm.activeSura === index },
-                on: {
-                  click: function($event) {
-                    return _vm.setSuraInPlay(suraIndexItem.fileName, index)
-                  }
-                }
-              },
+              { staticClass: "container spinner-box" },
               [
-                _c("label", [_vm._v(_vm._s(suraIndexItem.suraName))]),
-                _vm._v(" "),
-                _c("label", { staticStyle: { "font-size": "11px" } }, [
-                  _c("label", { staticClass: "smallList" }, [_vm._v("سورة")]),
-                  _vm._v(" "),
-                  _c("sup", [
-                    _vm._v(_vm._s(parseInt(suraIndexItem.suraIndex, 10)))
-                  ])
-                ])
-              ]
+                _c("b-spinner", {
+                  attrs: { label: "Small Spinner", variant: "info" }
+                })
+              ],
+              1
             )
-          })
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _vm.showSura
-        ? _c(
+          : _vm._e(),
+        _vm._v(" "),
+        !_vm.loading
+          ? _c("div", { staticClass: "indexTitle smallListTitle" }, [
+              _c("span", { staticClass: "btn" }, [_vm._v("قائمة الكتاب")])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm._l(_vm.surasList, function(suraIndexItem, index) {
+          return _c(
             "div",
-            [
-              _c("Sura", {
-                ref: "changingSura",
-                attrs: {
-                  suraFileName: _vm.suraFileName,
-                  suraName: _vm.suraName,
-                  theBookHeight: _vm.theBookHeight
+            {
+              key: index,
+              staticClass: "suraIndexItem smallListItems btn",
+              class: { isActive: _vm.activeSura === index },
+              on: {
+                click: function($event) {
+                  return _vm.setSuraInPlay(suraIndexItem.fileName, index)
                 }
-              })
-            ],
-            1
+              }
+            },
+            [
+              _c("label", [_vm._v(_vm._s(suraIndexItem.suraName))]),
+              _vm._v(" "),
+              _c("label", { staticStyle: { "font-size": "11px" } }, [
+                _c("label", { staticClass: "smallList" }, [_vm._v("سورة")]),
+                _vm._v(" "),
+                _c("sup", [
+                  _vm._v(_vm._s(parseInt(suraIndexItem.suraIndex, 10)))
+                ])
+              ])
+            ]
           )
-        : _vm._e()
-    ]
-  )
+        })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { attrs: { id: "surasGroup" } },
+      [
+        _c("Sura", {
+          ref: "screen1",
+          attrs: {
+            suraFileName: _vm.suraFileName,
+            suraName: _vm.suraName,
+            screen: 1
+          },
+          on: { changingScreen: _vm.changeScreen }
+        }),
+        _vm._v(" "),
+        _c("Sura", {
+          ref: "screen2",
+          attrs: {
+            suraFileName: _vm.suraFileName,
+            suraName: _vm.suraName,
+            screen: 2
+          },
+          on: { changingScreen: _vm.changeScreen }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -83472,8 +83483,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\quran_parser_test\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\quran_parser_test\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! c:\test\quran_parser_test\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! c:\test\quran_parser_test\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

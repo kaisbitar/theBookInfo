@@ -1,5 +1,8 @@
 <template>
-  <div class="suraBlock card">
+  <div
+    class="suraBlock card"
+    v-on:click="changeToScreen"
+  >
     <div
       v-if="loading"
       class="container-fluid spinner-box"
@@ -9,11 +12,8 @@
         variant="success"
       ></b-spinner>
     </div>
-    <fixedheader
-      v-if="showSura"
-      :threshold="matchHeight"
-    >
-      <div class="titleContainer card-header">
+    <div class="titleContainer card-header">
+      <fixedheader v-if="showSura">
         <div class="titleBlock">
           <div class="suraInfoBlock ">
             <span class="suraInfo btn btn-custom-orange col-sm">
@@ -27,12 +27,13 @@
             <div class="suraInfo btn btn-warning col-sm suraVersesNum ">
               عدد الآيات {{sura.NumberOfVerses}}
             </div>
-            <div class="suraName btn btn-success">سورة {{suraName}}</div>
+            <div class="suraName btn btn-success">سورة {{sura.suraName}}</div>
           </div>
           <!-- <SearchSura ref="searchSura" v-if="showSura" :verses = "verses">SearchSura</SearchSura>                          -->
         </div>
-      </div>
-    </fixedheader>
+      </fixedheader>
+    </div>
+
     <div
       v-if="showSura"
       class="versesBlock"
@@ -51,9 +52,9 @@
             <span class="verseInfo btn btn-custom-orange">{{verse.NumberOfWords}} كلمة</span>
             <span class="verseInfo btn btn-secondary">{{verse.NumberOfLetters}} حرف</span>
           </div>
-            <span class="verseIndex btn btn-warning">
-              آية رقم: {{index}}
-            </span>
+          <span class="verseIndex btn btn-warning">
+            آية رقم: {{index}}
+          </span>
         </div>
         <!-- hidden inputs for holding data -->
         <input
@@ -70,7 +71,7 @@
         >
         <!--  -->
         <div class="verseText container-fluid">
-          <span class = "btn btn-success">
+          <span class="btn btn-success">
             {{verse.verseText}}
           </span>
         </div>
@@ -87,7 +88,7 @@ export default {
     SearchSura,
     props: ["verses"]
   },
-  props: ["suraFileName", "suraName", "quranIndexHeight"],
+  props: ["suraFileName", "screen"],
   data() {
     return {
       sura: [],
@@ -105,6 +106,9 @@ export default {
       this.verse.NumberOfWords = verse.NumberOfWords;
       this.detailShow = true;
       return this.verse;
+    },
+    changeToScreen() {
+      this.$emit("changingScreen", this.screen);
     }
   },
   computed: {
@@ -134,12 +138,11 @@ export default {
           this.sura.NumberOfLetters = res.NumberOfLetters;
           this.sura.NumberOfVerses = res.NumberOfVerses;
           this.sura.NumberOfWords = res.NumberOfWords;
+          console.log(res.Name);
+          this.sura.suraName = res.Name;
+          console.log(res.Name);
           this.fetchVerses;
-          this.matchHeight;
         });
-    },
-    matchHeight: function() {
-      return this.quranIndexHeight / 2;
     }
   },
   mounted() {}
@@ -147,10 +150,10 @@ export default {
 </script>
 
 <style scoped>
-.btn {    
+.btn {
   padding: 0;
   color: #000;
-  }
+}
 .spinner-box {
   margin-top: 15px;
 }
@@ -188,7 +191,7 @@ export default {
   margin: auto;
   transition: all 1s ease;
 }
-.titleContainer.vue-fixed-header--isFixed {
+.titleBlock.vue-fixed-header--isFixed {
   position: fixed;
   left: 0;
   top: 0;
@@ -199,10 +202,10 @@ export default {
   transition: all 0.11s ease;
 }
 .suraBlock {
-  min-height: 512px;
+  /* min-height: 512px; */
 }
 span.verseInfo.btn-custom-orange {
-    margin-left: 3px;
+  margin-left: 3px;
 }
 .SuraLettersCount {
   margin-left: auto;
@@ -231,14 +234,14 @@ span.verseInfo.btn-custom-orange {
   display: sticky;
 }
 .verseIndex {
-	font-size: 12px;
-	width: 110px;
+  font-size: 12px;
+  width: 110px;
 }
 .verseInfo {
-	font-size: 12px;
-	/* margin: 4px 0px 4px 4px; */
-	width: 53.4px;
-} 
+  font-size: 12px;
+  /* margin: 4px 0px 4px 4px; */
+  width: 53.4px;
+}
 .verseInfo .verseIndex {
   font-size: 12px;
 }
@@ -255,20 +258,20 @@ span.verseInfo.btn-custom-orange {
 .btn-success {
   background-color: #28a74557;
 }
-.verseCounts{
+.verseCounts {
   display: flex;
 }
 .verseText {
   text-align: center;
-	margin-top: 3px;
-	padding: 2px;
-	padding-bottom: 0px;
+  margin-top: 3px;
+  padding: 2px;
+  padding-bottom: 0px;
   /* margin-bottom: 5px;
 	padding: 11px; */
 }
 .verseText.container-fluid .btn {
-	padding: 4px;
-	font-size: 14px;
-	padding-top: 0px;
+  padding: 4px;
+  font-size: 14px;
+  padding-top: 0px;
 }
 </style>

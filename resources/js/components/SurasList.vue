@@ -2,7 +2,6 @@
   <div
     id="theBook"
     class="card"
-    ref="theBookHeight"
   >
     <div class="suraItemBlock">
       <div
@@ -34,20 +33,20 @@
         </label>
       </div>
     </div>
-    <div v-if="showSura">
-      <!-- <Sura
-        ref="changingSura"
-        v-for="(sura, index) in surasList"
-        v-bind:key="index"
-        :suraFileName="suraFileName"
-        :suraName="suraName"
-        :theBookHeight="theBookHeight"
-      ></Sura> -->
+    <div id="surasGroup">
       <Sura
-        ref="changingSura"
+        ref="screen1"
         :suraFileName="suraFileName"
         :suraName="suraName"
-        :theBookHeight="theBookHeight"
+        :screen=1
+        v-on:changingScreen="changeScreen"
+      ></Sura>
+      <Sura
+        ref="screen2"
+        :suraFileName="suraFileName"
+        :suraName="suraName"
+        :screen=2
+        v-on:changingScreen="changeScreen"
       ></Sura>
     </div>
   </div>
@@ -60,7 +59,7 @@ import Sura from "./Sura.vue";
 export default {
   components: {
     Sura,
-    props: ["suraFileName", "suraName", "theBookHeight"]
+    props: ["suraFileName", "screen"]
   },
   data() {
     return {
@@ -68,10 +67,10 @@ export default {
       suraName: "",
       suraNumber: "",
       suraFileName: "",
-      theBookHeight: "",
       showSura: true,
       isActive: false,
       loading: true,
+      screen: 1,
       activeSura: 0 //0 to default to الفاتحة this can be dynamic later on for user experience purposes
       // smallList: false
     };
@@ -91,29 +90,29 @@ export default {
       this.activeSura = index;
       this.isActive = true;
       this.suraNumber = parseInt(fileName, 10);
-      this.suraName = this.suraFileName.replace(/[0-9]/g, "");
-      this.$refs.changingSura.fetchSura;
+      // this.suraName = this.suraFileName.replace(/[0-9]/g, "");
       this.smallList = true;
-      // let windos = this.$el.querySelector("#theBook");
-      // scroll = 0;
-      // console.log(scroll);
-      // windos.scrollDown = scroll -200
+    },
+    changeScreen(screen) {
+      this.screen = screen;
     }
   },
   created() {
     this.fetchList();
   },
   updated() {
-    this.$refs.changingSura.fetchSura;
-    this.theBookHeight = this.$refs.theBookHeight.clientHeight;
-  },
-  computed: {
-    s: function() {
-      this.theBookHeight = this.$refs.theBookHeight.clientHeight;
+    if (this.screen == 1) {
+      this.suraName = this.suraFileName.replace(/[0-9]/g, "");
+      this.$refs.screen1.fetchSura;
+    } else {
+      this.$refs.screen2.fetchSura;
+      this.suraName = this.suraFileName.replace(/[0-9]/g, "");
     }
   },
+
+  computed: {},
   mounted() {
-    this.$refs.theBookHeight.matchHeight;
+    // this.$refs.screen1.fetchSura;
   }
 };
 </script>
@@ -132,6 +131,7 @@ div#theBook {
   width: max-content;
   transition: all 1s ease;
 }
+
 .indexTitle > span {
   display: block;
   font-size: 45px;
@@ -170,7 +170,7 @@ div#theBook {
   display: flex;
 }
 .smallListTitle > span {
-  font-size: 21.7px  !important;
+  font-size: 21.7px !important;
   padding: 0;
   padding-bottom: 7px;
   transition: all 1s ease;
@@ -182,10 +182,13 @@ div#theBook {
   height: 38px;
   font-size: 12px;
   padding: 0;
-  /* font-weight: bolder; */
   transition: all 1s ease;
 }
 .isActive {
   background: #9fe83e4f;
+}
+#surasGroup {
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
 </style>
