@@ -34,15 +34,18 @@
       </fixedheader>
     </div>
 
-    <div
-      v-if="showSura"
+    <draggable
       class="versesBlock"
+      :array="verses"
+      @change="changeToScreen"
     >
+
       <div
         class="verse card"
         v-for="(verse, index) in verses"
         v-bind:key="index"
-        @click.prevent="showDetail(verse)"
+        ref="thisVerse"
+        @click.prevent="selectVerse(verse, index)"
       >
         <div
           v-if="index!='SuraLettersCount'"
@@ -76,13 +79,14 @@
           </span>
         </div>
       </div>
-    </div>
+    </draggable>
   </div>
 </template> 
 
-<!-- Lib for stars -->
 <script>
 import SearchSura from "./SearchSura.vue";
+import CalculateBox from "./CalculateBox.vue";
+
 export default {
   components: {
     SearchSura,
@@ -100,15 +104,14 @@ export default {
     };
   },
   methods: {
-    showDetail(verse) {
-      this.verse.verseText = verse.verseText;
-      this.verse.NumberOfLetters = verse.NumberOfLetters;
-      this.verse.NumberOfWords = verse.NumberOfWords;
-      this.detailShow = true;
-      return this.verse;
-    },
+    // dropToCalculate() {
+    //   this.$emit("changingScreen", this.screen);
+    // },
     changeToScreen() {
       this.$emit("changingScreen", this.screen);
+    },
+    selectVerse(verse, index) {
+      this.verse = this.verses[index];
     }
   },
   computed: {
@@ -135,17 +138,20 @@ export default {
       fetch("api/sura-map/" + this.suraFileName, { method: "GET" })
         .then(res => res.json())
         .then(res => {
+          this.sura = res;
+          // return;
           this.sura.NumberOfLetters = res.NumberOfLetters;
           this.sura.NumberOfVerses = res.NumberOfVerses;
           this.sura.NumberOfWords = res.NumberOfWords;
-          console.log(res.Name);
           this.sura.suraName = res.Name;
-          console.log(res.Name);
+          this.sura.suraName = res.Name.replace(/[0-9]/g, "");
           this.fetchVerses;
         });
     }
   },
-  mounted() {}
+  mounted() {},
+  created() {},
+  updated() {}
 };
 </script>
 

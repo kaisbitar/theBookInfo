@@ -1,22 +1,23 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
- 
-require('./bootstrap');
-import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import FixedHeader from 'vue-fixed-header'
 
-window.Vue = require('vue');   
-var VueScrollTo = require('vue-scrollto');
+require("./bootstrap");
+import Vue from "vue";
+import BootstrapVue from "bootstrap-vue";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+import FixedHeader from "vue-fixed-header";
+import draggable from "vuedraggable";
 
-Vue.use(BootstrapVue)
-Vue.use(VueScrollTo)
+window.Vue = require("vue");
+var VueScrollTo = require("vue-scrollto");
+
+Vue.use(BootstrapVue);
+Vue.use(VueScrollTo);
+Vue.use(draggable);
 
 // Vue.use(FixedHeader)
 
@@ -31,11 +32,15 @@ Vue.use(VueScrollTo)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('Sura', require('./components/Sura.vue').default);
+Vue.component("Sura", require("./components/Sura.vue").default);
 // Vue.component('verseInPlay', {  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
-Vue.component('suras-list', require('./components/SurasList.vue').default);
-Vue.component('fixedheader', FixedHeader);
-
+Vue.component(
+    "calculate-box",
+    require("./components/CalculateBox.vue").default
+);
+Vue.component("suras-list", require("./components/SurasList.vue").default);
+Vue.component("fixedheader", FixedHeader);
+Vue.component("draggable", draggable);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -43,5 +48,5 @@ Vue.component('fixedheader', FixedHeader);
  */
 
 const app = new Vue({
-    el: '#app'
+    el: "#app"
 });

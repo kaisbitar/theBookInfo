@@ -50,7 +50,6 @@
       ></Sura>
     </div>
   </div>
-  <!-- <div class="btn btn-success"></div> -->
 </template> 
 
 
@@ -90,7 +89,6 @@ export default {
       this.activeSura = index;
       this.isActive = true;
       this.suraNumber = parseInt(fileName, 10);
-      // this.suraName = this.suraFileName.replace(/[0-9]/g, "");
       this.smallList = true;
     },
     changeScreen(screen) {
@@ -102,18 +100,14 @@ export default {
   },
   updated() {
     if (this.screen == 1) {
-      this.suraName = this.suraFileName.replace(/[0-9]/g, "");
       this.$refs.screen1.fetchSura;
     } else {
       this.$refs.screen2.fetchSura;
-      this.suraName = this.suraFileName.replace(/[0-9]/g, "");
     }
   },
 
   computed: {},
-  mounted() {
-    // this.$refs.screen1.fetchSura;
-  }
+  mounted() {}
 };
 </script>
 
@@ -182,7 +176,7 @@ div#theBook {
   height: 38px;
   font-size: 12px;
   padding: 0;
-  transition: all 1s ease;
+  transition: all 0.2s ease;
 }
 .isActive {
   background: #9fe83e4f;
