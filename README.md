@@ -1,4 +1,4 @@
-# Quran Parser
+# The Book Info
 
 To have the project up and running:
 
