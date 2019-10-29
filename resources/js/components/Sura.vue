@@ -32,10 +32,11 @@
         </div>
       </fixedheader>
     </div>
-    <draggable
-      :array="verse"
-    >
-          <calculate-box @change="addVerse" :array="verse">Dop to calculate..</calculate-box>                         
+    <draggable :array="verse">
+      <calculate-box
+        @change="addVerse"
+        :array="verse"
+      >Dop to calculate..</calculate-box>
     </draggable>
     <draggable
       class="versesBlock"
@@ -88,7 +89,7 @@
 
 <script>
 import SearchSura from "./SearchSura.vue";
-import CalculateBox from "./CalculateBox.vue";
+// import CalculateBox from "./CalculateBox.vue";
 
 export default {
   components: {
@@ -115,9 +116,9 @@ export default {
     },
     selectVerse(verse, index) {
       console.log(verse);
-      this.verse =verse
+      this.verse = verse;
     },
-        addVerse(){
+    addVerse() {
       console.log(this.verse);
     }
   },
@@ -146,7 +147,6 @@ export default {
         .then(res => res.json())
         .then(res => {
           this.sura = res;
-          // return;
           this.sura.NumberOfLetters = res.NumberOfLetters;
           this.sura.NumberOfVerses = res.NumberOfVerses;
           this.sura.NumberOfWords = res.NumberOfWords;
