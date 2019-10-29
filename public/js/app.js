@@ -1688,6 +1688,48 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalculateBox.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CalculateBox.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Sura_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Sura.vue */ "./resources/js/components/Sura.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Sura: _Sura_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    props: ["verse"]
+  },
+  data: function data() {
+    return {
+      verseList: [],
+      verse: []
+    };
+  },
+  methods: {},
+  computed: {
+    addVerse: function addVerse() {
+      console.log(this.verse);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SearchSura.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SearchSura.vue?vue&type=script&lang=js& ***!
@@ -1846,6 +1888,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1865,14 +1910,18 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    // dropToCalculate() {
-    //   this.$emit("changingScreen", this.screen);
-    // },
+    dropToCalculate: function dropToCalculate() {
+      this.$emit("changingScreen", this.screen);
+    },
     changeToScreen: function changeToScreen() {
       this.$emit("changingScreen", this.screen);
     },
     selectVerse: function selectVerse(verse, index) {
-      this.verse = this.verses[index];
+      console.log(verse);
+      this.verse = verse;
+    },
+    addVerse: function addVerse() {
+      console.log(this.verse);
     }
   },
   computed: {
@@ -73767,9 +73816,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" })
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "card" }, [_vm._v("\n      Calculate\n  ")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -73935,6 +73993,19 @@ var render = function() {
       _vm._v(" "),
       _c(
         "draggable",
+        { attrs: { array: _vm.verse } },
+        [
+          _c(
+            "calculate-box",
+            { attrs: { array: _vm.verse }, on: { change: _vm.addVerse } },
+            [_vm._v("Dop to calculate..")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "draggable",
         {
           staticClass: "versesBlock",
           attrs: { array: _vm.verses },
@@ -73956,8 +74027,9 @@ var render = function() {
               }
             },
             [
-              index != "SuraLettersCount"
+              verse[index] != "SuraLettersCount"
                 ? _c("div", { staticClass: "SuraLettersCount" }, [
+                    _vm._v(_vm._s(index) + "\n        "),
                     _c("div", { staticClass: "verseCounts" }, [
                       _c(
                         "span",
@@ -90236,21 +90308,24 @@ if (token) {
 /*!**************************************************!*\
   !*** ./resources/js/components/CalculateBox.vue ***!
   \**************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CalculateBox_vue_vue_type_template_id_a115ac20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CalculateBox.vue?vue&type=template&id=a115ac20& */ "./resources/js/components/CalculateBox.vue?vue&type=template&id=a115ac20&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _CalculateBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CalculateBox.vue?vue&type=script&lang=js& */ "./resources/js/components/CalculateBox.vue?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CalculateBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CalculateBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CalculateBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _CalculateBox_vue_vue_type_template_id_a115ac20___WEBPACK_IMPORTED_MODULE_0__["render"],
   _CalculateBox_vue_vue_type_template_id_a115ac20___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -90264,6 +90339,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/CalculateBox.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CalculateBox.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/CalculateBox.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CalculateBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CalculateBox.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalculateBox.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CalculateBox_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -90546,8 +90635,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\test\quran_parser_test\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\test\quran_parser_test\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\quran_parser_test\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\quran_parser_test\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

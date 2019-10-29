@@ -29,11 +29,14 @@
             </div>
             <div class="suraName btn btn-success">سورة {{sura.suraName}}</div>
           </div>
-          <!-- <SearchSura ref="searchSura" v-if="showSura" :verses = "verses">SearchSura</SearchSura>                          -->
         </div>
       </fixedheader>
     </div>
-
+    <draggable
+      :array="verse"
+    >
+          <calculate-box @change="addVerse" :array="verse">Dop to calculate..</calculate-box>                         
+    </draggable>
     <draggable
       class="versesBlock"
       :array="verses"
@@ -45,12 +48,12 @@
         v-for="(verse, index) in verses"
         v-bind:key="index"
         ref="thisVerse"
-        @click.prevent="selectVerse(verse, index)"
+        v-on:click.prevent="selectVerse(verse, index)"
       >
         <div
-          v-if="index!='SuraLettersCount'"
+          v-if="verse[index]!='SuraLettersCount'"
           class="SuraLettersCount"
-        >
+        >{{index}}
           <div class="verseCounts">
             <span class="verseInfo btn btn-custom-orange">{{verse.NumberOfWords}} كلمة</span>
             <span class="verseInfo btn btn-secondary">{{verse.NumberOfLetters}} حرف</span>
@@ -104,14 +107,18 @@ export default {
     };
   },
   methods: {
-    // dropToCalculate() {
-    //   this.$emit("changingScreen", this.screen);
-    // },
+    dropToCalculate() {
+      this.$emit("changingScreen", this.screen);
+    },
     changeToScreen() {
       this.$emit("changingScreen", this.screen);
     },
     selectVerse(verse, index) {
-      this.verse = this.verses[index];
+      console.log(verse);
+      this.verse =verse
+    },
+        addVerse(){
+      console.log(this.verse);
     }
   },
   computed: {
