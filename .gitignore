@@ -1,8 +1,6 @@
 /node_modules
 /storage/logs
-/storage/app
 /storage/*.key
-/storage/framework
 # /storage/decoded_suras
 # /storage/decoded_verses
 /vendor
