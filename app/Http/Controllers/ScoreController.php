@@ -16,16 +16,22 @@ class ScoreController extends Controller
     private $allScores;
     private $words;
     private $verses;
+    private $request;
     
     public function __construct(Request $request)
     {
+        $this->request = $request;
+        if($request->verse){
+            
+        }
+        else{
         $this->allScores = $this->calculateLettersScore();
         $fileName = $request->fileName;
         $file = storage_path() . "/decoded_suras" . '/' .$fileName. '_sura_results.json';
         $results = json_decode(file_get_contents($file), true);
         // dd($results);
         $this->words = $results["WordOccurrences"];
-        $this->verses = $results["VersesScore"];
+        $this->verses = $results["VersesScore"];}
     }
 
     public function eachWordScore()
@@ -35,7 +41,6 @@ class ScoreController extends Controller
         foreach ($this->words as $word => $count) {
             $scores[$word] = $this->calculateScore($word);
         }
-
         arsort($scores);
         return $this->jsonResponse($scores);
     }
@@ -43,23 +48,34 @@ class ScoreController extends Controller
     public function eachVerseScore()
     {
         $scores = [];
-        foreach ($this->verses as $index => $verseArr) {
-            if (is_numeric($index)) {
-                $verse = ($this->verses[$index]["verseText"]);
-                $stripped = preg_replace('/\s/', '', $verse);
-                $scores[$index] = [
-                    "verse" => $verse,
-                    "score" => $this->calculateScore($stripped)
-                ];
+        $resultFileName = $this->request->fileName . '_verses_score.json';
+
+        // dd($resultFileName);
+        if (!file_exists(storage_path('scored_verses/' . $resultFileName))) {
+            $this->request->fileName;
+            $scores = [];
+            foreach ($this->verses as $index => $verseArr) {
+                if (is_numeric($index)) {
+                    $verse = ($this->verses[$index]["verseText"]);
+                    $stripped = preg_replace('/\s/', '', $verse);
+                    $scores[$index] = [
+                        "verse" => $verse,
+                        "score" => $this->calculateScore($stripped)
+                    ];
+                }
             }
+            arsort($scores);
+            file_put_contents(storage_path('scored_verses/' .$this->request->fileName.'_verses_score.json'), json_encode($scores, JSON_UNESCAPED_UNICODE));
         }
-        
-        arsort($scores);
-        return $this->jsonResponse($scores);
+        else{
+            $scores = file_get_contents(storage_path('scored_verses/' . $this->request->fileName . '_verses_score.json',JSON_UNESCAPED_UNICODE));
+        }
+        return ($scores);
     }
 
     public function calculateScore($phrase)
-    {
+    { 
+        // dd($phrase);
         $lettersArray = preg_split('//u', $phrase, -1, PREG_SPLIT_NO_EMPTY);
         $score = 0;
 
