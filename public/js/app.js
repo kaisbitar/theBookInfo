@@ -1697,7 +1697,6 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Sura_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Sura.vue */ "./resources/js/components/Sura.vue");
 //
 //
 //
@@ -1744,7 +1743,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1753,14 +1753,17 @@ __webpack_require__.r(__webpack_exports__);
       versesToCal: [],
       versesOn: false,
       calBox: false,
-      indexCal: 0
+      indexCal: 0,
+      suraFileName: '',
+      index: '',
+      verseScore: ''
     };
   },
   methods: {
     fetchVerses: function fetchVerses(suraFileName) {
       var _this = this;
 
-      console.log(suraFileName);
+      this.suraFileName = suraFileName;
       fetch("api/verses-map/" + suraFileName, {
         method: "GET"
       }).then(function (res) {
@@ -1771,17 +1774,30 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     putVerseToCal: function putVerseToCal(index, verse) {
+      this.index = index;
       this.versesToCal.push({
         verse: verse.verseText,
         verseIndex: index
       });
       this.calBox = true;
       return this.versesToCal;
+    },
+    getVerseScore: function getVerseScore() {
+      var _this2 = this;
+
+      fetch("api/verse-score/" + this.suraFileName + '/' + this.index, {
+        method: "GET"
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this2.verseScore = res;
+      });
+      return this.verseScore;
     }
   },
   computed: {},
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
     fetchListCal: {
       fetch("api/quran-index", {
@@ -1789,7 +1805,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this2.surasList = res;
+        _this3.surasList = res;
       });
     }
   },
@@ -74000,16 +74016,15 @@ var render = function() {
     ),
     _vm._v(" "),
     _vm.calBox
-      ? _c(
-          "div",
-          { staticClass: "card" },
-          _vm._l(_vm.versesToCal, function(verseToCal) {
-            return _c("div", { staticClass: "badge badge-warning" }, [
-              _vm._v(_vm._s(verseToCal))
-            ])
-          }),
-          0
-        )
+      ? _c("div", { staticClass: "card" }, [
+          _vm._v(
+            "\n     " +
+              _vm._s(_vm.versesToCal) +
+              ", " +
+              _vm._s(_vm.getVerseScore()) +
+              "\n     "
+          )
+        ])
       : _vm._e()
   ])
 }

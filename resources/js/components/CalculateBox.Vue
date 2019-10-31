@@ -33,7 +33,9 @@
       class="card"
       v-if="calBox"
     >
-     <div class="badge badge-warning" v-for="verseToCal in versesToCal">{{(verseToCal)}}</div> 
+     <!-- <div class="badge badge-warning" v-for="verseToCal in versesToCal"> -->
+       {{versesToCal}}, {{getVerseScore()}}
+       <!-- </div>  -->
     </div>
   </div>
 </template>
@@ -45,8 +47,6 @@ body {
 </style>
 
 <script>
-import Sura from "./Sura.vue";
-
 export default {
   data() {
     return {
@@ -55,12 +55,15 @@ export default {
       versesToCal: [],
       versesOn: false,
       calBox: false,
-      indexCal: 0
+      indexCal: 0,
+      suraFileName:'',
+      index:'',
+      verseScore: ''
     };
   },
   methods: {
     fetchVerses: function(suraFileName) {
-      console.log(suraFileName);
+      this.suraFileName = suraFileName;
       fetch("api/verses-map/" + suraFileName, { method: "GET" })
         .then(res => res.json())
         .then(res => {
@@ -69,12 +72,22 @@ export default {
         });
     },
     putVerseToCal: function(index, verse) {
+      this.index = index;
       this.versesToCal.push({verse: verse.verseText, verseIndex: index});
       this.calBox = true;
       return this.versesToCal;
+    },
+    getVerseScore: function(){
+      fetch("api/verse-score/" + this.suraFileName + '/' + this.index, { method: "GET" })
+        .then(res => res.json())
+        .then(res => {
+          this.verseScore = res
+        });
+      return this.verseScore;
     }
   },
   computed: {
+    
   },
   created() {
     fetchListCal: {
