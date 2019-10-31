@@ -23,7 +23,7 @@
         <b-dropdown-item-button
           v-for="(verse, index) in verses"
           v-bind:key="index"
-          @click.prevent="putVerseToCal(index)"
+          v-on:click="putVerseToCal(index, verse)"
         >
           {{index}}- {{verse.verseText}}
         </b-dropdown-item-button>
@@ -37,7 +37,7 @@
         v-for="(verseToCal, indexCal) in this.versesToCal"
         v-bind:key="indexCal"
       >
-        {{(verseToCal)}}
+        {{(versesToCal)}}
       </div>
     </div>
   </div>
@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       surasList: [],
-      verses: [],
+      verses: ['s'],
       verse: [],
       versesToCal: [],
       versesOn: false,
@@ -74,15 +74,14 @@ export default {
           this.versesOn = true;
         });
     },
-    putVerseToCal: function(index) {
+    putVerseToCal: function(index, verse) {
       // this.toCalVerses(index);
       // this.versesToCal = index;
-      $set(this.versesToCal, this.indexCal, this.verses[index]);
+      this.versesToCal[this.indexCal] = verse.verseText;
       // = this.verses[index];
       this.indexCal++;
-      Vue.nextTick;
       console.log(this.verses[index]);
-      // return this.versesToCal;
+       return this.versesToCal;
     },
     displayVersesToCal: function(verseToCal) {
       return this.versesToCal;
@@ -109,7 +108,7 @@ export default {
         });
     }
   },
-  updated() {},
+  updated() {this.putVerseToCal},
   mounted() {
     // this.putVerseToCal;
   }

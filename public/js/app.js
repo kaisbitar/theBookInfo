@@ -1754,7 +1754,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       surasList: [],
-      verses: [],
+      verses: ['s'],
       verse: [],
       versesToCal: [],
       versesOn: false,
@@ -1776,14 +1776,14 @@ __webpack_require__.r(__webpack_exports__);
         _this.versesOn = true;
       });
     },
-    putVerseToCal: function putVerseToCal(index) {
+    putVerseToCal: function putVerseToCal(index, verse) {
       // this.toCalVerses(index);
       // this.versesToCal = index;
-      $set(this.versesToCal, this.indexCal, this.verses[index]); // = this.verses[index];
+      this.versesToCal[this.indexCal] = verse.verseText; // = this.verses[index];
 
       this.indexCal++;
-      Vue.nextTick;
-      console.log(this.verses[index]); // return this.versesToCal;
+      console.log(this.verses[index]);
+      return this.versesToCal;
     },
     displayVersesToCal: function displayVersesToCal(verseToCal) {
       return this.versesToCal;
@@ -1814,7 +1814,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  updated: function updated() {},
+  updated: function updated() {
+    this.putVerseToCal;
+  },
   mounted: function mounted() {// this.putVerseToCal;
   }
 });
@@ -73999,8 +74001,7 @@ var render = function() {
                     key: index,
                     on: {
                       click: function($event) {
-                        $event.preventDefault()
-                        return _vm.putVerseToCal(index)
+                        return _vm.putVerseToCal(index, verse)
                       }
                     }
                   },
@@ -74028,7 +74029,7 @@ var render = function() {
           { staticClass: "card" },
           _vm._l(this.versesToCal, function(verseToCal, indexCal) {
             return _c("div", { key: indexCal }, [
-              _vm._v("\n      " + _vm._s(verseToCal) + "\n    ")
+              _vm._v("\n      " + _vm._s(_vm.versesToCal) + "\n    ")
             ])
           }),
           0
@@ -90861,8 +90862,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\test\quran_parser_test\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\test\quran_parser_test\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\quran_parser_test\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\quran_parser_test\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
