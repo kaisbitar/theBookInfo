@@ -1744,21 +1744,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       surasList: [],
-      verses: ['s'],
-      verse: [],
+      verses: [],
       versesToCal: [],
       versesOn: false,
-      verseOn: false,
+      calBox: false,
       indexCal: 0
     };
   },
@@ -1777,30 +1771,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     putVerseToCal: function putVerseToCal(index, verse) {
-      // this.toCalVerses(index);
-      // this.versesToCal = index;
-      this.versesToCal[this.indexCal] = verse.verseText; // = this.verses[index];
-
-      this.indexCal++;
-      console.log(this.verses[index]);
-      return this.versesToCal;
-    },
-    displayVersesToCal: function displayVersesToCal(verseToCal) {
+      this.versesToCal.push({
+        verse: verse.verseText,
+        verseIndex: index
+      });
+      this.calBox = true;
       return this.versesToCal;
     }
   },
-  computed: {
-    verseToCal: function verseToCal() {
-      return this.versesToCal;
-    } // toCalVerses() {
-    //   this.versesToCal[this.indexCal] = this.verses[this.index];
-    //   this.verseOn = true;
-    //   this.indexCal++;
-    //   console.log(this.toCalVerses);
-    //   return this.versesToCal;
-    // }
-
-  },
+  computed: {},
   created: function created() {
     var _this2 = this;
 
@@ -1814,11 +1793,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  updated: function updated() {
-    this.putVerseToCal;
-  },
-  mounted: function mounted() {// this.putVerseToCal;
-  }
+  updated: function updated() {},
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -74023,13 +73999,13 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _vm.versesOn
+    _vm.calBox
       ? _c(
           "div",
           { staticClass: "card" },
-          _vm._l(this.versesToCal, function(verseToCal, indexCal) {
-            return _c("div", { key: indexCal }, [
-              _vm._v("\n      " + _vm._s(_vm.versesToCal) + "\n    ")
+          _vm._l(_vm.versesToCal, function(verseToCal) {
+            return _c("div", { staticClass: "badge badge-warning" }, [
+              _vm._v(_vm._s(verseToCal))
             ])
           }),
           0

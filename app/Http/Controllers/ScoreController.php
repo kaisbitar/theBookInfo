@@ -9,6 +9,7 @@ use App\Indexer;
 use App\Verse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Collection;
 
 class ScoreController extends Controller
 {
@@ -21,17 +22,12 @@ class ScoreController extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
-        if($request->verse){
-            
-        }
-        else{
         $this->allScores = $this->calculateLettersScore();
         $fileName = $request->fileName;
         $file = storage_path() . "/decoded_suras" . '/' .$fileName. '_sura_results.json';
         $results = json_decode(file_get_contents($file), true);
-        // dd($results);
         $this->words = $results["WordOccurrences"];
-        $this->verses = $results["VersesScore"];}
+        $this->verses = $results["VersesScore"];
     }
 
     public function eachWordScore()
@@ -49,11 +45,7 @@ class ScoreController extends Controller
     {
         $scores = [];
         $resultFileName = $this->request->fileName . '_verses_score.json';
-
-        // dd($resultFileName);
         if (!file_exists(storage_path('scored_verses/' . $resultFileName))) {
-            $this->request->fileName;
-            $scores = [];
             foreach ($this->verses as $index => $verseArr) {
                 if (is_numeric($index)) {
                     $verse = ($this->verses[$index]["verseText"]);
@@ -64,12 +56,20 @@ class ScoreController extends Controller
                     ];
                 }
             }
-            arsort($scores);
+            arsort($scores);       
             file_put_contents(storage_path('scored_verses/' .$this->request->fileName.'_verses_score.json'), json_encode($scores, JSON_UNESCAPED_UNICODE));
         }
-        else{
-            $scores = file_get_contents(storage_path('scored_verses/' . $this->request->fileName . '_verses_score.json',JSON_UNESCAPED_UNICODE));
+        $scores = file_get_contents(storage_path('scored_verses/' .$this->request->fileName. '_verses_score.json',JSON_UNESCAPED_UNICODE));
+        if($this->request->verseIndex){
+            $scores = json_decode($scores);
+            $scores = collect($scores);
+            $scores = $scores->filter(function ($value, $key) {
+                return $key == $this->request->verseIndex;
+            });
+
+            return $scores;
         }
+
         return ($scores);
     }
 

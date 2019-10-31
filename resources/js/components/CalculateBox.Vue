@@ -31,14 +31,9 @@
     </div>
     <div
       class="card"
-      v-if="versesOn"
+      v-if="calBox"
     >
-      <div
-        v-for="(verseToCal, indexCal) in this.versesToCal"
-        v-bind:key="indexCal"
-      >
-        {{(versesToCal)}}
-      </div>
+     <div class="badge badge-warning" v-for="verseToCal in versesToCal">{{(verseToCal)}}</div> 
     </div>
   </div>
 </template>
@@ -56,11 +51,10 @@ export default {
   data() {
     return {
       surasList: [],
-      verses: ['s'],
-      verse: [],
+      verses: [],
       versesToCal: [],
       versesOn: false,
-      verseOn: false,
+      calBox: false,
       indexCal: 0
     };
   },
@@ -70,34 +64,17 @@ export default {
       fetch("api/verses-map/" + suraFileName, { method: "GET" })
         .then(res => res.json())
         .then(res => {
-          this.verses = res;
+          this.verses = res;  
           this.versesOn = true;
         });
     },
     putVerseToCal: function(index, verse) {
-      // this.toCalVerses(index);
-      // this.versesToCal = index;
-      this.versesToCal[this.indexCal] = verse.verseText;
-      // = this.verses[index];
-      this.indexCal++;
-      console.log(this.verses[index]);
-       return this.versesToCal;
-    },
-    displayVersesToCal: function(verseToCal) {
+      this.versesToCal.push({verse: verse.verseText, verseIndex: index});
+      this.calBox = true;
       return this.versesToCal;
     }
   },
   computed: {
-    verseToCal: function() {
-      return this.versesToCal;
-    }
-    // toCalVerses() {
-    //   this.versesToCal[this.indexCal] = this.verses[this.index];
-    //   this.verseOn = true;
-    //   this.indexCal++;
-    //   console.log(this.toCalVerses);
-    //   return this.versesToCal;
-    // }
   },
   created() {
     fetchListCal: {
@@ -108,9 +85,7 @@ export default {
         });
     }
   },
-  updated() {this.putVerseToCal},
-  mounted() {
-    // this.putVerseToCal;
-  }
+  updated() {},
+  mounted() { }
 };
 </script>
