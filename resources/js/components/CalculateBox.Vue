@@ -1,48 +1,49 @@
 <template>
   <div>
-    <div>
-      <b-dropdown
+    <div class="container-fluid">
+      <div class="card-group"
         size="lg"
         text="Large"
-        class="m-2"
       >
-        <b-dropdown-item-button
+        <div 
           v-for="(suraIndexItem, index) in surasList"
           v-bind:key="index"
           @click.prevent="fetchVerses(suraIndexItem.fileName)"
         >
           {{suraIndexItem.suraName}} {{suraIndexItem.suraIndex}}
-        </b-dropdown-item-button>
-      </b-dropdown>
-      <b-dropdown
+        </div>
+      </div>
+      <div class="card"
         v-if="versesOn"
         size="lg"
         text="Large"
-        class="m-2"
       >
-        <b-dropdown-item-button
+        <div
+        class="card"
+        v-if="calBox"
+        >
+          <div class="badge badge-warning" v-for="verseToCal in versesToCal">
+            اية رقم {{verseToCal.verseIndex}}   {{verseToCal.verseText}}    score={{verseToCal.verseScore.score}}               
+          </div>
+        </div>
+        <div class="resultBox bade-success">
+          {{Verses19Result}}
+        </div>
+        <div
           v-for="(verse, index) in verses"
           v-bind:key="index"
-          v-on:click="putVerseToCal(index, verse)"
+          v-on:click="putVerseToCal(index, verse.verseText)"
         >
           {{index}}- {{verse.verseText}}
-        </b-dropdown-item-button>
-      </b-dropdown>
-    </div>
-    <div
-      class="card"
-      v-if="calBox"
-    >
-     <!-- <div class="badge badge-warning" v-for="verseToCal in versesToCal"> -->
-       {{versesToCal}}, {{getVerseScore()}}
-       <!-- </div>  -->
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 body {
-  direction: ltr;
+  /* direction: ltr; */
 }
 </style>
 
@@ -53,12 +54,12 @@ export default {
       surasList: [],
       verses: [],
       versesToCal: [],
+      verseToCal:'',
       versesOn: false,
       calBox: false,
-      indexCal: 0,
       suraFileName:'',
-      index:'',
-      verseScore: ''
+      verseIndex:'',
+      verseScore: '',
     };
   },
   methods: {
@@ -70,24 +71,42 @@ export default {
           this.verses = res;  
           this.versesOn = true;
         });
+        this.getVerseScores();
     },
-    putVerseToCal: function(index, verse) {
-      this.index = index;
-      this.versesToCal.push({verse: verse.verseText, verseIndex: index});
+    putVerseToCal: function(verseIndex, verse) {
+      this.verseIndex = verseIndex;
+      this.verseScore = this.versesScore[verseIndex]
+      this.versesToCal.push({verseIndex: verseIndex, suraIndex: this.suraFileName, verseScore: this.verseScore, verseText: verse});
       this.calBox = true;
-      return this.versesToCal;
+      // this.verseToCal = this.versesScore[verse]
+
+      return this.verseToCal;
     },
-    getVerseScore: function(){
-      fetch("api/verse-score/" + this.suraFileName + '/' + this.index, { method: "GET" })
+    getVerseScores: function(){
+      fetch("api/verses-score/" + this.suraFileName, { method: "GET" })
         .then(res => res.json())
         .then(res => {
-          this.verseScore = res
+          this.versesScore = res
         });
-      return this.verseScore;
-    }
+      return this.versesScore;
+    },
+
   },
   computed: {
-    
+    Verses19Result: function() {
+      // let versesTocal = this.versesToCal;
+      // for(var i = 0; i < Object.keys(this.versesToCal).length; i++){
+      //   versesSore = sum(this.versesToCal[i].verseScore.score);
+      // }
+      
+      let versesSore = 0;
+      for(var i = 0; i < Object.keys(this.versesToCal).length; i++){
+        // versesSore = Object.keys(this.versesToCal[i].verseScore.score).reduce((acc, item) => acc + item.value, 0);
+// console.log(Object.keys(this.versesToCal).reduce((acc, item) => acc + item.value, 0));
+versesSore = versesSore + this.versesToCal[i].verseScore.score
+      }
+      return versesSore/19;
+    }
   },
   created() {
     fetchListCal: {

@@ -1745,17 +1745,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       surasList: [],
       verses: [],
       versesToCal: [],
+      verseToCal: '',
       versesOn: false,
       calBox: false,
-      indexCal: 0,
       suraFileName: '',
-      index: '',
+      verseIndex: '',
       verseScore: ''
     };
   },
@@ -1772,30 +1773,51 @@ __webpack_require__.r(__webpack_exports__);
         _this.verses = res;
         _this.versesOn = true;
       });
+      this.getVerseScores();
     },
-    putVerseToCal: function putVerseToCal(index, verse) {
-      this.index = index;
+    putVerseToCal: function putVerseToCal(verseIndex, verse) {
+      this.verseIndex = verseIndex;
+      this.verseScore = this.versesScore[verseIndex];
       this.versesToCal.push({
-        verse: verse.verseText,
-        verseIndex: index
+        verseIndex: verseIndex,
+        suraIndex: this.suraFileName,
+        verseScore: this.verseScore,
+        verseText: verse
       });
-      this.calBox = true;
-      return this.versesToCal;
+      this.calBox = true; // this.verseToCal = this.versesScore[verse]
+
+      return this.verseToCal;
     },
-    getVerseScore: function getVerseScore() {
+    getVerseScores: function getVerseScores() {
       var _this2 = this;
 
-      fetch("api/verse-score/" + this.suraFileName + '/' + this.index, {
+      fetch("api/verses-score/" + this.suraFileName, {
         method: "GET"
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this2.verseScore = res;
+        _this2.versesScore = res;
       });
-      return this.verseScore;
+      return this.versesScore;
     }
   },
-  computed: {},
+  computed: {
+    Verses19Result: function Verses19Result() {
+      // let versesTocal = this.versesToCal;
+      // for(var i = 0; i < Object.keys(this.versesToCal).length; i++){
+      //   versesSore = sum(this.versesToCal[i].verseScore.score);
+      // }
+      var versesSore = 0;
+
+      for (var i = 0; i < Object.keys(this.versesToCal).length; i++) {
+        // versesSore = Object.keys(this.versesToCal[i].verseScore.score).reduce((acc, item) => acc + item.value, 0);
+        // console.log(Object.keys(this.versesToCal).reduce((acc, item) => acc + item.value, 0));
+        versesSore = versesSore + this.versesToCal[i].verseScore.score;
+      }
+
+      return versesSore / 19;
+    }
+  },
   created: function created() {
     var _this3 = this;
 
@@ -34940,7 +34962,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbody[data-v-a115ac20] {\r\n  direction: ltr;\n}\r\n", ""]);
+exports.push([module.i, "\nbody[data-v-a115ac20] {\r\n  /* direction: ltr; */\n}\r\n", ""]);
 
 // exports
 
@@ -73950,50 +73972,74 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      [
-        _c(
-          "b-dropdown",
-          { staticClass: "m-2", attrs: { size: "lg", text: "Large" } },
-          _vm._l(_vm.surasList, function(suraIndexItem, index) {
-            return _c(
-              "b-dropdown-item-button",
-              {
-                key: index,
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.fetchVerses(suraIndexItem.fileName)
-                  }
+    _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "div",
+        { staticClass: "card-group", attrs: { size: "lg", text: "Large" } },
+        _vm._l(_vm.surasList, function(suraIndexItem, index) {
+          return _c(
+            "div",
+            {
+              key: index,
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.fetchVerses(suraIndexItem.fileName)
                 }
-              },
-              [
-                _vm._v(
-                  "\n        " +
-                    _vm._s(suraIndexItem.suraName) +
-                    " " +
-                    _vm._s(suraIndexItem.suraIndex) +
-                    "\n      "
-                )
-              ]
-            )
-          }),
-          1
-        ),
-        _vm._v(" "),
-        _vm.versesOn
-          ? _c(
-              "b-dropdown",
-              { staticClass: "m-2", attrs: { size: "lg", text: "Large" } },
+              }
+            },
+            [
+              _vm._v(
+                "\n        " +
+                  _vm._s(suraIndexItem.suraName) +
+                  " " +
+                  _vm._s(suraIndexItem.suraIndex) +
+                  "\n      "
+              )
+            ]
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _vm.versesOn
+        ? _c(
+            "div",
+            { staticClass: "card", attrs: { size: "lg", text: "Large" } },
+            [
+              _vm.calBox
+                ? _c(
+                    "div",
+                    { staticClass: "card" },
+                    _vm._l(_vm.versesToCal, function(verseToCal) {
+                      return _c("div", { staticClass: "badge badge-warning" }, [
+                        _vm._v(
+                          "\n          اية رقم " +
+                            _vm._s(verseToCal.verseIndex) +
+                            "   " +
+                            _vm._s(verseToCal.verseText) +
+                            "    score=" +
+                            _vm._s(verseToCal.verseScore.score) +
+                            "               \n        "
+                        )
+                      ])
+                    }),
+                    0
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "resultBox bade-success" }, [
+                _vm._v("\n        " + _vm._s(_vm.Verses19Result) + "\n      ")
+              ]),
+              _vm._v(" "),
               _vm._l(_vm.verses, function(verse, index) {
                 return _c(
-                  "b-dropdown-item-button",
+                  "div",
                   {
                     key: index,
                     on: {
                       click: function($event) {
-                        return _vm.putVerseToCal(index, verse)
+                        return _vm.putVerseToCal(index, verse.verseText)
                       }
                     }
                   },
@@ -74007,25 +74053,12 @@ var render = function() {
                     )
                   ]
                 )
-              }),
-              1
-            )
-          : _vm._e()
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _vm.calBox
-      ? _c("div", { staticClass: "card" }, [
-          _vm._v(
-            "\n     " +
-              _vm._s(_vm.versesToCal) +
-              ", " +
-              _vm._s(_vm.getVerseScore()) +
-              "\n     "
+              })
+            ],
+            2
           )
-        ])
-      : _vm._e()
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []
