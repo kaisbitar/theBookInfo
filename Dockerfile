@@ -42,10 +42,10 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | bash
 RUN apt-get install nodejs -y
 # and npm
 RUN apt-get install npm -y
-# confirm that it was successful 
-RUN node -v
-# npm installs automatically 
-RUN npm -v
+# install PHP dependencies
+RUN composer install
+# install node dependencies
+RUN npm install
 
 # Add user for laravel application
 RUN groupadd -g 1000 www
