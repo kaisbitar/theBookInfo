@@ -1,22 +1,10 @@
 <template>
-  <div
-    id="theBook"
-    class="card"
-  >
+  <div id="theBook" class="card">
     <div class="suraItemBlock">
-      <div
-        v-if="loading"
-        class="container spinner-box"
-      >
-        <b-spinner
-          label="Small Spinner"
-          variant="info"
-        ></b-spinner>
+      <div v-if="loading" class="container spinner-box">
+        <b-spinner label="Small Spinner" variant="info"></b-spinner>
       </div>
-      <div
-        v-if="!loading"
-        class="indexTitle smallListTitle"
-      >
+      <div v-if="!loading" class="indexTitle smallListTitle">
         <span class="btn">قائمة الكتاب</span>
       </div>
       <div
@@ -38,14 +26,14 @@
         ref="screen1"
         :suraFileName="suraFileName"
         :suraName="suraName"
-        :screen=1
+        :screen="1"
         v-on:changingScreen="changeScreen"
       ></Sura>
       <Sura
         ref="screen2"
         :suraFileName="suraFileName"
         :suraName="suraName"
-        :screen=2
+        :screen="2"
         v-on:changingScreen="changeScreen"
       ></Sura>
     </div>
@@ -111,7 +99,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .btn {
   border-color: #00000020 !important;
 }

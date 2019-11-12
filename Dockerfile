@@ -42,10 +42,6 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | bash
 RUN apt-get install nodejs -y
 # and npm
 RUN apt-get install npm -y
-# install PHP dependencies
-RUN composer install
-# install node dependencies
-RUN npm install
 
 # Add user for laravel application
 RUN groupadd -g 1000 www
@@ -59,6 +55,11 @@ COPY --chown=www:www . /var/www
 
 # Change current user to www
 USER www
+
+# install PHP dependencies
+RUN composer install
+# install node dependencies
+RUN npm install
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000

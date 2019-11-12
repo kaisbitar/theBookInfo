@@ -1,49 +1,28 @@
 <template>
-  <div
-    class="suraBlock card"
-    v-on:click="changeToScreen"
-  >
-    <div
-      v-if="loading"
-      class="container-fluid spinner-box"
-    >
-      <b-spinner
-        label="Spinner"
-        variant="success"
-      ></b-spinner>
+  <div class="suraBlock card" v-on:click="changeToScreen">
+    <div v-if="loading" class="container-fluid spinner-box">
+      <b-spinner label="Spinner" variant="success"></b-spinner>
     </div>
     <div class="titleContainer card-header">
       <fixedheader v-if="showSura">
         <div class="titleBlock">
-          <div class="suraInfoBlock ">
-            <span class="suraInfo btn btn-custom-orange col-sm">
-              عدد الكلمات {{sura.NumberOfWords}}
-            </span>
-            <span class="suraInfo btn btn-secondary col-sm">
-              عدد الحروف {{sura.NumberOfLetters}}
-            </span>
+          <div class="suraInfoBlock">
+            <span class="suraInfo btn btn-custom-orange col-sm">عدد الكلمات {{sura.NumberOfWords}}</span>
+            <span class="suraInfo btn btn-secondary col-sm">عدد الحروف {{sura.NumberOfLetters}}</span>
           </div>
           <div class="suraTitle">
-            <div class="suraInfo btn btn-warning col-sm suraVersesNum ">
-              عدد الآيات {{sura.NumberOfVerses}}
-            </div>
+            <div
+              class="suraInfo btn btn-warning col-sm suraVersesNum"
+            >عدد الآيات {{sura.NumberOfVerses}}</div>
             <div class="suraName btn btn-success">سورة {{sura.suraName}}</div>
           </div>
         </div>
       </fixedheader>
     </div>
     <draggable :array="verse">
-      <calculate-box
-        @change="addVerse"
-        :array="verse"
-      >Dop to calculate..</calculate-box>
+      <calculate-box @change="addVerse" :array="verse">Dop to calculate..</calculate-box>
     </draggable>
-    <draggable
-      class="versesBlock"
-      :array="verses"
-      @change="changeToScreen"
-    >
-
+    <draggable class="versesBlock" :array="verses" @change="changeToScreen">
       <div
         class="verse card"
         v-for="(verse, index) in verses"
@@ -51,36 +30,21 @@
         ref="thisVerse"
         v-on:click.prevent="selectVerse(verse, index)"
       >
-        <div
-          v-if="verse[index]!='SuraLettersCount'"
-          class="SuraLettersCount"
-        >{{index}}
+        <div v-if="verse[index]!='SuraLettersCount'" class="SuraLettersCount">
+          {{index}}
           <div class="verseCounts">
             <span class="verseInfo btn btn-custom-orange">{{verse.NumberOfWords}} كلمة</span>
             <span class="verseInfo btn btn-secondary">{{verse.NumberOfLetters}} حرف</span>
           </div>
-          <span class="verseIndex btn btn-warning">
-            آية رقم: {{index}}
-          </span>
+          <span class="verseIndex btn btn-warning">آية رقم: {{index}}</span>
         </div>
         <!-- hidden inputs for holding data -->
-        <input
-          type="hidden"
-          v-model="verse.verseText"
-        >
-        <input
-          type="hidden"
-          v-model="verse.NumberOfLetters"
-        >
-        <input
-          type="hidden"
-          v-model="verse.NumberOfWords"
-        >
+        <input type="hidden" v-model="verse.verseText" />
+        <input type="hidden" v-model="verse.NumberOfLetters" />
+        <input type="hidden" v-model="verse.NumberOfWords" />
         <!--  -->
         <div class="verseText container-fluid">
-          <span class="btn btn-success">
-            {{verse.verseText}}
-          </span>
+          <span class="btn btn-success">{{verse.verseText}}</span>
         </div>
       </div>
     </draggable>
@@ -162,7 +126,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
 .btn {
   padding: 0;
   color: #000;

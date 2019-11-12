@@ -34,7 +34,10 @@ Vue.use(draggable);
 
 Vue.component("Sura", require("./components/Sura.vue").default);
 // Vue.component('verseInPlay', {  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
-Vue.component("calculate-box",require("./components/CalculateBox.vue").default);
+Vue.component(
+    "calculate-box",
+    require("./components/CalculateBox.vue").default
+);
 Vue.component("suras-list", require("./components/SurasList.vue").default);
 Vue.component("fixedheader", FixedHeader);
 Vue.component("draggable", draggable);
