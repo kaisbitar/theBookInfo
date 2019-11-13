@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\File;
 use App\Controllers\CalculatorController;
 
 
-
 class CollecterService
 {    
     public function calculateSura19($suraName){
@@ -63,9 +62,10 @@ class CollecterService
                 $allDecodedSuras[$index-1] = $decodedSura;
             }
         }
-        if (!file_exists(storage_path('bookLettersCount'))) {
+        if ((file_exists(storage_path('theBookLettersCount')))) {
             $allCounts = [];
             $alef=0;
+            $alefM=0;
             $lam=0;
             $noon=0;
             $meem=0;
@@ -95,14 +95,21 @@ class CollecterService
             $za2=0;
 
             $LettersCount = [];
+
             foreach ($allDecodedSuras as $decodedSura) {
                 $count = 0;
                 $lettersArray = $decodedSura["LetterOccurrences"];
+                // dd($lettersArray);
                 foreach ($lettersArray as $letter=>$key) {
-                    if ($letter == 'ء' || $letter == 'ى' || $letter == 'أ' || $letter == 'إ' || $letter == 'آ' || $letter == 'ا') {
+                    
+                    if ($letter == 'ء' || $letter == 'أ' || $letter == 'إ' || $letter == 'آ' || $letter == 'ا') {
                         $alef = $alef + $key;
                         $LettersCount['ا ى ء'] = $alef;
                         
+                    }
+                    if( $letter == 'ى'){
+                        $alefM = $alefM + $key;
+                        $LettersCount['ى'] = $alefM;
                     }
                     elseif ($letter == 'ل') {
                         $lam = $lam + $key;
@@ -242,9 +249,9 @@ class CollecterService
                 }
             }
             arsort($LettersCount);
-            file_put_contents(storage_path('bookLettersCount'), json_encode($LettersCount, JSON_UNESCAPED_UNICODE));
+            file_put_contents(storage_path('TheBookLettersCount'), json_encode($LettersCount, JSON_UNESCAPED_UNICODE));
         }
-        $LettersCount = file_get_contents(storage_path('bookLettersCount'));
+        $LettersCount = file_get_contents(storage_path('TheBookLettersCount'));
 
         return $LettersCount;
     }
