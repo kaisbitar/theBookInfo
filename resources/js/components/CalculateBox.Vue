@@ -13,28 +13,28 @@
           {{suraIndexItem.suraName}} {{suraIndexItem.suraIndex}}
         </div>
       </div>
-      <div class="card"
-        v-if="versesOn"
-        size="lg"
-        text="Large"
-      >
-        <div
-        class="card"
-        v-if="calBox"
-        >
+      <div class="container">
+        <div v-if="calBox">
           <div class="badge badge-warning" v-for="verseToCal in versesToCal">
             اية رقم {{verseToCal.verseIndex}}   {{verseToCal.verseText}}    score={{verseToCal.verseScore.score}}               
           </div>
         </div>
-        <div class="resultBox bade-success">
-          {{Verses19Result}}
+        <div class="col-sm">
+          <div class="resultBox bade-success">
+          <p>{{Verses19Result}}</p>
         </div>
-        <div
+        </div>
+      <div class="row" v-if="versesOn">
+
+        <div class="col-sm">
+          <div
           v-for="(verse, index) in verses"
           v-bind:key="index"
           v-on:click="putVerseToCal(index, verse.verseText)"
         >
           {{index}}- {{verse.verseText}}
+        </div>
+        </div>
         </div>
       </div>
     </div>
@@ -44,6 +44,9 @@
 <style scoped>
 body {
   /* direction: ltr; */
+}
+.badge{
+  max-width: 600px;
 }
 </style>
 
@@ -60,9 +63,18 @@ export default {
       suraFileName:'',
       verseIndex:'',
       verseScore: '',
+      // allVersesScore:[]
     };
   },
   methods: {
+    fetchListCal: function(){
+      fetch("api/quran-index", { method: "GET" })
+        .then(res => res.json())
+        .then(res => {
+          this.surasList = res;
+        });        
+        return this.surasList;
+    },
     fetchVerses: function(suraFileName) {
       this.suraFileName = suraFileName;
       fetch("api/verses-map/" + suraFileName, { method: "GET" })
@@ -72,6 +84,7 @@ export default {
           this.versesOn = true;
         });
         this.getVerseScores();
+        // this.getAllVerseScores();
     },
     putVerseToCal: function(verseIndex, verse) {
       this.verseIndex = verseIndex;
@@ -90,32 +103,32 @@ export default {
         });
       return this.versesScore;
     },
+//     getAllVerseScores: function(){
+//       for(var i = 0; i < (this.surasList).length; i++){
+//               console.log(this.surasList[i].fileName);
+// // return
+//         let fileName = this.surasList[i].fileName
+//         fetch("api/verses-score/" + fileName, { method: "GET" })
+//           .then(res => res.json())
+//           .then(res => {
+//             console.log('s')
+//             this.allVersesScore[i] = res
+//           });
+//       }        return this.allVersesScore;
 
+//     }
   },
   computed: {
     Verses19Result: function() {
-      // let versesTocal = this.versesToCal;
-      // for(var i = 0; i < Object.keys(this.versesToCal).length; i++){
-      //   versesSore = sum(this.versesToCal[i].verseScore.score);
-      // }
-      
       let versesSore = 0;
       for(var i = 0; i < Object.keys(this.versesToCal).length; i++){
-        // versesSore = Object.keys(this.versesToCal[i].verseScore.score).reduce((acc, item) => acc + item.value, 0);
-// console.log(Object.keys(this.versesToCal).reduce((acc, item) => acc + item.value, 0));
-versesSore = versesSore + this.versesToCal[i].verseScore.score
+        versesSore = versesSore + this.versesToCal[i].verseScore.score
       }
       return versesSore/19;
-    }
+    },
   },
   created() {
-    fetchListCal: {
-      fetch("api/quran-index", { method: "GET" })
-        .then(res => res.json())
-        .then(res => {
-          this.surasList = res;
-        });
-    }
+    this.fetchListCal();
   },
   updated() {},
   mounted() { }

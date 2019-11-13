@@ -101,12 +101,24 @@ class Sanatizer extends Model
         $cleanedSura = str_replace(', ', ',', $cleanedSura); 
         $cleanedSura = str_replace('الاالذين', 'الا الذين', $cleanedSura);  
         $cleanedSura = str_replace('البحربما ينفع الناس', 'البحر بما ينفع الناس', $cleanedSura); 
-        $cleanedSura = str_replace('لامنينهمولامرنهم', 'لامنينهم ولامرنهم', $cleanedSura);  //PHP can't find the sunstring, although it exist in the sting hmmmm
+        $cleanedSura = str_replace('ولامنينهمولامرنهم', 'ولامنينهم ولامرنهم', $cleanedSura);  //PHP can't find the sunstring, although it exist in the sting hmmmm
         $cleanedSura = str_replace('قومامسرفين', 'قوما مسرفين', $cleanedSura); 
         $cleanedSura = str_replace('فوقهافاما', 'فوقها فاما', $cleanedSura);   
         $cleanedSura = str_replace('تحصوهاإن', 'تحصوها إن', $cleanedSura); 
         $cleanedSura = str_replace('واوليك', 'واولئك', $cleanedSura); 
+        $cleanedSura = str_replace('لايخفىعليه', 'لايخفى عليه', $cleanedSura);  
+        $cleanedSura = str_replace('تلبسونهاوترى', 'تلبسونها وترى', $cleanedSura); 
+        $cleanedSura = str_replace('شىء', 'شئ', $cleanedSura); 
+        $cleanedSura = str_replace('بريء', 'برئ', $cleanedSura);  
+        $cleanedSura = str_replace('الخبء', 'الخبئ', $cleanedSura);  
+        $cleanedSura = str_replace('دفء', 'دفئ', $cleanedSura);  
         $cleanedSura = str_replace('ءا', 'ا', $cleanedSura); 
+        $cleanedSura = str_replace('ءا', 'ا', $cleanedSura); 
+        $cleanedSura = str_replace('شئ', 'شي', $cleanedSura); 
+        $cleanedSura = str_replace('شيء', 'شي', $cleanedSura); 
+        $cleanedSura = str_replace('الذى', 'الذي', $cleanedSura);  
+        $cleanedSura = str_replace('ابرهيملابيه', 'ابرهيم لابيه', $cleanedSura); 
+        $cleanedSura = str_replace('يحى', 'يحي', $cleanedSura); 
         $cleanedSura = mb_substr($cleanedSura, 0, -1);
         $cleanedSura = str_replace('عمران,', '', $cleanedSura); 
         $cleanedSura = ltrim($cleanedSura, ',');
@@ -121,7 +133,7 @@ class Sanatizer extends Model
             $suraName = "آل_عمران";
        }
         echo $suraName;       
-        echo strlen($readyToSaveString);
+        // echo strlen($readyToSaveString);
 
         echo ":<br><br>";
         echo($readyToSaveString);

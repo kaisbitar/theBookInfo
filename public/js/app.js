@@ -1746,6 +1746,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1757,12 +1760,25 @@ __webpack_require__.r(__webpack_exports__);
       calBox: false,
       suraFileName: '',
       verseIndex: '',
-      verseScore: ''
+      verseScore: '' // allVersesScore:[]
+
     };
   },
   methods: {
-    fetchVerses: function fetchVerses(suraFileName) {
+    fetchListCal: function fetchListCal() {
       var _this = this;
+
+      fetch("api/quran-index", {
+        method: "GET"
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this.surasList = res;
+      });
+      return this.surasList;
+    },
+    fetchVerses: function fetchVerses(suraFileName) {
+      var _this2 = this;
 
       this.suraFileName = suraFileName;
       fetch("api/verses-map/" + suraFileName, {
@@ -1770,10 +1786,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this.verses = res;
-        _this.versesOn = true;
+        _this2.verses = res;
+        _this2.versesOn = true;
       });
-      this.getVerseScores();
+      this.getVerseScores(); // this.getAllVerseScores();
     },
     putVerseToCal: function putVerseToCal(verseIndex, verse) {
       this.verseIndex = verseIndex;
@@ -1789,29 +1805,36 @@ __webpack_require__.r(__webpack_exports__);
       return this.verseToCal;
     },
     getVerseScores: function getVerseScores() {
-      var _this2 = this;
+      var _this3 = this;
 
       fetch("api/verses-score/" + this.suraFileName, {
         method: "GET"
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this2.versesScore = res;
+        _this3.versesScore = res;
       });
       return this.versesScore;
-    }
+    } //     getAllVerseScores: function(){
+    //       for(var i = 0; i < (this.surasList).length; i++){
+    //               console.log(this.surasList[i].fileName);
+    // // return
+    //         let fileName = this.surasList[i].fileName
+    //         fetch("api/verses-score/" + fileName, { method: "GET" })
+    //           .then(res => res.json())
+    //           .then(res => {
+    //             console.log('s')
+    //             this.allVersesScore[i] = res
+    //           });
+    //       }        return this.allVersesScore;
+    //     }
+
   },
   computed: {
     Verses19Result: function Verses19Result() {
-      // let versesTocal = this.versesToCal;
-      // for(var i = 0; i < Object.keys(this.versesToCal).length; i++){
-      //   versesSore = sum(this.versesToCal[i].verseScore.score);
-      // }
       var versesSore = 0;
 
       for (var i = 0; i < Object.keys(this.versesToCal).length; i++) {
-        // versesSore = Object.keys(this.versesToCal[i].verseScore.score).reduce((acc, item) => acc + item.value, 0);
-        // console.log(Object.keys(this.versesToCal).reduce((acc, item) => acc + item.value, 0));
         versesSore = versesSore + this.versesToCal[i].verseScore.score;
       }
 
@@ -1819,17 +1842,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this3 = this;
-
-    fetchListCal: {
-      fetch("api/quran-index", {
-        method: "GET"
-      }).then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        _this3.surasList = res;
-      });
-    }
+    this.fetchListCal();
   },
   updated: function updated() {},
   mounted: function mounted() {}
@@ -34962,7 +34975,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbody[data-v-a115ac20] {\r\n  /* direction: ltr; */\n}\r\n", ""]);
+exports.push([module.i, "\nbody[data-v-a115ac20] {\r\n  /* direction: ltr; */\n}\n.badge[data-v-a115ac20]{\r\n  max-width: 600px;\n}\r\n", ""]);
 
 // exports
 
@@ -74002,62 +74015,65 @@ var render = function() {
         0
       ),
       _vm._v(" "),
-      _vm.versesOn
-        ? _c(
-            "div",
-            { staticClass: "card", attrs: { size: "lg", text: "Large" } },
-            [
-              _vm.calBox
-                ? _c(
-                    "div",
-                    { staticClass: "card" },
-                    _vm._l(_vm.versesToCal, function(verseToCal) {
-                      return _c("div", { staticClass: "badge badge-warning" }, [
-                        _vm._v(
-                          "\n          اية رقم " +
-                            _vm._s(verseToCal.verseIndex) +
-                            "   " +
-                            _vm._s(verseToCal.verseText) +
-                            "    score=" +
-                            _vm._s(verseToCal.verseScore.score) +
-                            "               \n        "
-                        )
-                      ])
-                    }),
-                    0
+      _c("div", { staticClass: "container" }, [
+        _vm.calBox
+          ? _c(
+              "div",
+              _vm._l(_vm.versesToCal, function(verseToCal) {
+                return _c("div", { staticClass: "badge badge-warning" }, [
+                  _vm._v(
+                    "\n          اية رقم " +
+                      _vm._s(verseToCal.verseIndex) +
+                      "   " +
+                      _vm._s(verseToCal.verseText) +
+                      "    score=" +
+                      _vm._s(verseToCal.verseScore.score) +
+                      "               \n        "
                   )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("div", { staticClass: "resultBox bade-success" }, [
-                _vm._v("\n        " + _vm._s(_vm.Verses19Result) + "\n      ")
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.verses, function(verse, index) {
-                return _c(
-                  "div",
-                  {
-                    key: index,
-                    on: {
-                      click: function($event) {
-                        return _vm.putVerseToCal(index, verse.verseText)
+                ])
+              }),
+              0
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm" }, [
+          _c("div", { staticClass: "resultBox bade-success" }, [
+            _c("p", [_vm._v(_vm._s(_vm.Verses19Result))])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm.versesOn
+          ? _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col-sm" },
+                _vm._l(_vm.verses, function(verse, index) {
+                  return _c(
+                    "div",
+                    {
+                      key: index,
+                      on: {
+                        click: function($event) {
+                          return _vm.putVerseToCal(index, verse.verseText)
+                        }
                       }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n        " +
-                        _vm._s(index) +
-                        "- " +
-                        _vm._s(verse.verseText) +
-                        "\n      "
-                    )
-                  ]
-                )
-              })
-            ],
-            2
-          )
-        : _vm._e()
+                    },
+                    [
+                      _vm._v(
+                        "\n        " +
+                          _vm._s(index) +
+                          "- " +
+                          _vm._s(verse.verseText) +
+                          "\n      "
+                      )
+                    ]
+                  )
+                }),
+                0
+              )
+            ])
+          : _vm._e()
+      ])
     ])
   ])
 }

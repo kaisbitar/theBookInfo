@@ -28,3 +28,5 @@ Route::get('quran-index', 'CalculatorController@listSuras');
 
 //Run Backend calculations and create decoded verses and suras results files
 Route::get('decode-all', 'CalculatorController@runBackend');
+Route::get('count-letters', 'CollecterController@countLetters');
+Route::get('calculate-sura-19/{suraName}', 'CollecterController@calculateSura19');
