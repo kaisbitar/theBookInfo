@@ -146,7 +146,7 @@ class Sanatizer extends Model
 
     public function saveSura($readyToSaveSura, $fileNameToSave)
     {
-        $sanataizedDir = fopen($this->cleanedSurasPath.'\\'.$fileNameToSave, 'w');
+        $sanataizedDir = fopen($this->cleanedSurasPath.'/'.$fileNameToSave, 'w');
         fwrite($sanataizedDir, $readyToSaveSura);
         fclose($sanataizedDir);
     }
