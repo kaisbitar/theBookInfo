@@ -93,7 +93,8 @@ class CollecterService
             $taa2=0;
             $ghein=0;
             $za2=0;
-
+            $hamzeh=0;
+            $ta2M=0;
             $LettersCount = [];
 
             foreach ($allDecodedSuras as $decodedSura) {
@@ -102,10 +103,14 @@ class CollecterService
                 // dd($lettersArray);
                 foreach ($lettersArray as $letter=>$key) {
                     
-                    if ($letter == 'ء' || $letter == 'أ' || $letter == 'إ' || $letter == 'آ' || $letter == 'ا') {
+                    if ($letter == 'أ' || $letter == 'إ' || $letter == 'آ' || $letter == 'ا') {
                         $alef = $alef + $key;
-                        $LettersCount['ا ى ء'] = $alef;
+                        $LettersCount['ا أ إ آ'] = $alef;
                         
+                    }
+                    if( $letter == 'ء'){
+                        $hamzeh = $hamzeh + $key;
+                        $LettersCount['ء'] = $hamzeh;
                     }
                     if( $letter == 'ى'){
                         $alefM = $alefM + $key;
@@ -136,9 +141,14 @@ class CollecterService
                         $LettersCount['ي'] = $ya2;
                         
                     }
-                    elseif ($letter == 'ة' || $letter == 'ه') {
+                    elseif ($letter == 'ه') {
                         $ha2 = $ha2 + $key;
                         $LettersCount['ه'] = $ha2;
+                        
+                    }
+                    elseif ($letter == 'ة') {
+                        $ta2M = $ta2M + $key;
+                        $LettersCount['ة'] = $ta2M;
                         
                     }
                     elseif ($letter == 'ر') {
