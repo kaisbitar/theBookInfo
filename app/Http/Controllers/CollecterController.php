@@ -25,7 +25,7 @@ class CollecterController extends Controller
     
     public function countLetters()
     {   
-        return $this->service->countLetters();
+        return $this->service->countLetters($this->request->suraIndex);
     }    
     
     public function calculateSura19()

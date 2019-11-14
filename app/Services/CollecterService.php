@@ -2,13 +2,6 @@
 
 namespace App\Services;
 
-use App\Counter;
-use App\FullSura;
-use App\Indexer;
-use App\Verse;
-use Illuminate\Support\Facades\File;
-use App\Controllers\CalculatorController;
-
 
 class CollecterService
 {    
@@ -51,7 +44,7 @@ class CollecterService
         // dump($mainVerseCalculatedVerses);
     }
 
-    public function countLetters()
+    public function countLetters($suraIndex)
     {
         $allDecodedSuras = [];
         $fileNames = scandir(storage_path('sanatizedSuras'));
@@ -61,6 +54,9 @@ class CollecterService
                 $decodedSura = json_decode(file_get_contents($file), true);
                 $allDecodedSuras[$index-1] = $decodedSura;
             }
+        }
+        if($suraIndex !== 'all'){
+            $allDecodedSuras = $allDecodedSuras[$suraIndex];
         }
         if ((file_exists(storage_path('theBookLettersCount')))) {
             $allCounts = [];
@@ -96,13 +92,14 @@ class CollecterService
             $hamzeh=0;
             $ta2M=0;
             $LettersCount = [];
+            $count = 0;
 
             foreach ($allDecodedSuras as $decodedSura) {
-                $count = 0;
                 $lettersArray = $decodedSura["LetterOccurrences"];
                 // dd($lettersArray);
                 foreach ($lettersArray as $letter=>$key) {
-                    
+                    $count = $count+$key;
+                    $LettersCount["all"] = $count;
                     if ($letter == 'أ' || $letter == 'إ' || $letter == 'آ' || $letter == 'ا') {
                         $alef = $alef + $key;
                         $LettersCount['ا أ إ آ'] = $alef;
