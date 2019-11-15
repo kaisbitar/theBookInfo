@@ -38,8 +38,8 @@
     <body>
         <div id="app"> 
             <div class="container-fluid">
-                <!-- <suras-list></suras-list> -->
-                <calculate-box></calculate-box>
+                <suras-list></suras-list>
+                <!-- <calculate-box></calculate-box> -->
                 <!-- <suras-list></suras-list> -->
             </div> 
         </div>

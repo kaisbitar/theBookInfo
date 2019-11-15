@@ -29,13 +29,13 @@
         :screen="1"
         v-on:changingScreen="changeScreen"
       ></Sura>
-      <Sura
+      <!-- <Sura
         ref="screen2"
         :suraFileName="suraFileName"
         :suraName="suraName"
         :screen="2"
         v-on:changingScreen="changeScreen"
-      ></Sura>
+      ></Sura> -->
     </div>
   </div>
 </template> 
@@ -170,7 +170,7 @@ div#theBook {
   background: #9fe83e4f;
 }
 #surasGroup {
-  display: grid;
-  grid-template-columns: 50% 50%;
+  /* display: grid;
+  grid-template-columns: 50% 50%; */
 }
 </style>

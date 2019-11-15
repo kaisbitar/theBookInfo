@@ -19,10 +19,11 @@
         </div>
       </fixedheader>
     </div>
-    <draggable :array="verse">
-      <calculate-box @change="addVerse" :array="verse">Dop to calculate..</calculate-box>
-    </draggable>
-    <draggable class="versesBlock" :array="verses" @change="changeToScreen">
+    <!-- <draggable @unchoose="dropToCalculate"> -->
+      <calculate-box  :verseText="verse.verseText" :verseIndex="verseIndex" :suraFileName="suraFileName" ></calculate-box>
+      <!-- </draggable> -->
+      <!-- change the next tag to draggable when you get there -->
+    <div class="versesBlock" :array="verses" @click ="dropToCalculate">
       <div
         class="verse card"
         v-for="(verse, index) in verses"
@@ -30,8 +31,7 @@
         ref="thisVerse"
         v-on:click.prevent="selectVerse(verse, index)"
       >
-        <div v-if="verse[index]!='SuraLettersCount'" class="SuraLettersCount">
-          {{index}}
+        <div v-if="verse[index]!=='SuraLettersCount'" class="SuraLettersCount">
           <div class="verseCounts">
             <span class="verseInfo btn btn-custom-orange">{{verse.NumberOfWords}} كلمة</span>
             <span class="verseInfo btn btn-secondary">{{verse.NumberOfLetters}} حرف</span>
@@ -42,18 +42,20 @@
         <input type="hidden" v-model="verse.verseText" />
         <input type="hidden" v-model="verse.NumberOfLetters" />
         <input type="hidden" v-model="verse.NumberOfWords" />
+        <input type="hidden" v-model="verse.NumberOfWords" />
+        <input type="hidden" v-model="index" />
         <!--  -->
         <div class="verseText container-fluid">
           <span class="btn btn-success">{{verse.verseText}}</span>
         </div>
       </div>
-    </draggable>
+    </div>
   </div>
 </template> 
 
 <script>
 import SearchSura from "./SearchSura.vue";
-// import CalculateBox from "./CalculateBox.vue";
+import CalculateBox from "./CalculateBox.vue";
 
 export default {
   components: {
@@ -68,19 +70,22 @@ export default {
       verse: [],
       detailShow: false,
       loading: false,
-      showSura: false
+      showSura: false,
+      verseIndex:0
     };
   },
   methods: {
     dropToCalculate() {
+      console.log(this.$emit("fetchVerses ", this.screen));
       this.$emit("changingScreen", this.screen);
     },
     changeToScreen() {
       this.$emit("changingScreen", this.screen);
     },
     selectVerse(verse, index) {
-      console.log(verse);
+      console.log(this.verseIndex);
       this.verse = verse;
+      this.verseIndex = index; 
     },
     addVerse() {
       console.log(this.verse);
@@ -122,7 +127,9 @@ export default {
   },
   mounted() {},
   created() {},
-  updated() {}
+  updated() {
+       this.suraFileName;
+  }
 };
 </script>
 

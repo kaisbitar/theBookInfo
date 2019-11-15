@@ -2,11 +2,13 @@
   <div>
     <div class="container-fluid">
       <div class="card-group" size="lg" text="Large">
-        <div
+        <!-- <div
           v-for="(suraIndexItem, index) in surasList"
           v-bind:key="index"
           @click.prevent="fetchVerses(suraIndexItem.fileName)"
-        >{{suraIndexItem.suraName}} {{suraIndexItem.suraIndex}}</div>
+        >{{suraIndexItem.suraName}} {{suraIndexItem.suraIndex}}
+        </div> -->
+        Drop to Calculate Bro..
       </div>
       <div class="card" v-if="versesOn" size="lg" text="Large">
         <div class="card" v-if="calBox">
@@ -16,12 +18,13 @@
             :key="key"
           >اية رقم {{verseToCal.verseIndex}} {{verseToCal.verseText}} score={{verseToCal.verseScore.score}}</div>
         </div>
-        <div class="resultBox bade-success">{{Verses19Result}}</div>
-        <div
+        <div class="resultBox bade-success">Division:{{Verses19Result}}</div>
+        <div class="resultBox bade-success">Addition:{{VersesAddition}}</div>
+        <!-- <div
           v-for="(verse, index) in verses"
           v-bind:key="index"
           v-on:click="putVerseToCal(index, verse.verseText)"
-        >{{index}}- {{verse.verseText}}</div>
+        >{{index}}- {{verse.verseText}}</div> -->
       </div>
     </div>
   </div>
@@ -38,6 +41,15 @@ body {
 
 <script>
 export default {
+  props:["suraFileName", "verseIndex", "verseText"],
+  watch:{
+    "suraFileName": function(){
+      this.fetchVerses(this.suraFileName)
+      },
+      "verseIndex": function(){
+      this.putVerseToCal(this.verseIndex, this.verseText)
+      }
+  },
   data() {
     return {
       surasList: [],
@@ -46,8 +58,8 @@ export default {
       verseToCal: "",
       versesOn: false,
       calBox: false,
-      suraFileName: "",
-      verseIndex: "",
+      // suraFileName: "",
+      // verseIndex: "",
       verseScore: ""
     };
   },
@@ -60,7 +72,8 @@ export default {
         });        
         return this.surasList;
     },
-    fetchVerses: function(suraFileName) {
+    fetchVerses: function(suraFileName) {    
+
       this.suraFileName = suraFileName;
       fetch("api/verses-map/" + suraFileName, { method: "GET" })
         .then(res => res.json())
@@ -80,8 +93,6 @@ export default {
         verseText: verse
       });
       this.calBox = true;
-      // this.verseToCal = this.versesScore[verse]
-
       return this.verseToCal;
     },
     getVerseScores: function() {
@@ -95,18 +106,18 @@ export default {
   },
   computed: {
     Verses19Result: function() {
-      // let versesTocal = this.versesToCal;
-      // for(var i = 0; i < Object.keys(this.versesToCal).length; i++){
-      //   versesSore = sum(this.versesToCal[i].verseScore.score);
-      // }
-
       let versesSore = 0;
       for (var i = 0; i < Object.keys(this.versesToCal).length; i++) {
-        // versesSore = Object.keys(this.versesToCal[i].verseScore.score).reduce((acc, item) => acc + item.value, 0);
-        // console.log(Object.keys(this.versesToCal).reduce((acc, item) => acc + item.value, 0));
         versesSore = versesSore + this.versesToCal[i].verseScore.score;
       }
       return versesSore / 19;
+    },
+    VersesAddition: function(){
+      let versesSore = 0;
+      for (var i = 0; i < Object.keys(this.versesToCal).length; i++) {
+        versesSore = versesSore + this.versesToCal[i].verseScore.score;
+      }
+      return versesSore;
     }
   },
   created() {
