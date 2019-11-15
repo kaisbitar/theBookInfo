@@ -119,6 +119,7 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('الذى', 'الذي', $cleanedSura);  
         $cleanedSura = str_replace('ابرهيملابيه', 'ابرهيم لابيه', $cleanedSura);  
         $cleanedSura = str_replace('بلقاىءربهم', 'بلقاء ربهم', $cleanedSura); 
+        $cleanedSura = str_replace('مصلىوعهدنا', 'مصلى وعهدنا', $cleanedSura); 
         $cleanedSura = str_replace('يحى', 'يحي', $cleanedSura); 
         $cleanedSura = mb_substr($cleanedSura, 0, -1);
         $cleanedSura = str_replace('عمران,', '', $cleanedSura); 
