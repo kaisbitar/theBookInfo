@@ -104,7 +104,8 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('ولامنينهمولامرنهم', 'ولامنينهم ولامرنهم', $cleanedSura);  //PHP can't find the sunstring, although it exist in the sting hmmmm
         $cleanedSura = str_replace('قومامسرفين', 'قوما مسرفين', $cleanedSura); 
         $cleanedSura = str_replace('فوقهافاما', 'فوقها فاما', $cleanedSura);   
-        $cleanedSura = str_replace('تحصوهاإن', 'تحصوها إن', $cleanedSura); 
+        $cleanedSura = str_replace('تحصوهاإن', 'تحصوها إن', $cleanedSura);  
+        $cleanedSura = str_replace('احى', 'أحي', $cleanedSura); 
         $cleanedSura = str_replace('واوليك', 'واولئك', $cleanedSura); 
         $cleanedSura = str_replace('لايخفىعليه', 'لايخفى عليه', $cleanedSura);  
         $cleanedSura = str_replace('تلبسونهاوترى', 'تلبسونها وترى', $cleanedSura); 
@@ -119,6 +120,7 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('الذى', 'الذي', $cleanedSura);  
         $cleanedSura = str_replace('ابرهيملابيه', 'ابرهيم لابيه', $cleanedSura);  
         $cleanedSura = str_replace('بلقاىءربهم', 'بلقاء ربهم', $cleanedSura); 
+        $cleanedSura = str_replace('مصلىوعهدنا', 'مصلى وعهدنا', $cleanedSura); 
         $cleanedSura = str_replace('يحى', 'يحي', $cleanedSura); 
         $cleanedSura = mb_substr($cleanedSura, 0, -1);
         $cleanedSura = str_replace('عمران,', '', $cleanedSura); 
