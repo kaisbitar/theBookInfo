@@ -2,41 +2,45 @@
   <div>
     <div class="container-fluid">
       <div class="card-group" size="lg" text="Large">
-        <!-- <div
-          v-for="(suraIndexItem, index) in surasList"
-          v-bind:key="index"
-          @click.prevent="fetchVerses(suraIndexItem.fileName)"
-        >{{suraIndexItem.suraName}} {{suraIndexItem.suraIndex}}
-        </div> -->
-        Drop to Calculate Bro..
       </div>
-      <div class="card" v-if="versesOn" size="lg" text="Large">
+      <div class="card calContainer" v-if="versesOn" size="lg" text="Large">
         <div class="card" v-if="calBox">
           <div
-            class="badge badge-warning"
+            class="verse card"
             v-for="(verseToCal, key) in versesToCal"
             :key="key"
-          >اية رقم {{verseToCal.verseIndex}} {{verseToCal.verseText}} score={{verseToCal.verseScore.score}}</div>
+          >
+            <div 
+              class = "verseIndex btn btn-warning"
+            > اية رقم {{verseToCal.verseIndex}} 
+            </div>
+            <div class="btn btn-success">
+             {{verseToCal.verseText.substring(0,8)+".."}}
+            </div> 
+           div. score={{verseToCal.verseScore.score}}
+          </div>
         </div>
         <div class="resultBox bade-success">Division:{{Verses19Result}}</div>
         <div class="resultBox bade-success">Addition:{{VersesAddition}}</div>
-        <!-- <div
-          v-for="(verse, index) in verses"
-          v-bind:key="index"
-          v-on:click="putVerseToCal(index, verse.verseText)"
-        >{{index}}- {{verse.verseText}}</div> -->
+        <div 
+          class="btn btn-danger clean-box"
+          @click="versesToCal=[]"
+        >
+          مسح الحسابات
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-body {
-  /* direction: ltr; */
-}
-.badge{
-  max-width: 600px;
-}
+  .clean-box{
+    font-weight: 300;
+    width: 157px;
+  }
+  .calContainer{
+    position: fixed;
+  }
 </style>
 
 <script>

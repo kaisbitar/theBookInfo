@@ -1738,6 +1738,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["suraFileName", "verseIndex", "verseText"],
   watch: {
@@ -1967,6 +1971,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1987,20 +1994,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    dropToCalculate: function dropToCalculate() {
-      console.log(this.$emit("fetchVerses ", this.screen));
-      this.$emit("changingScreen", this.screen);
+    clickToCalculate: function clickToCalculate() {// this.$emit("changingScreen", this.screen);
     },
     changeToScreen: function changeToScreen() {
       this.$emit("changingScreen", this.screen);
     },
     selectVerse: function selectVerse(verse, index) {
-      console.log(this.verseIndex);
       this.verse = verse;
       this.verseIndex = index;
-    },
-    addVerse: function addVerse() {
-      console.log(this.verse);
     }
   },
   computed: {
@@ -2050,9 +2051,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   created: function created() {},
-  updated: function updated() {
-    this.suraFileName;
-  }
+  updated: function updated() {}
 });
 
 /***/ }),
@@ -2067,6 +2066,61 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Sura_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Sura.vue */ "./resources/js/components/Sura.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2126,9 +2180,10 @@ __webpack_require__.r(__webpack_exports__);
       isActive: false,
       loading: true,
       screen: 1,
-      activeSura: 0 //0 to default to الفاتحة this can be dynamic later on for user experience purposes
-      // smallList: false
-
+      activeSura: 0,
+      //0 to default to الفاتحة this can be dynamic later on for user experience purposes
+      isSmallList: false,
+      showList: true
     };
   },
   methods: {
@@ -2150,7 +2205,7 @@ __webpack_require__.r(__webpack_exports__);
       this.activeSura = index;
       this.isActive = true;
       this.suraNumber = parseInt(fileName, 10);
-      this.smallList = true;
+      this.isSmallList = true;
     },
     changeScreen: function changeScreen(screen) {
       this.screen = screen;
@@ -34886,7 +34941,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".btn {\n  padding: 0;\n  color: #000;\n}\n.spinner-box {\n  margin-top: 15px;\n}\n.suraInfoBlock {\n  display: flex;\n}\n.suraInfoBlock li > h2 > span {\n  width: 254px;\n  text-align: center;\n}\n.suraInfo {\n  margin: 0px 2px 0px 2px;\n  font-size: 12px;\n}\n.suraName {\n  width: 224.4px;\n  margin-left: -2px;\n  font-size: 20px;\n  /* padding-bottom: 9px; */\n  color: black;\n  height: 36px;\n  margin-top: 3px;\n}\n.suraTitle {\n  max-width: 224.4px;\n  margin-top: -1px;\n}\n.titleContainer {\n  padding: 4px 0px 4px 0px;\n  background-color: #fbf5ef;\n  transition: all 1s ease;\n}\n.titleBlock {\n  max-width: 228px;\n  margin: auto;\n  transition: all 1s ease;\n}\n.titleBlock.vue-fixed-header--isFixed {\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 100vw;\n  background: #f8f9fa;\n  border: 1px solid #00000020;\n  z-index: 1;\n  transition: all 0.11s ease;\n}\n.suraBlock {\n  /* min-height: 512px; */\n}\nspan.verseInfo.btn-custom-orange {\n  margin-left: 3px;\n}\n.SuraLettersCount {\n  margin-left: auto;\n  margin-right: auto;\n}\n.verse {\n  margin-left: 4px;\n  margin-bottom: 4px;\n  padding: 4px;\n  float: right;\n  background: #f6eeef6b;\n}\n.verse a {\n  color: #000;\n}\n.verse a:hover {\n  color: red;\n  text-decoration: none;\n}\n.versesBlock {\n  padding: 4px 4px 4px 1px;\n  transition: all 1s ease;\n}\n.detail {\n  display: sticky;\n}\n.verseIndex {\n  font-size: 12px;\n  width: 110px;\n}\n.verseInfo {\n  font-size: 12px;\n  /* margin: 4px 0px 4px 4px; */\n  width: 53.4px;\n}\n.verseInfo .verseIndex {\n  font-size: 12px;\n}\n.btn-custom-orange {\n  background-color: #ff750094;\n  border-color: #e17c25;\n}\n.btn-secondary {\n  background-color: #6c757db0;\n}\n.btn-warning {\n  background-color: #ffc10796;\n}\n.btn-success {\n  background-color: #28a74557;\n}\n.verseCounts {\n  display: flex;\n}\n.verseText {\n  text-align: center;\n  margin-top: 3px;\n  padding: 2px;\n  padding-bottom: 0px;\n  /* margin-bottom: 5px;\n  padding: 11px; */\n}\n.verseText.container-fluid .btn {\n  padding: 4px;\n  font-size: 14px;\n  padding-top: 0px;\n}", ""]);
+exports.push([module.i, ".btn {\n  padding: 0;\n  color: #000;\n}\n.spinner-box {\n  margin-top: 15px;\n}\n.suraInfoBlock {\n  display: flex;\n  margin-top: 2px;\n}\n.suraInfoBlock li > h2 > span {\n  width: 254px;\n  text-align: center;\n}\n.suraInfoBlock span {\n  font-size: 10px;\n}\n.suraInfo {\n  margin: 0px 2px 0px 1px;\n  font-size: 12px;\n}\n.suraName {\n  width: 224.4px;\n  margin-left: -2px;\n  font-size: 20px;\n  /* padding-bottom: 9px; */\n  color: black;\n  height: 36px;\n  margin-top: 3px;\n}\n.suraTitle {\n  max-width: 224.4px;\n  margin-top: -1px;\n}\n.titleContainer {\n  padding: 0px 0px 4px 0px;\n  background-color: #fbf5ef;\n  transition: all 1s ease;\n}\n.titleBlock {\n  max-width: 228px;\n  margin: auto;\n  transition: all 1s ease;\n}\n.titleBlock.vue-fixed-header--isFixed {\n  position: fixed;\n  top: 0;\n  width: 100vw;\n  background: #f8f9fa;\n  border: 1px solid #00000020;\n  z-index: 1;\n  transition: all 0.11s ease;\n}\n.suraBlock {\n  display: grid;\n  grid-template-columns: 40% 60%;\n  direction: ltr;\n}\nspan.verseInfo.btn-danger {\n  margin-left: 3px;\n}\n.btn-danger {\n  background: #b8611738;\n}\n.SuraLettersCount {\n  margin-left: auto;\n  margin-right: auto;\n}\n.verse {\n  margin-left: 4px;\n  margin-bottom: 4px;\n  padding: 4px;\n  float: right;\n  background: #f6eeef6b;\n}\n.verse a {\n  color: #000;\n}\n.verse a:hover {\n  color: red;\n  text-decoration: none;\n}\n.versesBlock {\n  padding: 4px 4px 4px 1px;\n  transition: all 1s ease;\n}\n.detail {\n  display: sticky;\n}\n.verseIndex {\n  font-size: 12px;\n  width: 110px;\n}\n.verseInfo {\n  font-size: 12px;\n  margin: 4px 0px 4px 4px;\n  width: 41.4px;\n  font-size: 10px;\n}\n.verseInfo .verseIndex {\n  font-size: 12px;\n}\n.btn-warning {\n  background-color: #ff750094;\n  border-color: #e17c25;\n}\n.btn-secondary {\n  background-color: #6c757d30;\n}\n.btn-warning {\n  background-color: #ffc10796;\n}\n.btn-success {\n  background-color: #28a7450a;\n}\n.verseCounts {\n  display: flex;\n  margin-top: 3px;\n}\n.verseText {\n  text-align: center;\n  margin-top: 1px;\n  padding: 2px;\n  padding-bottom: 0px;\n  /* margin-bottom: 5px;\n  padding: 11px; */\n}\n.verseText.container-fluid .btn {\n  padding: 4px;\n  font-size: 14px;\n  padding-top: 0px;\n}", ""]);
 
 // exports
 
@@ -34943,7 +34998,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nbody[data-v-a115ac20] {\r\n  /* direction: ltr; */\n}\n.badge[data-v-a115ac20]{\r\n  max-width: 600px;\n}\r\n", ""]);
+exports.push([module.i, "\n.clean-box[data-v-a115ac20]{\n  font-weight: 300;\n  width: 157px;\n}\n.calContainer[data-v-a115ac20]{\n  position: fixed;\n}\n", ""]);
 
 // exports
 
@@ -34962,7 +35017,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn {\r\n  border-color: #00000020 !important;\n}\ndiv#theBook {\r\n  margin-top: 3px;\r\n  padding: 6px;\r\n  background: #093f900f;\n}\n.indexTitle {\r\n  margin-bottom: 4px;\r\n  width: -webkit-max-content;\r\n  width: -moz-max-content;\r\n  width: max-content;\r\n  transition: all 1s ease;\n}\n.indexTitle > span {\r\n  display: block;\r\n  font-size: 45px;\r\n  font-weight: 300;\r\n  color: black;\r\n  padding: 15px 15px 19px 15px;\r\n  background: #b8611738;\r\n  transition: all 1s ease;\n}\n.suraIndexItem {\r\n  width: 75px;\r\n  height: 51px;\r\n  font-size: 14px;\r\n  margin-bottom: 4px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  cursor: pointer;\r\n  background-color: #17a2b838;\r\n  transition: all 1s ease;\n}\n.suraIndexItem label {\r\n  cursor: pointer;\r\n  margin-bottom: 0px;\n}\n.suraItemBlock {\r\n  transition: all 1s ease;\n}\n.smallList {\r\n  transition: all 1s ease;\n}\n.smallListTitle {\r\n  height: 38px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  transition: all 1s ease;\r\n  display: flex;\n}\n.smallListTitle > span {\r\n  font-size: 21.7px !important;\r\n  padding: 0;\r\n  padding-bottom: 7px;\r\n  transition: all 1s ease;\r\n  padding-left: 5px;\r\n  padding-right: 5px;\n}\n.smallListItems {\r\n  width: 53px;\r\n  height: 38px;\r\n  font-size: 12px;\r\n  padding: 0;\r\n  transition: all 0.2s ease;\n}\n.isActive {\r\n  background: #9fe83e4f;\n}\n#surasGroup {\r\n  /* display: grid;\r\n  grid-template-columns: 50% 50%; */\n}\r\n", ""]);
+exports.push([module.i, "\n.btn {\r\n  border-color: #00000000 !important;\n}\ndiv#theBook {\r\n  margin-top: 3px;\r\n  padding: 6px;\r\n  background: #093f900f;\n}\n.listWrap.vue-fixed-header{\r\n  transition: BezierEasing(0.215, 0.61, 0.355, 1);\n}\n.listWrap.vue-fixed-header--isFixed {\r\n  position: fixed;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100vw;\r\n  background: #f8f9fa;\r\n  border: 1px solid #00000020;\r\n  z-index: 1;\r\n  -webkit-animation: fadeIn 0.3s ease-out forwards;\r\n          animation: fadeIn 0.3s ease-out forwards;\r\n  /* transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); */\r\n  transition: BezierEasing(0.215, 0.61, 0.355, 1);\n}\n@-webkit-keyframes fadeIn {\n0% {\r\n    /* opacity: 0; */\r\n      /* transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); */\r\n  transition: BezierEasing(0.215, 0.61, 0.355, 1);\r\n\r\n    /* transform: translateY(-74px); */\n}\n100% {\r\n    /* opacity: 1; */\r\n      transition: BezierEasing(0.215, 0.61, 0.355, 1);\r\n\r\n    transform: translateY(0);\n}\n}\n@keyframes fadeIn {\n0% {\r\n    /* opacity: 0; */\r\n      /* transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); */\r\n  transition: BezierEasing(0.215, 0.61, 0.355, 1);\r\n\r\n    /* transform: translateY(-74px); */\n}\n100% {\r\n    /* opacity: 1; */\r\n      transition: BezierEasing(0.215, 0.61, 0.355, 1);\r\n\r\n    transform: translateY(0);\n}\n}\n.listTitle {\r\n  height: 38px;\r\n  display: block;\r\n  font-size: 45px;\r\n  font-weight: 300;\r\n  color: black;\r\n  margin-left: 4px;\r\n  float: right;\r\n  display: flex;\n}\n.listTitle > span {\r\n  font-size: 21.7px !important;\r\n  display: block;\r\n  font-size: 45px;\r\n  font-weight: 300;\r\n  color: black;\r\n  padding: 15px 15px 19px 15px;\r\n  background: #b8611738;\r\n  padding: 0;\r\n  padding-bottom: 7px;\r\n  padding-left: 5px;\r\n  padding-right: 5px;\n}\n.suraIndexItem {\r\n  width: 75px;\r\n  height: 51px;\r\n  font-size: 14px;\r\n  margin-bottom: 4px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  cursor: pointer;\r\n  background-color: #17a2b838;\n}\n.listItems label {\r\n  cursor: pointer;\r\n  margin-bottom: 0px;\n}\n.smallSuraItemBlock {\r\n    max-width: 965px;\n}\n.smallList {\r\n    width: 19px !important;\r\n    height: 17px !important;\n}\n.listItems {\r\n  width: 53px;\r\n  height: 38px;\r\n  font-size: 12px;\r\n  padding: 0;\r\n  margin-bottom: 4px;\r\n  margin-left: 4px;\r\n  float: right;\r\n  cursor: pointer;\r\n  background-color: #17a2b838;\n}\n.toSmallList-enter-active, .toSmallList-leave-active{\r\n    transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);\n}\n.toSmallList-enter .toSmallList-leave-to{\r\n  opacity: 0;\n}\n.isActive {\r\n  background: #1ec400;\r\n  color: white;\n}\n#indexRender {\r\n    top: -0.3em;\n}\n.listItems.btn:hover{\r\n  background: #9fe83e4f;\n}\n.toggle-list.btn.btn-warning {\r\n    width: 168px;\r\n    font-size: 12px;\r\n    margin-bottom: 4px;\n}\n.smallToggleBtn{\r\n    width: 157px !important;\r\n    height: 17px;\r\n    font-size: 10px !important;\n}\n.smallToggleBtn:nth-child(2) {\r\n    margin-right: -1px;\n}\n.toggle-list.btn:hover{\r\n  color: white;\n}\n.listBtnsWrap {\r\n  max-width: 341px;\r\n  float: right;\n}\n.smallbtnWrap{\r\n  max-width: 358px;\r\n  margin-bottom: 5px !important;\r\n  height: 21px;\r\n  margin-top: -4px;}\r\n", ""]);
 
 // exports
 
@@ -73935,16 +73990,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "container-fluid" }, [
-      _c(
-        "div",
-        { staticClass: "card-group", attrs: { size: "lg", text: "Large" } },
-        [_vm._v("\n      Drop to Calculate Bro..\n    ")]
-      ),
+      _c("div", {
+        staticClass: "card-group",
+        attrs: { size: "lg", text: "Large" }
+      }),
       _vm._v(" "),
       _vm.versesOn
         ? _c(
             "div",
-            { staticClass: "card", attrs: { size: "lg", text: "Large" } },
+            {
+              staticClass: "card calContainer",
+              attrs: { size: "lg", text: "Large" }
+            },
             [
               _vm.calBox
                 ? _c(
@@ -73953,15 +74010,33 @@ var render = function() {
                     _vm._l(_vm.versesToCal, function(verseToCal, key) {
                       return _c(
                         "div",
-                        { key: key, staticClass: "badge badge-warning" },
+                        { key: key, staticClass: "verse card" },
                         [
+                          _c(
+                            "div",
+                            { staticClass: "verseIndex btn btn-warning" },
+                            [
+                              _vm._v(
+                                " اية رقم " +
+                                  _vm._s(verseToCal.verseIndex) +
+                                  " \n          "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "btn btn-success" }, [
+                            _vm._v(
+                              "\n           " +
+                                _vm._s(
+                                  verseToCal.verseText.substring(0, 8) + ".."
+                                ) +
+                                "\n          "
+                            )
+                          ]),
                           _vm._v(
-                            "اية رقم " +
-                              _vm._s(verseToCal.verseIndex) +
-                              " " +
-                              _vm._s(verseToCal.verseText) +
-                              " score=" +
-                              _vm._s(verseToCal.verseScore.score)
+                            " \n         div. score=" +
+                              _vm._s(verseToCal.verseScore.score) +
+                              "\n        "
                           )
                         ]
                       )
@@ -73976,7 +74051,20 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "resultBox bade-success" }, [
                 _vm._v("Addition:" + _vm._s(_vm.VersesAddition))
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "btn btn-danger clean-box",
+                  on: {
+                    click: function($event) {
+                      _vm.versesToCal = []
+                    }
+                  }
+                },
+                [_vm._v("\n        مسح الحسابات\n      ")]
+              )
             ]
           )
         : _vm._e()
@@ -74074,61 +74162,6 @@ var render = function() {
     "div",
     { staticClass: "suraBlock card", on: { click: _vm.changeToScreen } },
     [
-      _vm.loading
-        ? _c(
-            "div",
-            { staticClass: "container-fluid spinner-box" },
-            [
-              _c("b-spinner", {
-                attrs: { label: "Spinner", variant: "success" }
-              })
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "titleContainer card-header" },
-        [
-          _vm.showSura
-            ? _c("fixedheader", [
-                _c("div", { staticClass: "titleBlock" }, [
-                  _c("div", { staticClass: "suraInfoBlock" }, [
-                    _c(
-                      "span",
-                      { staticClass: "suraInfo btn btn-custom-orange col-sm" },
-                      [_vm._v("عدد الكلمات " + _vm._s(_vm.sura.NumberOfWords))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      { staticClass: "suraInfo btn btn-secondary col-sm" },
-                      [_vm._v("عدد الحروف " + _vm._s(_vm.sura.NumberOfLetters))]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "suraTitle" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "suraInfo btn btn-warning col-sm suraVersesNum"
-                      },
-                      [_vm._v("عدد الآيات " + _vm._s(_vm.sura.NumberOfVerses))]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "suraName btn btn-success" }, [
-                      _vm._v("سورة " + _vm._s(_vm.sura.suraName))
-                    ])
-                  ])
-                ])
-              ])
-            : _vm._e()
-        ],
-        1
-      ),
-      _vm._v(" "),
       _c("calculate-box", {
         attrs: {
           verseText: _vm.verse.verseText,
@@ -74137,166 +74170,223 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "versesBlock",
-          attrs: { array: _vm.verses },
-          on: { click: _vm.dropToCalculate }
-        },
-        _vm._l(_vm.verses, function(verse, index) {
-          return _c(
+      !_vm.loading
+        ? _c(
             "div",
-            {
-              key: index,
-              ref: "thisVerse",
-              refInFor: true,
-              staticClass: "verse card",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.selectVerse(verse, index)
-                }
-              }
-            },
+            { staticClass: "versesBlock", on: { click: _vm.clickToCalculate } },
             [
-              verse[index] !== "SuraLettersCount"
-                ? _c("div", { staticClass: "SuraLettersCount" }, [
-                    _c("div", { staticClass: "verseCounts" }, [
-                      _c(
-                        "span",
-                        { staticClass: "verseInfo btn btn-custom-orange" },
-                        [_vm._v(_vm._s(verse.NumberOfWords) + " كلمة")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        { staticClass: "verseInfo btn btn-secondary" },
-                        [_vm._v(_vm._s(verse.NumberOfLetters) + " حرف")]
-                      )
-                    ]),
+              _c("div", { staticClass: "titleContainer card-header" }, [
+                _c("div", { staticClass: "titleBlock" }, [
+                  _c("div", { staticClass: "suraTitle" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "suraInfo btn btn-warning col-sm suraVersesNum"
+                      },
+                      [
+                        _vm._v(
+                          "\n            عدد الآيات " +
+                            _vm._s(_vm.sura.NumberOfVerses) +
+                            "\n          "
+                        )
+                      ]
+                    ),
                     _vm._v(" "),
-                    _c("span", { staticClass: "verseIndex btn btn-warning" }, [
-                      _vm._v("آية رقم: " + _vm._s(index))
+                    _c("div", { staticClass: "suraName btn btn-success" }, [
+                      _vm._v("سورة " + _vm._s(_vm.sura.suraName))
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "suraInfoBlock" }, [
+                    _c(
+                      "span",
+                      { staticClass: "suraInfo btn btn-danger col-sm" },
+                      [_vm._v("عدد الكلمات " + _vm._s(_vm.sura.NumberOfWords))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { staticClass: "suraInfo btn btn-secondary col-sm" },
+                      [_vm._v("عدد الحروف " + _vm._s(_vm.sura.NumberOfLetters))]
+                    )
                   ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: verse.verseText,
-                    expression: "verse.verseText"
-                  }
-                ],
-                attrs: { type: "hidden" },
-                domProps: { value: verse.verseText },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(verse, "verseText", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: verse.NumberOfLetters,
-                    expression: "verse.NumberOfLetters"
-                  }
-                ],
-                attrs: { type: "hidden" },
-                domProps: { value: verse.NumberOfLetters },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(verse, "NumberOfLetters", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: verse.NumberOfWords,
-                    expression: "verse.NumberOfWords"
-                  }
-                ],
-                attrs: { type: "hidden" },
-                domProps: { value: verse.NumberOfWords },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(verse, "NumberOfWords", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: verse.NumberOfWords,
-                    expression: "verse.NumberOfWords"
-                  }
-                ],
-                attrs: { type: "hidden" },
-                domProps: { value: verse.NumberOfWords },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(verse, "NumberOfWords", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: index,
-                    expression: "index"
-                  }
-                ],
-                attrs: { type: "hidden" },
-                domProps: { value: index },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    index = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "verseText container-fluid" }, [
-                _c("span", { staticClass: "btn btn-success" }, [
-                  _vm._v(_vm._s(verse.verseText))
                 ])
-              ])
-            ]
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.verses, function(verse, index) {
+                return index !== "SuraLettersCount"
+                  ? _c(
+                      "div",
+                      {
+                        key: index,
+                        ref: "thisVerse",
+                        refInFor: true,
+                        staticClass: "verse card",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.selectVerse(verse, index)
+                          }
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "SuraLettersCount" }, [
+                          _c(
+                            "span",
+                            { staticClass: "verseIndex btn btn-warning" },
+                            [_vm._v("آية " + _vm._s(index))]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: verse.verseText,
+                              expression: "verse.verseText"
+                            }
+                          ],
+                          attrs: { type: "hidden" },
+                          domProps: { value: verse.verseText },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(verse, "verseText", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: verse.NumberOfLetters,
+                              expression: "verse.NumberOfLetters"
+                            }
+                          ],
+                          attrs: { type: "hidden" },
+                          domProps: { value: verse.NumberOfLetters },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                verse,
+                                "NumberOfLetters",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: verse.NumberOfWords,
+                              expression: "verse.NumberOfWords"
+                            }
+                          ],
+                          attrs: { type: "hidden" },
+                          domProps: { value: verse.NumberOfWords },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                verse,
+                                "NumberOfWords",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: verse.NumberOfWords,
+                              expression: "verse.NumberOfWords"
+                            }
+                          ],
+                          attrs: { type: "hidden" },
+                          domProps: { value: verse.NumberOfWords },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                verse,
+                                "NumberOfWords",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: index,
+                              expression: "index"
+                            }
+                          ],
+                          attrs: { type: "hidden" },
+                          domProps: { value: index },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              index = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "verseText container-fluid" },
+                          [
+                            _c("span", { staticClass: "btn btn-success" }, [
+                              _vm._v(_vm._s(verse.verseText))
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "verseCounts" }, [
+                          _c(
+                            "span",
+                            { staticClass: "verseInfo btn btn-danger" },
+                            [_vm._v(_vm._s(verse.NumberOfWords) + " كلمة")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "verseInfo btn btn-secondary" },
+                            [_vm._v(_vm._s(verse.NumberOfLetters) + " حرف")]
+                          )
+                        ])
+                      ]
+                    )
+                  : _vm._e()
+              })
+            ],
+            2
           )
-        }),
-        0
-      )
+        : _vm._e()
     ],
     1
   )
@@ -74323,77 +74413,178 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card", attrs: { id: "theBook" } }, [
-    _c(
-      "div",
-      { staticClass: "suraItemBlock" },
-      [
-        _vm.loading
-          ? _c(
-              "div",
-              { staticClass: "container spinner-box" },
-              [
-                _c("b-spinner", {
-                  attrs: { label: "Small Spinner", variant: "info" }
-                })
-              ],
-              1
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        !_vm.loading
-          ? _c("div", { staticClass: "indexTitle smallListTitle" }, [
-              _c("span", { staticClass: "btn" }, [_vm._v("قائمة الكتاب")])
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm._l(_vm.surasList, function(suraIndexItem, index) {
-          return _c(
-            "div",
-            {
-              key: index,
-              staticClass: "suraIndexItem smallListItems btn",
-              class: { isActive: _vm.activeSura === index },
-              on: {
-                click: function($event) {
-                  return _vm.setSuraInPlay(suraIndexItem.fileName, index)
-                }
-              }
+  return _c(
+    "div",
+    { staticClass: "card", attrs: { id: "theBook" } },
+    [
+      _c("fixedheader", [
+        _c("div", { staticClass: "listWrap" }, [
+          _vm.showList
+            ? _c(
+                "div",
+                {
+                  staticClass: "suraItemBlock",
+                  class: { smallSuraItemBlock: _vm.isSmallList }
+                },
+                [
+                  _vm.loading
+                    ? _c(
+                        "div",
+                        { staticClass: "container spinner-box" },
+                        [
+                          _c("b-spinner", {
+                            attrs: { label: "Small Spinner", variant: "info" }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.loading
+                    ? _c("div", { staticClass: " listTitle" }, [
+                        _c("span", { staticClass: "btn" }, [
+                          _vm._v("قائمة الكتاب")
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.surasList, function(suraIndexItem, index) {
+                    return _c(
+                      "div",
+                      {
+                        key: index,
+                        staticClass: "listItems btn",
+                        class: {
+                          isActive: _vm.activeSura === index,
+                          smallList: _vm.isSmallList
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.setSuraInPlay(
+                              suraIndexItem.fileName,
+                              index
+                            )
+                          }
+                        }
+                      },
+                      [
+                        !_vm.isSmallList
+                          ? _c("div", [
+                              _vm._v(
+                                "\n            " +
+                                  _vm._s(suraIndexItem.suraName) +
+                                  "\n          "
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("div", { staticStyle: { "font-size": "11px" } }, [
+                          !_vm.isSmallList
+                            ? _c("label", { staticClass: "list" }, [
+                                _vm._v("سورة")
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("sup", { attrs: { id: "indexRender" } }, [
+                            _vm._v(
+                              _vm._s(parseInt(suraIndexItem.suraIndex, 10))
+                            )
+                          ])
+                        ])
+                      ]
+                    )
+                  })
+                ],
+                2
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.loading
+            ? _c(
+                "div",
+                {
+                  staticClass: "listBtnsWrap",
+                  class: { smallbtnWrap: _vm.isSmallList }
+                },
+                [
+                  _vm.showList
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "toggle-list btn btn-warning",
+                          class: { smallToggleBtn: _vm.isSmallList },
+                          on: {
+                            click: function($event) {
+                              _vm.isSmallList = !_vm.isSmallList
+                            }
+                          }
+                        },
+                        [
+                          _vm.isSmallList
+                            ? _c("div", [
+                                _vm._v(
+                                  "\n                تكبير القائمة\n            "
+                                )
+                              ])
+                            : _c("div", [
+                                _vm._v(
+                                  "\n              تصغير القائمة\n            "
+                                )
+                              ])
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.showSura
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "toggle-list btn btn-warning",
+                          class: { smallToggleBtn: _vm.isSmallList },
+                          on: {
+                            click: function($event) {
+                              _vm.showList = !_vm.showList
+                            }
+                          }
+                        },
+                        [
+                          _vm.showList
+                            ? _c("div", [
+                                _vm._v(
+                                  "\n              اغلاق القائمة\n          "
+                                )
+                              ])
+                            : _c("div", [
+                                _vm._v("\n            فتح القائمة\n          ")
+                              ])
+                        ]
+                      )
+                    : _vm._e()
+                ]
+              )
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { attrs: { id: "surasGroup" } },
+        [
+          _c("Sura", {
+            ref: "screen1",
+            attrs: {
+              suraFileName: _vm.suraFileName,
+              suraName: _vm.suraName,
+              screen: 1
             },
-            [
-              _c("label", [_vm._v(_vm._s(suraIndexItem.suraName))]),
-              _vm._v(" "),
-              _c("label", { staticStyle: { "font-size": "11px" } }, [
-                _c("label", { staticClass: "smallList" }, [_vm._v("سورة")]),
-                _vm._v(" "),
-                _c("sup", [
-                  _vm._v(_vm._s(parseInt(suraIndexItem.suraIndex, 10)))
-                ])
-              ])
-            ]
-          )
-        })
-      ],
-      2
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { attrs: { id: "surasGroup" } },
-      [
-        _c("Sura", {
-          ref: "screen1",
-          attrs: {
-            suraFileName: _vm.suraFileName,
-            suraName: _vm.suraName,
-            screen: 1
-          },
-          on: { changingScreen: _vm.changeScreen }
-        })
-      ],
-      1
-    )
-  ])
+            on: { changingScreen: _vm.changeScreen }
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -1,42 +1,44 @@
 <template>
-  <div class="suraBlock card" v-on:click="changeToScreen">
-    <div v-if="loading" class="container-fluid spinner-box">
+<div v-if="loading" class="container-fluid spinner-box">
       <b-spinner label="Spinner" variant="success"></b-spinner>
     </div>
-    <div class="titleContainer card-header">
-      <fixedheader v-if="showSura">
+  <div v-if="!loading"  class="suraBlock card" v-on:click="changeToScreen">
+    
+    <!-- <draggable @unchoose="dropToCalculate"> -->
+      <!-- </draggable> -->
+    <!-- <div v-if="!loading"> -->
+      <calculate-box :verseText="verse.verseText" :verseIndex="verseIndex" :suraFileName="suraFileName" ></calculate-box>
+    <!-- </div> -->
+      <!-- change the next tag to draggable when you get there -->
+    <div v-if="!loading" class="versesBlock" @click ="clickToCalculate">
+      <div class="titleContainer card-header">
+      <!-- <fixedheader v-if="showSura"> -->
         <div class="titleBlock">
-          <div class="suraInfoBlock">
-            <span class="suraInfo btn btn-custom-orange col-sm">عدد الكلمات {{sura.NumberOfWords}}</span>
-            <span class="suraInfo btn btn-secondary col-sm">عدد الحروف {{sura.NumberOfLetters}}</span>
-          </div>
           <div class="suraTitle">
             <div
               class="suraInfo btn btn-warning col-sm suraVersesNum"
-            >عدد الآيات {{sura.NumberOfVerses}}</div>
+            >
+              عدد الآيات {{sura.NumberOfVerses}}
+            </div>
             <div class="suraName btn btn-success">سورة {{sura.suraName}}</div>
           </div>
+          <div class="suraInfoBlock">
+            <span class="suraInfo btn btn-danger col-sm">عدد الكلمات {{sura.NumberOfWords}}</span>
+            <span class="suraInfo btn btn-secondary col-sm">عدد الحروف {{sura.NumberOfLetters}}</span>
+          </div>
         </div>
-      </fixedheader>
+      <!-- </fixedheader> -->
     </div>
-    <!-- <draggable @unchoose="dropToCalculate"> -->
-      <calculate-box  :verseText="verse.verseText" :verseIndex="verseIndex" :suraFileName="suraFileName" ></calculate-box>
-      <!-- </draggable> -->
-      <!-- change the next tag to draggable when you get there -->
-    <div class="versesBlock" :array="verses" @click ="dropToCalculate">
       <div
         class="verse card"
         v-for="(verse, index) in verses"
         v-bind:key="index"
         ref="thisVerse"
-        v-on:click.prevent="selectVerse(verse, index)"
+        v-on:click.prevent="selectVerse(verse, index)" 
+        v-if="index!=='SuraLettersCount'" 
       >
-        <div v-if="verse[index]!=='SuraLettersCount'" class="SuraLettersCount">
-          <div class="verseCounts">
-            <span class="verseInfo btn btn-custom-orange">{{verse.NumberOfWords}} كلمة</span>
-            <span class="verseInfo btn btn-secondary">{{verse.NumberOfLetters}} حرف</span>
-          </div>
-          <span class="verseIndex btn btn-warning">آية رقم: {{index}}</span>
+        <div class="SuraLettersCount">
+          <span class="verseIndex btn btn-warning">آية {{index}}</span>
         </div>
         <!-- hidden inputs for holding data -->
         <input type="hidden" v-model="verse.verseText" />
@@ -48,6 +50,10 @@
         <div class="verseText container-fluid">
           <span class="btn btn-success">{{verse.verseText}}</span>
         </div>
+        <div class="verseCounts">
+            <span class="verseInfo btn btn-danger">{{verse.NumberOfWords}} كلمة</span>
+            <span class="verseInfo btn btn-secondary">{{verse.NumberOfLetters}} حرف</span>
+          </div>
       </div>
     </div>
   </div>
@@ -75,20 +81,15 @@ export default {
     };
   },
   methods: {
-    dropToCalculate() {
-      console.log(this.$emit("fetchVerses ", this.screen));
-      this.$emit("changingScreen", this.screen);
+    clickToCalculate() {
+      // this.$emit("changingScreen", this.screen);
     },
     changeToScreen() {
       this.$emit("changingScreen", this.screen);
     },
     selectVerse(verse, index) {
-      console.log(this.verseIndex);
       this.verse = verse;
       this.verseIndex = index; 
-    },
-    addVerse() {
-      console.log(this.verse);
     }
   },
   computed: {
@@ -127,13 +128,11 @@ export default {
   },
   mounted() {},
   created() {},
-  updated() {
-       this.suraFileName;
-  }
+  updated() { }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .btn {
   padding: 0;
   color: #000;
@@ -143,13 +142,17 @@ export default {
 }
 .suraInfoBlock {
   display: flex;
+  margin-top: 2px;
 }
 .suraInfoBlock li > h2 > span {
   width: 254px;
   text-align: center;
 }
+.suraInfoBlock span{
+  font-size: 10px;
+}
 .suraInfo {
-  margin: 0px 2px 0px 2px;
+  margin: 0px 2px 0px 1px;
   font-size: 12px;
 }
 .suraName {
@@ -166,7 +169,7 @@ export default {
   margin-top: -1px;
 }
 .titleContainer {
-  padding: 4px 0px 4px 0px;
+  padding: 0px 0px 4px 0px;
   background-color: #fbf5ef;
   transition: all 1s ease;
 }
@@ -177,7 +180,7 @@ export default {
 }
 .titleBlock.vue-fixed-header--isFixed {
   position: fixed;
-  left: 0;
+  // left: 0;
   top: 0;
   width: 100vw;
   background: #f8f9fa;
@@ -186,10 +189,16 @@ export default {
   transition: all 0.11s ease;
 }
 .suraBlock {
-  /* min-height: 512px; */
+  // min-height: 512px; 
+    display: grid;
+    grid-template-columns: 40% 60%;
+    direction: ltr;
 }
-span.verseInfo.btn-custom-orange {
+span.verseInfo.btn-danger {
   margin-left: 3px;
+}
+.btn-danger{
+  background: #b8611738;
 }
 .SuraLettersCount {
   margin-left: auto;
@@ -223,31 +232,33 @@ span.verseInfo.btn-custom-orange {
 }
 .verseInfo {
   font-size: 12px;
-  /* margin: 4px 0px 4px 4px; */
-  width: 53.4px;
+   margin: 4px 0px 4px 4px;
+  width: 41.4px;
+  font-size: 10px;
 }
 .verseInfo .verseIndex {
   font-size: 12px;
 }
-.btn-custom-orange {
+.btn-warning {
   background-color: #ff750094;
   border-color: #e17c25;
 }
 .btn-secondary {
-  background-color: #6c757db0;
+  background-color: #6c757d30;
 }
 .btn-warning {
   background-color: #ffc10796;
 }
 .btn-success {
-  background-color: #28a74557;
+  background-color: #28a7450a;
 }
 .verseCounts {
   display: flex;
+  margin-top: 3px;
 }
 .verseText {
   text-align: center;
-  margin-top: 3px;
+  margin-top: 1px;
   padding: 2px;
   padding-bottom: 0px;
   /* margin-bottom: 5px;
