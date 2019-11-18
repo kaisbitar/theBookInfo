@@ -1,4 +1,5 @@
 <template>
+<div>
 <div v-if="loading" class="container-fluid spinner-box">
       <b-spinner label="Spinner" variant="success"></b-spinner>
     </div>
@@ -56,6 +57,7 @@
           </div>
       </div>
     </div>
+  </div>
   </div>
 </template> 
 
