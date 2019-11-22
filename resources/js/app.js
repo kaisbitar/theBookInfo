@@ -39,6 +39,7 @@ Vue.component(
     require("./components/CalculateBox.vue").default
 );
 Vue.component("suras-list", require("./components/SurasList.vue").default);
+Vue.component("toast-component", require("./components/ToastComponent.vue").default);
 Vue.component("fixedheader", FixedHeader);
 Vue.component("draggable", draggable);
 /**

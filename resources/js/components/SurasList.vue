@@ -1,7 +1,7 @@
 <template>
 
   <div id="theBook" class="card">
-    <fixedheader>
+    <!-- <fixedheader> -->
       <div class="listWrap">
         <div :class="{ smallSuraItemBlock: isSmallList}" class="suraItemBlock" v-if="showList">
           <div v-if="loading" class="container spinner-box">
@@ -72,7 +72,7 @@
           </div>
         </div>
       </div>
-    </fixedheader>
+    <!-- </fixedheader> -->
 
     
     <div id="surasGroup">
@@ -108,7 +108,7 @@ export default {
       surasList: [],
       suraName: "",
       suraNumber: "",
-      suraFileName: "",
+      suraFileName: "001الفاتحة",
       showSura: true,
       isActive: false,
       loading: true,
@@ -166,7 +166,8 @@ div#theBook {
 }
 .listWrap.vue-fixed-header{
   transition: BezierEasing(0.215, 0.61, 0.355, 1);
-}
+  position: inherit;
+}    
 .listWrap.vue-fixed-header--isFixed {
   position: fixed;
   left: 0;
@@ -176,8 +177,6 @@ div#theBook {
   border: 1px solid #00000020;
   z-index: 1;
   animation: fadeIn 0.3s ease-out forwards;
-  /* transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); */
-  transition: BezierEasing(0.215, 0.61, 0.355, 1);
 
 }
 
@@ -187,7 +186,7 @@ div#theBook {
       /* transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); */
   transition: BezierEasing(0.215, 0.61, 0.355, 1);
 
-    /* transform: translateY(-74px); */
+    transform: translateY(-74px);
 
   }
   100% {

@@ -8,10 +8,10 @@
     <!-- <draggable @unchoose="dropToCalculate"> -->
       <!-- </draggable> -->
     <!-- <div v-if="!loading"> -->
-      <calculate-box :verseText="verse.verseText" :verseIndex="verseIndex" :suraFileName="suraFileName" ></calculate-box>
+      <calculate-box :verseText="verse.verseText" :suraFileName="suraFileName" :verseIndex="verseIndex" ></calculate-box>
     <!-- </div> -->
       <!-- change the next tag to draggable when you get there -->
-    <div v-if="!loading" class="versesBlock" @click ="clickToCalculate">
+    <div class="versesBlock" @click ="clickToCalculate">
       <div class="titleContainer card-header">
       <!-- <fixedheader v-if="showSura"> -->
         <div class="titleBlock">
@@ -266,9 +266,10 @@ span.verseInfo.btn-danger {
   /* margin-bottom: 5px;
 	padding: 11px; */
 }
-.verseText.container-fluid .btn {
-  padding: 4px;
-  font-size: 14px;
-  padding-top: 0px;
-}
+.verseText .btn {
+    padding: 4px;
+    font-size: 14px;
+    padding-top: 0px;
+    direction: rtl;
+  }
 </style>
