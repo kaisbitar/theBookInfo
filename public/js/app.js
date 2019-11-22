@@ -1777,6 +1777,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["suraFileName", "verseIndex", "verseText"],
@@ -1800,7 +1808,8 @@ __webpack_require__.r(__webpack_exports__);
       // verseIndex: "",
       verseScore: "",
       versesScore: [],
-      toastOn: false
+      toastOn: false,
+      isDivided: false
     };
   },
   methods: {
@@ -1856,19 +1865,28 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     Verses19Result: function Verses19Result() {
       var versesSore = 0;
+      var Verses19Result = 0;
 
       for (var i = 0; i < Object.keys(this.versesToCal).length; i++) {
         versesSore = versesSore + this.versesToCal[i].verseScore.score;
-      } // if(Number.isInteger(versesSore/19)){
-      //   this.toastOn = true;
-      //   this.toastMsg = this.versesToCal[i].verseScore.score+' /19 = '+versesSore/19;
-      // }
-      // else{
-      //   this.toastOn =false;
-      // }
+      }
 
+      Verses19Result = versesSore / 19;
+      console.log(Verses19Result.toString().indexOf("."));
+      var check = "";
+      check = Verses19Result.toString().indexOf(".");
 
-      return versesSore / 19;
+      if (check == -1 && versesSore != 0) {
+        this.toastOn = true; // Verses19Result = versesSore/19;
+
+        this.isDivided = true; // this.toastMsg = this.versesToCal[i].verseScore.score+' /19 = '+versesSore/19;
+      } else {
+        this.isDivided = false;
+        this.toastOn = false;
+        Verses19Result = Verses19Result.toFixed(3);
+      }
+
+      return Verses19Result;
     },
     VersesAddition: function VersesAddition() {
       var versesSore = 0;
@@ -35548,7 +35566,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.clean-box[data-v-a115ac20]{\n  font-weight: 300;\n  width: 157px;\n}\n.verseScore[data-v-a115ac20]{\n  font-size: 13px;\n  color: #007709;\n  background: #28b8174d;\n}\n.verseIndex.btn.btn-warning[data-v-a115ac20] {\n  margin: auto;\n}\n.plusSign[data-v-a115ac20]{\n  margin-left: 4px;\n  margin-bottom: 4px;\n  padding: 4px;\n  float: right;\n  margin-top: 48px;\n  font-weight: bolder;\n}\n.verseWrap[data-v-a115ac20]{\n  max-width: -webkit-fit-content;\n  max-width: -moz-fit-content;\n  max-width: fit-content;\n  float: right; \n  padding: 0px;\n}\n.clacWrap[data-v-a115ac20]{\n  float: right;\n}\n", ""]);
+exports.push([module.i, "\n.clean-box[data-v-a115ac20]{\n  font-weight: 300;\n  width: 157px;\n}\n.verseScore[data-v-a115ac20]{\n  font-size: 13px;\n  color: #007709;\n  background: #28b8174d;\n}\n.verseIndex.btn.btn-warning[data-v-a115ac20] {\n  margin: auto;\n}\n.plusSign[data-v-a115ac20]{\n  margin-left: 4px;\n  margin-bottom: 4px;\n  padding: 4px;\n  float: right;\n  margin-top: 48px;\n  font-weight: bolder;\n}\n.verseWrap[data-v-a115ac20]{\n  max-width: -webkit-fit-content;\n  max-width: -moz-fit-content;\n  max-width: fit-content;\n  float: right; \n  padding: 0px;\n}\n.clacWrap[data-v-a115ac20]{\n  float: right;\n}\n.divided[data-v-a115ac20]{\n  background: green;\n  color: white;\n}\n", ""]);
 
 // exports
 
@@ -71913,13 +71931,21 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "clacWrap card" }, [
             _c("div", { staticClass: "resultBox bade-success" }, [
-              _vm._v("مجموع الايات =" + _vm._s(_vm.VersesAddition))
+              _vm._v("مجموع قيم الايات = " + _vm._s(_vm.VersesAddition))
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "resultBox bade-success" }, [
-              _vm._v(_vm._s(_vm.VersesAddition)),
+            _c("div", { staticClass: "resultBox" }, [
+              _vm._v("\n        " + _vm._s(_vm.VersesAddition)),
               _c("span", [_vm._v(" ÷ ")]),
-              _vm._v("19 = " + _vm._s(_vm.Verses19Result))
+              _vm._v("19 = "),
+              _c(
+                "span",
+                {
+                  staticClass: "badge badge-danger",
+                  class: { divided: _vm.isDivided }
+                },
+                [_vm._v(_vm._s(_vm.Verses19Result))]
+              )
             ])
           ])
         ]

@@ -47,7 +47,7 @@ class CollecterService
     public function countLetters($suraIndex)
     {
         $allDecodedSuras = [];
-        $fileNames = scandir(storage_path('sanatizedSuras'));
+        $fileNames = scandir(storage_path('SanatizedSuras'));
         foreach ($fileNames as $index=> $fileName) {
             if (($fileName != '.')&&($fileName != '..')) {
                 $file = storage_path() . "/decoded_suras" . '/' .$fileName. '_sura_results.json';

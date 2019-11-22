@@ -36,8 +36,12 @@
         </div>
       </div>
       <div class="clacWrap card">
-        <div class="resultBox bade-success">مجموع الايات ={{VersesAddition}}</div>
-        <div class="resultBox bade-success">{{VersesAddition}}<span> &#247; </span>19 = {{Verses19Result}}</div>
+        <div class="resultBox bade-success">مجموع قيم الايات = {{VersesAddition}}</div>
+        <div 
+          class="resultBox"
+        >
+          {{VersesAddition}}<span> &#247; </span>19 = <span :class="{ divided: isDivided }" class = "badge badge-danger">{{Verses19Result}}</span>
+        </div>
       </div>
       <!-- <toast-component :toastMsg="toastMsg" :toastOn="toastOn"></toast-component> -->
     </div>
@@ -75,6 +79,10 @@
   .clacWrap{
     float: right;
   }
+  .divided{
+    background: green;
+    color: white;
+  }
 </style>
 
 <script>
@@ -103,7 +111,8 @@ export default {
       // verseIndex: "",
       verseScore: "",
       versesScore:[],
-      toastOn:false
+      toastOn:false,
+      isDivided: false
     };
   },
   methods: {
@@ -148,17 +157,26 @@ export default {
   computed: {
     Verses19Result: function() {
       let versesSore = 0;
+      let Verses19Result = 0;
       for (var i = 0; i < Object.keys(this.versesToCal).length; i++) {
         versesSore = versesSore + this.versesToCal[i].verseScore.score;
       }
-      // if(Number.isInteger(versesSore/19)){
-      //   this.toastOn = true;
-      //   this.toastMsg = this.versesToCal[i].verseScore.score+' /19 = '+versesSore/19;
-      // }
-      // else{
-      //   this.toastOn =false;
-      // }
-      return versesSore / 19;
+      Verses19Result = (versesSore/19);
+      console.log(Verses19Result.toString().indexOf("."));
+      let check ="";
+      check = Verses19Result.toString().indexOf(".");
+      if((check == -1) && (versesSore != 0)){
+        this.toastOn = true;
+        // Verses19Result = versesSore/19;
+        this.isDivided = true;
+        // this.toastMsg = this.versesToCal[i].verseScore.score+' /19 = '+versesSore/19;
+      }
+      else{
+        this.isDivided = false;
+        this.toastOn =false;
+        Verses19Result = Verses19Result.toFixed(3);
+      }
+      return Verses19Result;
     },
     VersesAddition: function(){
       let versesSore = 0;
