@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid">
+    <div class="calbox-wrap">
       <div 
           class="btn btn-danger clean-box"
           @click="versesToCal=[]"
@@ -50,6 +50,14 @@
 </template>
 
 <style scoped>
+  .calbox-wrap{
+    position: fixed;
+    max-width: 615px;
+    max-height: 602px;
+    padding: 20px;
+    overflow: auto;
+    background: #dcdcdc4f;
+  }
   .clean-box{
     font-weight: 300;
     width: 157px;
@@ -78,6 +86,7 @@
   }
   .clacWrap{
     float: right;
+    padding: 12px;
   }
   .divided{
     background: green;

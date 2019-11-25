@@ -1785,6 +1785,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["suraFileName", "verseIndex", "verseText"],
@@ -35566,7 +35575,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.clean-box[data-v-a115ac20]{\n  font-weight: 300;\n  width: 157px;\n}\n.verseScore[data-v-a115ac20]{\n  font-size: 13px;\n  color: #007709;\n  background: #28b8174d;\n}\n.verseIndex.btn.btn-warning[data-v-a115ac20] {\n  margin: auto;\n}\n.plusSign[data-v-a115ac20]{\n  margin-left: 4px;\n  margin-bottom: 4px;\n  padding: 4px;\n  float: right;\n  margin-top: 48px;\n  font-weight: bolder;\n}\n.verseWrap[data-v-a115ac20]{\n  max-width: -webkit-fit-content;\n  max-width: -moz-fit-content;\n  max-width: fit-content;\n  float: right; \n  padding: 0px;\n}\n.clacWrap[data-v-a115ac20]{\n  float: right;\n}\n.divided[data-v-a115ac20]{\n  background: green;\n  color: white;\n}\n", ""]);
+exports.push([module.i, "\n.calbox-wrap[data-v-a115ac20]{\n  position: fixed;\n  max-width: 615px;\n  max-height: 602px;\n  padding: 20px;\n  overflow: auto;\n  background: #dcdcdc4f;\n}\n.clean-box[data-v-a115ac20]{\n  font-weight: 300;\n  width: 157px;\n}\n.verseScore[data-v-a115ac20]{\n  font-size: 13px;\n  color: #007709;\n  background: #28b8174d;\n}\n.verseIndex.btn.btn-warning[data-v-a115ac20] {\n  margin: auto;\n}\n.plusSign[data-v-a115ac20]{\n  margin-left: 4px;\n  margin-bottom: 4px;\n  padding: 4px;\n  float: right;\n  margin-top: 48px;\n  font-weight: bolder;\n}\n.verseWrap[data-v-a115ac20]{\n  max-width: -webkit-fit-content;\n  max-width: -moz-fit-content;\n  max-width: fit-content;\n  float: right; \n  padding: 0px;\n}\n.clacWrap[data-v-a115ac20]{\n  float: right;\n  padding: 12px;\n}\n.divided[data-v-a115ac20]{\n  background: green;\n  color: white;\n}\n", ""]);
 
 // exports
 
@@ -71844,7 +71853,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "calbox-wrap" }, [
       _c(
         "div",
         {
