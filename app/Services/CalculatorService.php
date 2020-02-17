@@ -35,27 +35,38 @@ class CalculatorService
     public function mapSura()
     {   
         $resultFileName = $this->fullSura->Name . '_sura_results.json';
-        if (!file_exists(storage_path('decoded_suras/' . $resultFileName))) {
-            $this->fullSura->NumberOfVerses = $this->fullSura->calculateNumberOfVerses();
+        // if (!file_exists(storage_path('decoded_suras/' . $resultFileName))) {
+            
             $this->fullSura->NumberOfWords = $this->fullSura->calculateNumberOfWords();
             $this->fullSura->NumberOfLetters = $this->fullSura->calculateNumberOfLetters();
-
             $this->fullSura->WordOccurrences = $this->counter->countWordsInString($this->fullSura->suraString);
+            // dd($this->fullSura->WordOccurrences);
+
             $this->fullSura->WordIndex = $this->indexer->indexWordsInString($this->fullSura->suraString);
 
             $this->fullSura->LetterOccurrences = $this->counter->countLettersInString($this->fullSura->suraString);
             $this->fullSura->LetterIndexes = $this->indexer->indexLettersInString($this->fullSura->verses);
-
             $verses = $this->processVerses($this->fullSura->verses);
             $verses["SuraLettersCount"] = $this->counter->countLettersInString($this->fullSura->suraString);
             
             $this->fullSura->VersesScore = $verses;
             
             file_put_contents(storage_path('decoded_suras/' . $resultFileName), json_encode($this->fullSura, JSON_UNESCAPED_UNICODE));
-        }
+        // }
         $mappedSura = file_get_contents(storage_path('decoded_suras/' . $this->fullSura->Name . '_sura_results.json'));
 
         return $mappedSura;
+    }
+
+    public function mapLetters()
+    {
+        // dd($this->counter->countLettersInString($this->fullSura->suraString));
+        $this->fullSura->NumberOfLetters = $this->fullSura->calculateNumberOfLetters();
+
+        // $this->fullSura->LetterCount = $this->counter->countLettersInString($this->fullSura->suraString);
+        // $this->fullSura->LettersIndexes = $this->indexer->indexLettersInString($this->fullSura->verses);
+        
+        return json_encode($this->fullSura) ;
     }
 
     public function mapVerses()

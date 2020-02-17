@@ -42,8 +42,8 @@ class FullSura extends Model
             $verse = explode(" ", $fullSura[$i]);
             
             for ($j = 0; $j < sizeof($verse); $j++) {
-                $numberOfLetters = strlen($verse[$j]);
-                $lettersCount = $lettersCount + ($numberOfLetters / 2);
+                $numberOfLetters = mb_strlen($verse[$j]);
+                $lettersCount = $lettersCount + ($numberOfLetters );
             }
         }
         return $lettersCount;

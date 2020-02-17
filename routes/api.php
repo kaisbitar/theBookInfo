@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //api resources
 Route::get('sura-map/{fileName}', 'CalculatorController@mapSura');
+Route::get('letters-map/{fileName}', 'CalculatorController@mapLetters');
 Route::get('verses-map/{fileName}', 'CalculatorController@mapVerses');
 Route::get('sanatize', 'SanatizerController@runSanatization');
 Route::get('words-score/{fileName}', 'ScoreController@eachWordScore');

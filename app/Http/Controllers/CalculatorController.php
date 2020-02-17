@@ -45,7 +45,12 @@ class CalculatorController extends Controller
     {   
         return $this->service->mapSura();
     }
-
+    
+    public function mapLetters()
+    {   
+        return $this->service->mapLetters();
+    }
+    
     public function mapVerses()
     {        
         return $this->service->mapVerses();

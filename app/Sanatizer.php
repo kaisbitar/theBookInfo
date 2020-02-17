@@ -18,6 +18,13 @@ class Sanatizer extends Model
 
     public function sanatize()
     {
+        //clear the complete file before starting
+        $sanatizedFiles = scandir($this->cleanedSurasPath);
+        foreach ($sanatizedFiles as $sanatizedFile) {
+            if($sanatizedFile == "complete"){
+                unlink ($this->cleanedSurasPath.'/complete');
+            }
+        }
         $rawHTMLFiles = scandir($this->folderToSanatize);
         foreach ($rawHTMLFiles as $rawHTMLFile) {
             if (($rawHTMLFile != '.')&&($rawHTMLFile != '..')) {
@@ -26,10 +33,11 @@ class Sanatizer extends Model
 
                 $suraNumber = substr($rawHTMLFile, 0, strpos($rawHTMLFile, "."));
                 $fileNameToSave = $suraNumber.$readyToSaveSura["suraName"];
-                self::saveSura($readyToSaveSura["theSura"], $fileNameToSave);
+                self::saveAllSuras($readyToSaveSura["theSura"], $fileNameToSave);
+                self::saveIndividualSura($readyToSaveSura["theSura"], $fileNameToSave);
             }
         }
-    }
+    } 
     public function getSuraString($rawHTMLFile)
     {
         $notsanatizedSura = File::get($this->folderToSanatize.'/'.$rawHTMLFile);
@@ -116,6 +124,7 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('ءا', 'ا', $cleanedSura); 
         $cleanedSura = str_replace('ءا', 'ا', $cleanedSura); 
         $cleanedSura = str_replace('شئ', 'شي', $cleanedSura); 
+        $cleanedSura = str_replace('وتثبيتامن', 'وتثبيتا من', $cleanedSura); 
         $cleanedSura = str_replace('شيء', 'شي', $cleanedSura); 
         $cleanedSura = str_replace('الذى', 'الذي', $cleanedSura);  
         $cleanedSura = str_replace('ابرهيملابيه', 'ابرهيم لابيه', $cleanedSura);  
@@ -147,9 +156,16 @@ class Sanatizer extends Model
       return $readyToSaveSura;
     }        
 
-    public function saveSura($readyToSaveSura, $fileNameToSave)
+    public function saveIndividualSura($readyToSaveSura, $fileNameToSave)
     {
         $sanataizedDir = fopen($this->cleanedSurasPath.'/'.$fileNameToSave, 'w');
+        fwrite($sanataizedDir, $readyToSaveSura);
+        fclose($sanataizedDir);
+    }
+    public function saveAllSuras($readyToSaveSura, $fileNameToSave)
+    {
+        $readyToSaveSura = $readyToSaveSura . ",";
+        $sanataizedDir = fopen($this->cleanedSurasPath.'/complete', 'a');
         fwrite($sanataizedDir, $readyToSaveSura);
         fclose($sanataizedDir);
     }
