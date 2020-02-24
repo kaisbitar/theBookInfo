@@ -33,7 +33,7 @@ class Sanatizer extends Model
 
                 $suraNumber = substr($rawHTMLFile, 0, strpos($rawHTMLFile, "."));
                 $fileNameToSave = $suraNumber.$readyToSaveSura["suraName"];
-                self::saveAllSuras($readyToSaveSura["theSura"], $fileNameToSave);
+                self::saveAllSuras($readyToSaveSura["theSura"], $fileNameToSave, $suraNumber);
                 self::saveIndividualSura($readyToSaveSura["theSura"], $fileNameToSave);
             }
         }
@@ -129,8 +129,9 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('الذى', 'الذي', $cleanedSura);  
         $cleanedSura = str_replace('ابرهيملابيه', 'ابرهيم لابيه', $cleanedSura);  
         $cleanedSura = str_replace('بلقاىءربهم', 'بلقاء ربهم', $cleanedSura); 
-        $cleanedSura = str_replace('مصلىوعهدنا', 'مصلى وعهدنا', $cleanedSura); 
+        $cleanedSura = str_replace('مصلىوعهدنا', 'مصلى وعهدنا', $cleanedSura);  
         $cleanedSura = str_replace('يحى', 'يحي', $cleanedSura); 
+        $cleanedSura = str_replace('لايخفى', 'لا يخفى', $cleanedSura); 
         $cleanedSura = mb_substr($cleanedSura, 0, -1);
         $cleanedSura = str_replace('عمران,', '', $cleanedSura); 
         $cleanedSura = ltrim($cleanedSura, ',');
@@ -162,9 +163,10 @@ class Sanatizer extends Model
         fwrite($sanataizedDir, $readyToSaveSura);
         fclose($sanataizedDir);
     }
-    public function saveAllSuras($readyToSaveSura, $fileNameToSave)
+    public function saveAllSuras($readyToSaveSura, $fileNameToSave, $suraNumber)
     {
-        $readyToSaveSura = $readyToSaveSura . ",";
+        $readyToSaveSura = $readyToSaveSura . ",n";
+        
         $sanataizedDir = fopen($this->cleanedSurasPath.'/complete', 'a');
         fwrite($sanataizedDir, $readyToSaveSura);
         fclose($sanataizedDir);

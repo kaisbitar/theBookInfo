@@ -4,20 +4,23 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require("./bootstrap");
+// require("./bootstrap");
 import Vue from "vue";
-import BootstrapVue from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
-import FixedHeader from "vue-fixed-header";
-import draggable from "vuedraggable";
+// import BootstrapVue from "bootstrap-vue";
+// import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap-vue/dist/bootstrap-vue.css";
+import "vuetify/dist/vuetify.min.css";
+// import 'mdi/font/css/materialdesignicons.min.css';
+import '@mdi/font/css/materialdesignicons.css'
+// import 'vuetify/src/styles/styles.sass'
+import 'vuetify/src/styles/variables.scss';
+import ar from 'vuetify/es5/locale/ar';
 
+import Vuetify from "vuetify";
 window.Vue = require("vue");
-var VueScrollTo = require("vue-scrollto");
 
-Vue.use(BootstrapVue);
-Vue.use(VueScrollTo);
-Vue.use(draggable);
+// Vue.use(BootstrapVue);
+Vue.use(Vuetify);
 
 // Vue.use(FixedHeader)
 
@@ -32,22 +35,39 @@ Vue.use(draggable);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component("Sura", require("./components/Sura.vue").default);
+
+Vue.component("Sura", require("./components/old/Sura.vue").default);
 // Vue.component('verseInPlay', {  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
 Vue.component(
     "calculate-box",
-    require("./components/CalculateBox.vue").default
+    require("./components/old/CalculateBox.vue").default
 );
-Vue.component("suras-list", require("./components/SurasList.vue").default);
-Vue.component("toast-component", require("./components/ToastComponent.vue").default);
-Vue.component("fixedheader", FixedHeader);
-Vue.component("draggable", draggable);
+Vue.component("suras-list", require("./components/old/SurasList.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component("board", require("./components/board/board.vue").default);
+Vue.component("quranIndex", require("./components/board/boardComponents/Quran/quranIndex.vue").default);
+Vue.component("sura", require("./components/board/boardComponents/Quran/sura.vue").default);
+
+
+Vue.component("vuetify", require("./components/vutifyplay.vue").default);
+
+
 const app = new Vue({
-    el: "#app"
-});
+    el: "#app",
+    vuetify: new Vuetify({
+      rtl: true, 
+      lang: {
+        locales: { ar },
+        current: 'ar',
+      },
+    }),
+  });
+
+// const app = new Vue({
+//     el: "#app"
+// });
