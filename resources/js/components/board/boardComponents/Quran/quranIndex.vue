@@ -1,40 +1,43 @@
 <template>
 <v-app>    
-  <div class="quranList">
+  <div class="quranList mb-5">
   <v-expansion-panels
-  absolute 
-    multiple         
     v-model="panel"
     class="quranList"
-  >
-    <v-expansion-panel class="quranList">
-      <v-expansion-panel-header fixed-header>قاىًمة الكتاب</v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <v-text-field
-          mb-2
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="ابحث اسم او رقم سورة"
-          single-line
-          hide-details
-        ></v-text-field>
-        <v-data-table
-          item-key="Name"
-          :dense="dense"
-          loading
-          :loading="loading"
-          loading-text="جاري تحميل... الرجاء الانتظار"
-          :headers="headers"
-          fixed-header
-          :items="quranIndex"
-          class="elevation-1"
-          :headers-length="3"
-          show-select
-          :height=400
-          :search="search"
-          @click:row="handleClick"
-        ></v-data-table>          
-      </v-expansion-panel-content>
+    hover
+  ><v-text-field
+    mb-2
+    v-model="search"
+    append-icon="mdi-magnify"
+    label="ابحث اسم او رقم سورة"
+    single-line
+    hide-details
+    class="mb-3  white--text"
+  ></v-text-field>
+    <v-expansion-panel class="quranList indigo lighten-1 mt-5 white--text" dark collapse>
+      <v-expansion-panel-header fixed-header>      
+        <template v-slot:default="{ open }">قاىًمة الكتاب
+          <v-expansion-panel-content>
+            <v-data-table
+              item-key="Name"
+              :dense="dense"
+              loading
+              :loading="loading"
+              loading-text="جاري تحميل... الرجاء الانتظار"
+              :headers="headers"
+              fixed-header
+              :items="quranIndex"
+              class="elevation-1 indexTable"
+              :headers-length="3"
+              :height=400
+              :search="search"
+              @click:row="handleClick"
+              hide-default-footer
+              disable-pagination
+            ></v-data-table>          
+          </v-expansion-panel-content>
+        </template>
+      </v-expansion-panel-header>
     </v-expansion-panel>
   </v-expansion-panels>
 
@@ -72,15 +75,16 @@
         quranIndex: [],
         search:'',
         panel: [0],
-        suraSelected: '001الفاتحة',
+        suraSelected: 'complete',
         headers: [
+          { text: 'رقم السورة', value: 'suraIndex', class:"indigo lighten-5", width:120 },
           {
             text: 'اسم السورة',
             align: 'right',
-            value: 'Name',
+            value: 'Name', 
+            class:"indigo lighten-5", width:200
           }, 
-          { text: 'رقم السورة', value: 'suraIndex' },
-          { text: 'عدد الايات', value: 'numberOfVerses' }
+          { text: 'عدد الايات', value: 'numberOfVerses',class:"indigo lighten-5" },{class:"indigo lighten-5", width:100}
         ],
         dense:false,
         loading: true
@@ -92,11 +96,10 @@
         .then(res => res.json())
         .then(res =>{
           this.quranIndex = res
-          this.loading = false
         })
         .catch (function(err){
           alert(err);
-        });
+        }).finally(() => (this.loading = false))
       },
       activateSura(value){
         // this.$emit('suraItemClicked', row)
@@ -116,4 +119,7 @@
 
 <style lang="scss" scoped>  
 
+.indexTable.v-data-table-header{
+  background: #E1BEE7; 
+}
 </style> 

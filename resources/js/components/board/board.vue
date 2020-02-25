@@ -41,4 +41,7 @@ export default {
  .v-application--wrap {
     min-height: 50px !important;
 } 
+.qura-list .v-application {
+  max-width: 700px;
+}
 </style> 

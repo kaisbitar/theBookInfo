@@ -1,44 +1,38 @@
 <template>
-  <div class="suraWrap card">
-    <div class="card-header text-center suraName">سورة{{suraTitle}}</div> 
-    <div class="card-body">
-        <button  
-          type="button" class="list-group-item list-group-item-action" 
-          v-for="(verse, index) in suraMap"
-          :key="index"
-          v-if="index!=='SuraLettersCount'" 
-        >
-          {{verse.verseText}}
-        </button> 
+  <v-app>
+    <div class="suraWrap card">
+      <v-autocomplete
+        :items="suraWithIndex"
+        color="red"
+        item-text="verseText"
+        label="ابحث عن آية"
+        return-object
+        cache-items
+      ></v-autocomplete>
+      <!-- <v-text-field
+        mb-2
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="ابحث عن آية او كلمة"
+        single-line
+        hide-details
+        class="mb-3"
+      ></v-text-field> -->
+      <v-data-table
+        loading
+        :loading="loading"
+        loading-text="جاري تحميل... الرجاء الانتظار"
+        :items="suraWithIndex"
+        class="elevation-2"
+        :headers-length="4"
+        :headers="headers"
+        fixed-header 
+        :height=400
+        :search="search"
+        @click:row="handleClick"
+      ></v-data-table>
     </div>
-
-    <v-card
-      class="mx-auto"
-      max-width="344"
-      outlined
-    >
-      <v-list-item three-line>
-        <v-list-item-content>
-          <div class="overline mb-4">OVERLINE</div>
-          <v-list-item-title class="headline mb-1">Headline 5</v-list-item-title>
-          <v-list-item-subtitle>Greyhound divisely hello coldly fonwderfully</v-list-item-subtitle>
-        </v-list-item-content>
-  
-        <v-list-item-avatar
-          tile
-          size="80"
-          color="grey"
-        ></v-list-item-avatar>
-      </v-list-item>
-  
-      <v-card-actions>
-        <v-btn text>Button</v-btn>
-        <v-btn text>Button</v-btn>
-      </v-card-actions>
-    </v-card>
- 
-
-  </div>
+  </v-app>
 </template> 
 
 <script>
@@ -46,13 +40,23 @@ export default {
   props: [],
   data() {
     return {
-      suraToPlay:[],
       suraMap:[],
+      suraToPlay:[],
       fileName: [],
-      suraTitle: ''
+      suraIndex: 1,
+      suraTitle: '',
+      loading: true,
+      search: '',
+      model: null,
+      autoSearch: null,
+      headers: [
+        { text: 'رقم الآية', value: 'index' },
+        { text: 'الآية', value: 'verseText' },
+        { text: 'عدد الكلمات', value: 'NumberOfWords' },
+        { text: 'عدد الأحرف', value: 'NumberOfLetters' }
+      ],
     }
   },
-  computed: {},
   methods:{
     //methods running through suraItemClicked function in board component
     playThisSura(suraToPlay){
@@ -65,15 +69,82 @@ export default {
       fetch("api/sura-map/" + this.fileName, { method: "GET" })
       .then(res => res.json())
       .then(res => {
-        this.suraMap = res.versesMap
+        this.suraMap = res.versesMap;
+
+        //----
+        //some obejct to array and then mapping stuff..
+        this.suraMap = Object.entries(this.suraMap);
+        this.suraMap = this.suraMap.map(post => {
+          return post[1]
+        })
+        //---
+        this.loading = false
       });
-    }
+    },
+    handleClick(value){
+      console.log(value)
+    },
   },
   created(){
-    this.fileName = '001الفاتحة'
+    this.fileName = 'complete'
     this.suraTitle = 'الفاتحة'
     this.fetchVerses()
-  }
+  },
+  computed: {
+    
+    suraWithIndex() {
+      return this.suraMap.map(
+        (items, index) => ({
+          ...items,
+          index: index + 1
+        }))
+    },
+    fields () {
+      if (!this.model) return []
+
+      return Object.keys(this.model).map(key => {
+        return {
+          key,
+          value: this.model[key] || 'n/a',
+        }
+      })
+    },
+    items () {
+      return this.entries.map(entry => {
+        const Description = entry.Description.length > this.descriptionLimit
+          ? entry.Description.slice(0, this.descriptionLimit) + '...'
+          : entry.Description
+
+        return Object.assign({}, entry, { Description })
+      })
+    },
+  },
+
+  watch: {
+    autoSearch (val) {
+      // Items have already been loaded
+      if (this.items.length > 0) return
+
+      // Items have already been requested
+      if (this.isLoading) return
+
+      this.isLoading = true
+
+      // Lazily load input items
+      fetch('https://api.publicapis.org/entries')
+        .then(res => res.json())
+        .then(res => {
+          const { count, entries } = res
+          this.count = count
+          this.entries = entries
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(() => (this.isLoading = false))
+    },
+  },
+
 };
 </script>
 
