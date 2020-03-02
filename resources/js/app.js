@@ -35,6 +35,7 @@ Vue.use(Vuetify);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component("vuetify", require("./components/vutifyplay.vue").default);
 
 Vue.component("Sura", require("./components/old/Sura.vue").default);
 // Vue.component('verseInPlay', {  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
@@ -52,9 +53,9 @@ Vue.component("suras-list", require("./components/old/SurasList.vue").default);
 Vue.component("board", require("./components/board/board.vue").default);
 Vue.component("quranIndex", require("./components/board/boardComponents/Quran/quranIndex.vue").default);
 Vue.component("sura", require("./components/board/boardComponents/Quran/sura.vue").default);
+Vue.component("calBrd", require("./components/board/boardComponents/calculations/calBrd.vue").default);
 
 
-Vue.component("vuetify", require("./components/vutifyplay.vue").default);
 
 
 const app = new Vue({

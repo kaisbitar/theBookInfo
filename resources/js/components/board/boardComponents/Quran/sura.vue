@@ -1,36 +1,41 @@
 <template>
   <v-app>
     <div class="suraWrap card">
-      <v-autocomplete
-        :items="suraWithIndex"
-        color="red"
-        item-text="verseText"
-        label="ابحث عن آية"
-        return-object
-        cache-items
-      ></v-autocomplete>
-      <!-- <v-text-field
-        mb-2
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="ابحث عن آية او كلمة"
-        single-line
-        hide-details
-        class="mb-3"
-      ></v-text-field> -->
-      <v-data-table
+      <!-- <h1>السورة</h1> -->
+    <v-data-table
+        :items-per-page="400"
         loading
         :loading="loading"
         loading-text="جاري تحميل... الرجاء الانتظار"
-        :items="suraWithIndex"
-        class="elevation-2"
-        :headers-length="4"
+        :items="suraMap"
+        class="elevation-2 mt-0"
+        :hesaders-length="4"
         :headers="headers"
         fixed-header 
         :height=400
         :search="search"
-        @click:row="handleClick"
-      ></v-data-table>
+        @click:row="sndToCalBx"
+      >
+      <template v-slot:top>
+        <v-toolbar flat>
+            <v-toolbar-title>سورة{{suraTitle}}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-text-field
+              mb-2
+              v-model="search"
+              append-icon="mdi-magnify"
+              :label="inptLabl"
+              single-line
+              hide-details
+              class="mb-1 pt-0
+              rounded mt-0"
+              autofocus
+              background-color="lighten-5 mb-0"
+            ></v-text-field>
+        </v-toolbar>
+      </template>
+    </v-data-table>
+      <!-- <v-data-footer></v-data-footer> -->
     </div>
   </v-app>
 </template> 
@@ -43,107 +48,68 @@ export default {
       suraMap:[],
       suraToPlay:[],
       fileName: [],
-      suraIndex: 1,
       suraTitle: '',
       loading: true,
       search: '',
       model: null,
-      autoSearch: null,
+      inptLabl:'',
       headers: [
-        { text: 'رقم الآية', value: 'index' },
-        { text: 'الآية', value: 'verseText' },
-        { text: 'عدد الكلمات', value: 'NumberOfWords' },
-        { text: 'عدد الأحرف', value: 'NumberOfLetters' }
-      ],
+        {class:"indigo lighten-5"},
+        { text: 'رقم الآية', value: 'index',class:"indigo lighten-5 pl-5" },
+        { text: 'الآية', value: 'verseText',class:"indigo lighten-5" },
+        { text: 'عدد الكلمات', value: 'NumberOfWords',class:"indigo lighten-5" },
+        { text: 'عدد الأحرف', value: 'NumberOfLetters',class:"indigo lighten-5" }
+      ],footer:{class:"indigo lighten-5"}
     }
   },
   methods:{
-    //methods running through suraItemClicked function in board component
+    //methods running through plySra function in board component
     playThisSura(suraToPlay){
       this.suraToPlay = suraToPlay
       this.fileName = this.suraToPlay.fileName
       this.suraTitle = this.suraToPlay.Name
+      this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle
       this.fetchVerses(this.suraToPlay)
     },
     fetchVerses(){
+      this.loading = true
       fetch("api/sura-map/" + this.fileName, { method: "GET" })
       .then(res => res.json())
       .then(res => {
         this.suraMap = res.versesMap;
 
         //----
-        //some obejct to array and then mapping stuff..
+        //convert obejct to array and then mapping stuff..
         this.suraMap = Object.entries(this.suraMap);
         this.suraMap = this.suraMap.map(post => {
           return post[1]
         })
         //---
-        this.loading = false
-      });
+        this.indsxSra()
+        return
+      })
     },
-    handleClick(value){
-      console.log(value)
+    indsxSra() {
+     this.suraMap = this.suraMap.map(
+        (items, index) => ({
+          ...items,
+          index: index + 1  
+        }
+      ))
+      this.loading = false
+    },
+    sndToCalBx(verse){
+      //run method in board to add verse to the calculation box
+      this.$emit('adVrsToCal', verse)
     },
   },
   created(){
-    this.fileName = 'complete'
+    this.fileName = '001الفاتحة'
     this.suraTitle = 'الفاتحة'
+    this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle
     this.fetchVerses()
   },
-  computed: {
-    
-    suraWithIndex() {
-      return this.suraMap.map(
-        (items, index) => ({
-          ...items,
-          index: index + 1
-        }))
-    },
-    fields () {
-      if (!this.model) return []
-
-      return Object.keys(this.model).map(key => {
-        return {
-          key,
-          value: this.model[key] || 'n/a',
-        }
-      })
-    },
-    items () {
-      return this.entries.map(entry => {
-        const Description = entry.Description.length > this.descriptionLimit
-          ? entry.Description.slice(0, this.descriptionLimit) + '...'
-          : entry.Description
-
-        return Object.assign({}, entry, { Description })
-      })
-    },
-  },
-
-  watch: {
-    autoSearch (val) {
-      // Items have already been loaded
-      if (this.items.length > 0) return
-
-      // Items have already been requested
-      if (this.isLoading) return
-
-      this.isLoading = true
-
-      // Lazily load input items
-      fetch('https://api.publicapis.org/entries')
-        .then(res => res.json())
-        .then(res => {
-          const { count, entries } = res
-          this.count = count
-          this.entries = entries
-        })
-        .catch(err => {
-          console.log(err)
-        })
-        .finally(() => (this.isLoading = false))
-    },
-  },
+  computed: {  },
 
 };
 </script>

@@ -122,7 +122,6 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('الخبء', 'الخبئ', $cleanedSura);  
         $cleanedSura = str_replace('دفء', 'دفئ', $cleanedSura);  
         $cleanedSura = str_replace('ءا', 'ا', $cleanedSura); 
-        $cleanedSura = str_replace('ءا', 'ا', $cleanedSura); 
         $cleanedSura = str_replace('شئ', 'شي', $cleanedSura); 
         $cleanedSura = str_replace('وتثبيتامن', 'وتثبيتا من', $cleanedSura); 
         $cleanedSura = str_replace('شيء', 'شي', $cleanedSura); 
@@ -165,8 +164,8 @@ class Sanatizer extends Model
     }
     public function saveAllSuras($readyToSaveSura, $fileNameToSave, $suraNumber)
     {
-        $readyToSaveSura = $readyToSaveSura . ",n";
-        
+        $readyToSaveSura = $readyToSaveSura . ",";
+        // dump($readyToSaveSura);
         $sanataizedDir = fopen($this->cleanedSurasPath.'/complete', 'a');
         fwrite($sanataizedDir, $readyToSaveSura);
         fclose($sanataizedDir);
