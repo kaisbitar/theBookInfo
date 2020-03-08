@@ -182,7 +182,7 @@ module.exports = "/fonts/vendor/@mdi/materialdesignicons-webfont.woff?b4917be250
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _boardComponents_Quran_quranIndex_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./boardComponents/Quran/quranIndex.vue */ "./resources/js/components/board/boardComponents/Quran/quranIndex.vue");
 /* harmony import */ var _boardComponents_Quran_sura_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./boardComponents/Quran/sura.vue */ "./resources/js/components/board/boardComponents/Quran/sura.vue");
-/* harmony import */ var _boardComponents_calculations_calBrd_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./boardComponents/calculations/calBrd.vue */ "./resources/js/components/board/boardComponents/calculations/calBrd.vue");
+/* harmony import */ var _boardComponents_Quran_verses_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./boardComponents/Quran/verses.vue */ "./resources/js/components/board/boardComponents/Quran/verses.vue");
 //
 //
 //
@@ -208,7 +208,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     sura: _boardComponents_Quran_sura_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     quranIndex: _boardComponents_Quran_quranIndex_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    calBrd: _boardComponents_calculations_calBrd_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    verses: _boardComponents_Quran_verses_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: [],
   data: function data() {
@@ -217,12 +217,16 @@ __webpack_require__.r(__webpack_exports__);
   computed: {},
   methods: {
     plySra: function plySra(suraToPlay) {
-      //receiving sura from QuranIndex and below sending to sura component
-      this.$refs.sura.playThisSura(suraToPlay);
+      //receiving sura or full Quran from QuranIndex to play a Sura and below sending to sura component
+      if (suraToPlay == 'المصحف') {
+        this.$refs.sura.playQuran();
+      } else {
+        this.$refs.sura.playThisSura(suraToPlay);
+      }
     },
     adVrsToCal: function adVrsToCal(verse) {
-      //receiving verse from sura and below sending to calBrd component
-      this.$refs.calBrd.adThsVrs(verse);
+      //receiving verse from sura and below sending to verses component
+      this.$refs.verses.adThsVrs(verse);
     }
   }
 });
@@ -278,13 +282,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       quranIndex: [],
       search: '',
       panel: [0],
-      suraSelected: 'complete',
       headers: [{
         text: 'رقم السورة',
         value: 'suraIndex',
@@ -312,7 +322,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchQuranIndex: function fetchQuranIndex() {
       var _this = this;
 
-      fetch('api/quran-index', {
+      fetch('api/quran/quranIndex', {
         method: "GET"
       }).then(function (res) {
         return res.json();
@@ -327,6 +337,9 @@ __webpack_require__.r(__webpack_exports__);
     activateSura: function activateSura(value) {
       //send sura to Board to play the sura in the Sura component
       this.$emit('plySra', value);
+    },
+    activateQuran: function activateQuran() {
+      this.$emit('plySra', 'المصحف');
     }
   },
   created: function created() {
@@ -405,12 +418,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       search: '',
       model: null,
       inptLabl: '',
+      bigIndex: 'd-none',
       headers: [{
         "class": "indigo lighten-5"
       }, {
-        text: 'رقم الآية',
+        text: 'السورة',
+        value: 'Sura',
+        "class": "indigo lighten-5 pl-5"
+      }, {
+        text: 'ترتيب الآية',
         value: 'index',
         "class": "indigo lighten-5 pl-5"
+      }, {
+        text: 'ترتيب في المصحف',
+        value: 'bigIndex',
+        "class": "indigo lighten-5 pl-5",
+        align: 'd-none'
       }, {
         text: 'الآية',
         value: 'verseText',
@@ -434,21 +457,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     playThisSura: function playThisSura(suraToPlay) {
       this.suraToPlay = suraToPlay;
       this.fileName = this.suraToPlay.fileName;
-      this.suraTitle = this.suraToPlay.Name;
+      this.suraTitle = 'سورة ' + this.suraToPlay.Name;
       this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle;
       this.fetchVerses(this.suraToPlay);
+    },
+    playQuran: function playQuran() {
+      this.suraToPlay = 'المصحف كاملا';
+      this.fileName = 'المصحف';
+      this.suraTitle = 'المصحف';
+      this.inptLabl = 'ابحث عن كلمة أو رقم في المصحف';
+      this.fetchVerses();
     },
     fetchVerses: function fetchVerses() {
       var _this = this;
 
       this.loading = true;
-      fetch("api/sura-map/" + this.fileName, {
+      fetch("api/sura-map-f/" + this.fileName, {
         method: "GET"
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this.suraMap = res.versesMap; //----
+        if (_this.fileName == 'المصحف') {
+          _this.suraMap = res;
+        } else {
+          _this.suraMap = res.versesMap;
+        } //----
         //convert obejct to array and then mapping stuff..
+
 
         _this.suraMap = Object.entries(_this.suraMap);
         _this.suraMap = _this.suraMap.map(function (post) {
@@ -458,12 +493,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.indsxSra();
 
         return;
+      })["catch"](function (err) {
+        alert(err);
+      })["finally"](function () {
+        return _this.loading = false;
       });
     },
     indsxSra: function indsxSra() {
       this.suraMap = this.suraMap.map(function (items, index) {
         return _objectSpread({}, items, {
-          index: index + 1
+          bigIndex: index + 1
         });
       });
       this.loading = false;
@@ -479,15 +518,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle;
     this.fetchVerses();
   },
-  computed: {}
+  computed: {
+    computedHeaders: function computedHeaders() {
+      return this.headers.filter();
+    }
+  }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -543,6 +586,10 @@ __webpack_require__.r(__webpack_exports__);
       vrsDtal: [],
       headers: [{
         "class": "indigo lighten-5"
+      }, {
+        text: 'رقم الآية',
+        value: 'index',
+        "class": "indigo lighten-5 pl-5"
       }, {
         text: 'رقم الآية',
         value: 'index',
@@ -1673,10 +1720,10 @@ exports.push([module.i, ".indexTable.v-data-table-header[data-v-227774f2] {\n  b
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=style&index=0&lang=scss& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=style&index=0&lang=scss&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=style&index=0&lang=scss& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2355,15 +2402,15 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=style&index=0&lang=scss&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=style&index=0&lang=scss& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=style&index=0&lang=scss&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=style&index=0&lang=scss& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../../node_modules/css-loader!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./calBrd.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=style&index=0&lang=scss&");
+var content = __webpack_require__(/*! !../../../../../../node_modules/css-loader!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./verses.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=style&index=0&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -3108,7 +3155,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "quran-list" },
-            [_c("calBrd", { ref: "calBrd" })],
+            [_c("verses", { ref: "verses" })],
             1
           )
         ]
@@ -3149,7 +3196,6 @@ var render = function() {
           attrs: {
             "item-key": "Name",
             dense: _vm.dense,
-            loading: "",
             loading: _vm.loading,
             "loading-text": "جاري تحميل... الرجاء الانتظار",
             headers: _vm.headers,
@@ -3191,7 +3237,51 @@ var render = function() {
                           },
                           expression: "search"
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v("\n          أو\n          "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-tooltip",
+                        {
+                          attrs: { dark: "", color: "red", bottom: "" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                return [
+                                  _c(
+                                    "v-btn",
+                                    _vm._g(
+                                      {
+                                        attrs: {
+                                          color: "warning",
+                                          small: "",
+                                          dark: ""
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.activateQuran()
+                                          }
+                                        }
+                                      },
+                                      on
+                                    ),
+                                    [_vm._v("حمّل المصحف")]
+                                  )
+                                ]
+                              }
+                            }
+                          ])
+                        },
+                        [
+                          _vm._v(" "),
+                          _c("span", [_vm._v(" بحاجة انترنت سريع")])
+                        ]
+                      )
                     ],
                     1
                   )
@@ -3237,7 +3327,6 @@ var render = function() {
           staticClass: "elevation-2 mt-0",
           attrs: {
             "items-per-page": 400,
-            loading: "",
             loading: _vm.loading,
             "loading-text": "جاري تحميل... الرجاء الانتظار",
             items: _vm.suraMap,
@@ -3257,9 +3346,7 @@ var render = function() {
                     "v-toolbar",
                     { attrs: { flat: "" } },
                     [
-                      _c("v-toolbar-title", [
-                        _vm._v("سورة" + _vm._s(_vm.suraTitle))
-                      ]),
+                      _c("v-toolbar-title", [_vm._v(_vm._s(_vm.suraTitle))]),
                       _vm._v(" "),
                       _c("v-spacer"),
                       _vm._v(" "),
@@ -3303,10 +3390,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=template&id=74c69a74&":
-/*!********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=template&id=74c69a74& ***!
-  \********************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=template&id=8c984a8e&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=template&id=8c984a8e& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3352,7 +3439,7 @@ var render = function() {
                   "v-toolbar",
                   { attrs: { flat: "" } },
                   [
-                    _c("v-toolbar-title", [_vm._v("الحسابات")]),
+                    _c("v-toolbar-title", [_vm._v("الآيات")]),
                     _vm._v(" "),
                     _c("v-spacer")
                   ],
@@ -58229,7 +58316,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("suras-list", __webpack_req
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("board", __webpack_require__(/*! ./components/board/board.vue */ "./resources/js/components/board/board.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("quranIndex", __webpack_require__(/*! ./components/board/boardComponents/Quran/quranIndex.vue */ "./resources/js/components/board/boardComponents/Quran/quranIndex.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("sura", __webpack_require__(/*! ./components/board/boardComponents/Quran/sura.vue */ "./resources/js/components/board/boardComponents/Quran/sura.vue")["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("calBrd", __webpack_require__(/*! ./components/board/boardComponents/calculations/calBrd.vue */ "./resources/js/components/board/boardComponents/calculations/calBrd.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("verses.vue", __webpack_require__(/*! ./components/board/boardComponents/Quran/verses.vue */ "./resources/js/components/board/boardComponents/Quran/verses.vue")["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: "#app",
   vuetify: new vuetify__WEBPACK_IMPORTED_MODULE_5___default.a({
@@ -58490,18 +58577,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/board/boardComponents/calculations/calBrd.vue":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/board/boardComponents/calculations/calBrd.vue ***!
-  \*******************************************************************************/
+/***/ "./resources/js/components/board/boardComponents/Quran/verses.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/board/boardComponents/Quran/verses.vue ***!
+  \************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _calBrd_vue_vue_type_template_id_74c69a74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./calBrd.vue?vue&type=template&id=74c69a74& */ "./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=template&id=74c69a74&");
-/* harmony import */ var _calBrd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./calBrd.vue?vue&type=script&lang=js& */ "./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _calBrd_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./calBrd.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _verses_vue_vue_type_template_id_8c984a8e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./verses.vue?vue&type=template&id=8c984a8e& */ "./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=template&id=8c984a8e&");
+/* harmony import */ var _verses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./verses.vue?vue&type=script&lang=js& */ "./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _verses_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./verses.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -58512,9 +58599,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _calBrd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _calBrd_vue_vue_type_template_id_74c69a74___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _calBrd_vue_vue_type_template_id_74c69a74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _verses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _verses_vue_vue_type_template_id_8c984a8e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _verses_vue_vue_type_template_id_8c984a8e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -58524,54 +58611,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/board/boardComponents/calculations/calBrd.vue"
+component.options.__file = "resources/js/components/board/boardComponents/Quran/verses.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************!*\
-  !*** ./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************/
+/***/ "./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_calBrd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./calBrd.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_calBrd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_verses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./verses.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_verses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=style&index=0&lang=scss&":
-/*!*****************************************************************************************************************!*\
-  !*** ./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=style&index=0&lang=scss& ***!
-  \*****************************************************************************************************************/
+/***/ "./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_calBrd_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader!../../../../../../node_modules/css-loader!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./calBrd.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_calBrd_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_calBrd_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_calBrd_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_calBrd_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_calBrd_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_verses_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader!../../../../../../node_modules/css-loader!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./verses.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_verses_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_verses_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_verses_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_verses_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_verses_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=template&id=74c69a74&":
-/*!**************************************************************************************************************!*\
-  !*** ./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=template&id=74c69a74& ***!
-  \**************************************************************************************************************/
+/***/ "./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=template&id=8c984a8e&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=template&id=8c984a8e& ***!
+  \*******************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_calBrd_vue_vue_type_template_id_74c69a74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./calBrd.vue?vue&type=template&id=74c69a74& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/calculations/calBrd.vue?vue&type=template&id=74c69a74&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_calBrd_vue_vue_type_template_id_74c69a74___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_verses_vue_vue_type_template_id_8c984a8e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./verses.vue?vue&type=template&id=8c984a8e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/board/boardComponents/Quran/verses.vue?vue&type=template&id=8c984a8e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_verses_vue_vue_type_template_id_8c984a8e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_calBrd_vue_vue_type_template_id_74c69a74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_verses_vue_vue_type_template_id_8c984a8e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

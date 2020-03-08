@@ -53,7 +53,7 @@ Vue.component("suras-list", require("./components/old/SurasList.vue").default);
 Vue.component("board", require("./components/board/board.vue").default);
 Vue.component("quranIndex", require("./components/board/boardComponents/Quran/quranIndex.vue").default);
 Vue.component("sura", require("./components/board/boardComponents/Quran/sura.vue").default);
-Vue.component("calBrd", require("./components/board/boardComponents/calculations/calBrd.vue").default);
+Vue.component("verses.vue", require("./components/board/boardComponents/Quran/verses.vue").default);
 
 
 

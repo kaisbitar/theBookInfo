@@ -18,11 +18,11 @@ class Sanatizer extends Model
 
     public function sanatize()
     {
-        //clear the complete file before starting
+        //clear the المصحف file before starting
         $sanatizedFiles = scandir($this->cleanedSurasPath);
         foreach ($sanatizedFiles as $sanatizedFile) {
-            if($sanatizedFile == "complete"){
-                unlink ($this->cleanedSurasPath.'/complete');
+            if($sanatizedFile == "المصحف"){
+                unlink ($this->cleanedSurasPath.'/المصحف');
             }
         }
         $rawHTMLFiles = scandir($this->folderToSanatize);
@@ -166,7 +166,7 @@ class Sanatizer extends Model
     {
         $readyToSaveSura = $readyToSaveSura . ",";
         // dump($readyToSaveSura);
-        $sanataizedDir = fopen($this->cleanedSurasPath.'/complete', 'a');
+        $sanataizedDir = fopen($this->cleanedSurasPath.'/المصحف', 'a');
         fwrite($sanataizedDir, $readyToSaveSura);
         fclose($sanataizedDir);
     }

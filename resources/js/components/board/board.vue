@@ -10,7 +10,7 @@
           </v-lazy>
       </div>
       <div class="quran-list">
-      <calBrd ref="calBrd"></calBrd></div>
+      <verses ref="verses"></verses></div>
     </v-container>  
   </v-app>
 </template> 
@@ -19,13 +19,13 @@
 <script>
 import quranIndex from './boardComponents/Quran/quranIndex.vue'
 import sura from './boardComponents/Quran/sura.vue'
-import calBrd from './boardComponents/calculations/calBrd.vue'
+import verses from './boardComponents/Quran/verses.vue'
 
 export default {
   components:{
     sura,
     quranIndex,
-    calBrd
+    verses
   },
   props: [],
   data() {
@@ -35,12 +35,17 @@ export default {
   computed: {},
   methods:{
     plySra(suraToPlay){      
-      //receiving sura from QuranIndex and below sending to sura component
-      this.$refs.sura.playThisSura(suraToPlay)
+      //receiving sura or full Quran from QuranIndex to play a Sura and below sending to sura component
+      if(suraToPlay == 'المصحف'){
+        this.$refs.sura.playQuran()
+      }
+      else{
+        this.$refs.sura.playThisSura(suraToPlay)
+      }
     },
     adVrsToCal(verse){
-      //receiving verse from sura and below sending to calBrd component
-      this.$refs.calBrd.adThsVrs(verse)
+      //receiving verse from sura and below sending to verses component
+      this.$refs.verses.adThsVrs(verse)
     }
   }
 };

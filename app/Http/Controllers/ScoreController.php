@@ -27,7 +27,7 @@ class ScoreController extends Controller
         $file = storage_path() . "/decoded_suras" . '/' .$fileName. '_sura_results.json';
         $results = json_decode(file_get_contents($file), true);
         $this->words = $results["WordOccurrences"];
-        $this->verses = $results["VersesScore"];
+        $this->verses = $results["versesMap"];
     }
 
     public function eachWordScore()

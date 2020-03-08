@@ -4,7 +4,6 @@
       <!-- <h1>السورة</h1> -->
     <v-data-table
         :items-per-page="400"
-        loading
         :loading="loading"
         loading-text="جاري تحميل... الرجاء الانتظار"
         :items="suraMap"
@@ -18,7 +17,7 @@
       >
       <template v-slot:top>
         <v-toolbar flat>
-            <v-toolbar-title>سورة{{suraTitle}}</v-toolbar-title>
+            <v-toolbar-title>{{suraTitle}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-text-field
               mb-2
@@ -34,6 +33,7 @@
             ></v-text-field>
         </v-toolbar>
       </template>
+      
     </v-data-table>
       <!-- <v-data-footer></v-data-footer> -->
     </div>
@@ -53,9 +53,12 @@ export default {
       search: '',
       model: null,
       inptLabl:'',
+      bigIndex:'d-none',
       headers: [
         {class:"indigo lighten-5"},
-        { text: 'رقم الآية', value: 'index',class:"indigo lighten-5 pl-5" },
+        { text: 'السورة', value: 'Sura',class:"indigo lighten-5 pl-5" },
+        { text: 'ترتيب الآية', value: 'index',class:"indigo lighten-5 pl-5" },
+        { text: 'ترتيب في المصحف', value: 'bigIndex',class:"indigo lighten-5 pl-5", align: 'd-none' },
         { text: 'الآية', value: 'verseText',class:"indigo lighten-5" },
         { text: 'عدد الكلمات', value: 'NumberOfWords',class:"indigo lighten-5" },
         { text: 'عدد الأحرف', value: 'NumberOfLetters',class:"indigo lighten-5" }
@@ -67,17 +70,28 @@ export default {
     playThisSura(suraToPlay){
       this.suraToPlay = suraToPlay
       this.fileName = this.suraToPlay.fileName
-      this.suraTitle = this.suraToPlay.Name
+      this.suraTitle = 'سورة ' + this.suraToPlay.Name 
       this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle
       this.fetchVerses(this.suraToPlay)
     },
+    playQuran(){
+      this.suraToPlay = 'المصحف كاملا'
+      this.fileName = 'المصحف'
+      this.suraTitle = 'المصحف'
+      this.inptLabl = 'ابحث عن كلمة أو رقم في المصحف'
+      this.fetchVerses()
+    },
     fetchVerses(){
       this.loading = true
-      fetch("api/sura-map/" + this.fileName, { method: "GET" })
+      fetch("api/sura-map-f/" + this.fileName, { method: "GET" })
       .then(res => res.json())
       .then(res => {
-        this.suraMap = res.versesMap;
-
+        if(this.fileName =='المصحف'){
+          this.suraMap = res
+        }
+        else{
+          this.suraMap = res.versesMap;      
+        }
         //----
         //convert obejct to array and then mapping stuff..
         this.suraMap = Object.entries(this.suraMap);
@@ -87,13 +101,15 @@ export default {
         //---
         this.indsxSra()
         return
-      })
+      }).catch (function(err){
+          alert(err);
+      }).finally(() => (this.loading = false));
     },
     indsxSra() {
      this.suraMap = this.suraMap.map(
         (items, index) => ({
           ...items,
-          index: index + 1  
+          bigIndex: index + 1  
         }
       ))
       this.loading = false
@@ -109,7 +125,11 @@ export default {
     this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle
     this.fetchVerses()
   },
-  computed: {  },
+  computed: { 
+    computedHeaders () {
+      return this.headers.filter()  
+    }
+   },
 
 };
 </script>

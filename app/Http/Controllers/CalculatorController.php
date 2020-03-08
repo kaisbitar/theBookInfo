@@ -22,9 +22,9 @@ class CalculatorController extends Controller
     { 
         $this->counter = new Counter();
         $this->indexer = new Indexer();
-        
-        if($request->path() == ("api/quran-index")){
-            $fileName = 'quran-index';
+            
+        if($request->path() == ("api/quran-index/quranIndex")){
+            $fileName = 'quranIndex';
             $this->service = new CalculatorService(null, $fileName);
         }
         elseif($request->path() == ("api/decode-all")){
@@ -32,7 +32,7 @@ class CalculatorController extends Controller
             $this->service = new CalculatorService(null, $fileName);
         }
         else {
-            $fileName = $request->fileName;
+            $fileName = $request->fileName;     
             $suraFile = File::get(storage_path('sanatizedSuras' . '/' .$fileName));
             if (!($suraFile)) {
                 throw new \Exception("Sura file not found");
@@ -66,4 +66,8 @@ class CalculatorController extends Controller
         return $this->service->runBackend();
     }
     
+    public function mapComplete(){
+        
+        return $this->service->mapComplete();
+    }
 }
