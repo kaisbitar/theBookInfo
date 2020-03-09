@@ -87,8 +87,8 @@ class CalculatorService
         foreach ($verses as $index => $verse) {
             $verseObject = new Verse($verse, $index);
 
-            $suraName = preg_replace("/[0-9]/", "", $this->fullSura->Name);
-
+            // $suraName = preg_replace("/[0-9]/", "", $this->fullSura->Name);
+            $suraName = $this->fullSura->Name;
             $verseObject->Sura = $suraName;
             $verseObject->index = $index+1;
 

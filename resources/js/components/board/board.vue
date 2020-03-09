@@ -10,7 +10,7 @@
           </v-lazy>
       </div>
       <div class="quran-list">
-      <verses ref="verses"></verses></div>
+      <theNineteen ref="theNineteen"></theNineteen></div>
     </v-container>  
   </v-app>
 </template> 
@@ -19,13 +19,13 @@
 <script>
 import quranIndex from './boardComponents/Quran/quranIndex.vue'
 import sura from './boardComponents/Quran/sura.vue'
-import verses from './boardComponents/Quran/verses.vue'
+import theNineteen from './boardComponents/calculations/theNineteen.vue'
 
 export default {
   components:{
     sura,
     quranIndex,
-    verses
+    theNineteen
   },
   props: [],
   data() {
@@ -45,7 +45,7 @@ export default {
     },
     adVrsToCal(verse){
       //receiving verse from sura and below sending to verses component
-      this.$refs.verses.adThsVrs(verse)
+      this.$refs.theNineteen.adThsVrs(verse)
     }
   }
 };
@@ -55,7 +55,8 @@ export default {
 
 <style lang="scss">
 // @import "bootstrap";
-@import '~vuetify/src/styles/variables.scss';
+// @import '~vuetify/src/styles/variables.scss';
+@import '~@/_variables.scss';
 .v-application{
   font-family: $body-font-family;
 }

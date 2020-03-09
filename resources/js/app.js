@@ -13,7 +13,7 @@ import "vuetify/dist/vuetify.min.css";
 // import 'mdi/font/css/materialdesignicons.min.css';
 import '@mdi/font/css/materialdesignicons.css'
 // import 'vuetify/src/styles/styles.sass'
-import 'vuetify/src/styles/variables.scss';
+// import "./sass/app.scss";
 import ar from 'vuetify/es5/locale/ar';
 
 import Vuetify from "vuetify";
@@ -53,7 +53,8 @@ Vue.component("suras-list", require("./components/old/SurasList.vue").default);
 Vue.component("board", require("./components/board/board.vue").default);
 Vue.component("quranIndex", require("./components/board/boardComponents/Quran/quranIndex.vue").default);
 Vue.component("sura", require("./components/board/boardComponents/Quran/sura.vue").default);
-Vue.component("verses.vue", require("./components/board/boardComponents/Quran/verses.vue").default);
+Vue.component("verses", require("./components/board/boardComponents/Quran/verses.vue").default);
+Vue.component("theNineteen", require("./components/board/boardComponents/calculations/theNineteen.vue").default);
 
 
 

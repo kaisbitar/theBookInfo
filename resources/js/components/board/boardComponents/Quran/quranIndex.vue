@@ -60,7 +60,9 @@
             value: 'Name', 
             class:"indigo lighten-5", width:200
           }, 
-          { text: 'عدد الايات', value: 'numberOfVerses',class:"indigo lighten-5" },
+          { text: 'عدد الآيات', value: 'numberOfVerses',class:"indigo lighten-5" },
+          { text: 'عدد الكلمات', value: 'NumberOfWords',class:"indigo lighten-5" },
+          { text: 'عدد الأحرف', value: 'NumberOfLetters',class:"indigo lighten-5" },
           {class:"indigo lighten-5", width:100}
         ],
         dense:false,
@@ -95,7 +97,9 @@
 
 <style lang="scss" scoped>  
 
-.indexTable.v-data-table-header{
+.indexTable.v-data-table-header{ 
   background: #E1BEE7; 
+    // color: $blue;
+
 }
 </style> 

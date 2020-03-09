@@ -15,7 +15,7 @@
     </div>
  
         <!-- Fonts -->
-        <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet"> -->
+        <link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
 
        
     </head>
@@ -34,8 +34,8 @@
     }
     body{
         /* zoom: .8; */
-        zoom: 1.08;
-        -moz-transform: scale(0.5);
+        /* zoom: 1.08; */
+        /* -moz-transform: scale(0.5); */
     }
     
     </style>
