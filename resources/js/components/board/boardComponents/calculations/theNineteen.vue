@@ -1,126 +1,109 @@
 <template>
-  <v-app>
-    <!-- <h1>الحسابات</h1> -->
     <v-data-table
-    :headers="headers"
-    :items="headers"
-    :single-expand="singleExpand"
-    :expanded.sync="expanded"
-    item-key="name"
-    show-expand
-    class="elevation-1"
-  >
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title>Expandable Table</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-switch v-model="singleExpand" label="Single expand" class="mt-2"></v-switch>
-      </v-toolbar>
-    </template>
-    <template v-slot:expanded-item="{ headers }">
-      <td :colspan="headers.length">Peek-a-boo!</td>
-    </template>
-  </v-data-table>
-    <!-- <v-data-table
       :items-per-page="400"
-      loading
       :loading="loading"
-      loading-text="جاري تحميل... الرجاء الانتظار"
+      loading-text="جاري تحميل الآية... الرجاء الانتظار"
       :items="verses"
+      item-key="index"
       class="elevation-2 mt-0"
-      :hesaders-length="4"
+      :headers-length="4"
       :headers="headers"
-      :single-expand="singleExpand"
-      :expanded.sync="expanded"
-      show-expand
       fixed-header 
       :height=400
       @click:row="handleClick"
+      hide-default-footer
     >
+      <!-- Header -->
       <template v-slot:top>
       <v-toolbar flat>
           <v-toolbar-title>حساب التسعة عشر</v-toolbar-title>
           <v-spacer></v-spacer>
       </v-toolbar>
       </template>
-      <template  v-slot:expanded-item="vrsDtal">
-        <td  :colspan="600" class=" lighten-5">
-          <v-simple-table
-          >
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Calories</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="dtl in vrsDtal.item">
-                  {{dtl}}
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </td>
-      </template>        
-    </v-data-table> -->
-    <div class="my-2">
-      <v-btn small color="error" v-if="verses != []"  @click="verses=[]">مسح</v-btn>
-    </div>
-  </v-app>
+
+      <!-- المجمع العددي -->
+      <template v-slot:item.verseScore="item">
+        <v-chip>{{item.item.verseScore}}</v-chip>
+      </template>
+
+      <!-- Footer Tools -->
+      <template v-slot:footer>
+        <v-container>
+          <!-- values summer component -->
+          <valuesSum :scoresGroup="versesTocal"></valuesSum>
+        </v-container>
+        <v-toolbar flat>
+            <v-toolbar-title>            
+              <v-icon :left="true" small  color="red" v-if="tableIndex > 1"  @click="verses=[],tableIndex=1,versesTocal=[]">mdi-delete-outline</v-icon>
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+        </v-toolbar>
+      </template>
+    </v-data-table>
+    
 </template> 
 
 
 <script>
 
+import valuesSum from './calculationComp/valuesSum.vue'
+
 export default {
   components:{
+    valuesSum
   },
   props: [],
   data() {
     return {
-        verses: [],
-        expanded:[],
-        loading: null,
-        index:0,
-        vrsDtal: [],
-        WordIndexes:[],
-                singleExpand: false,
-
-        headers: [
+      verses: [],
+      verse:[],
+      loading: null,
+      tableIndex:1,
+      verseScore:0, 
+      versesTocal:[],  
+      headers: [
         {class:"indigo lighten-5"},
-        { text: 'رقم الآية', value: 'index',class:"indigo lighten-5 pl-5" },
-        { text: 'رقم الآية', value: 'index',class:"indigo lighten-5 pl-5" },
+        { text: 'الآية', value: 'tableIndex',class:"indigo lighten-5", align: 'start'},
+        { text: 'السورة', value: 'Sura',class:"indigo lighten-5 pl-5" },
+        { text: 'رقم الآية', value: 'verseIndx',class:"indigo lighten-5 pl-5"},
         { text: 'الآية', value: 'verseText',class:"indigo lighten-5" },
-        { text: 'عدد الكلمات', value: 'NumberOfWords',class:"indigo lighten-5" },
-        { text: 'عدد الأحرف', value: 'NumberOfLetters',class:"indigo lighten-5" }
+        { text: 'المجموع العددي', value: 'verseScore',class:"indigo lighten-5"},
       ]
     }
   },
-  computed: {},
+  computed: { },
   methods:{
-    adThsVrs(verse){
-        this.verses.push(verse)
-        this.loading = false
+
+     fetchNumericalValue(){
+          return fetch('api/verse-score/'+this.verse.Sura + '/' + this.verse.verseIndx,{method: "GET"}) 
+          .then(res => res.json())
+          .then(res =>{
+            return res[this.verse.verseIndx].score
+        }).finally(() => (this.loading = false))
     },
-    handleClick(value){
-    }
-  }
+
+    //coming from sura - async because we are calling for score
+    async adThsVrs(verse){
+      this.verse = verse
+      this.verseScore = await this.fetchNumericalValue()
+      this.verse.verseScore = (await this.verseScore)
+      this.verse.tableIndex = this.tableIndex
+      this.tableIndex++
+      this.verses.push(this.verse)
+      this.versesTocal.push(this.verseScore)
+      this.loading = false 
+    },
+    
+    handleClick(value){ }
+
+  },
+  computed:{  },
+  created(){  }
 };
 </script>
 
 
 
 <style lang="scss">
-// @import "bootstrap";
-// @import '~vuetify/src/styles/variables.scss';
-.v-application{
-  // font-family: $body-font-family;
-}
- .v-application--wrap {
-    min-height: 50px !important;
-} 
-.qura-list .v-application {
-  max-width: 700px;
-}
+
 </style> 

@@ -90,7 +90,7 @@ class CalculatorService
             // $suraName = preg_replace("/[0-9]/", "", $this->fullSura->Name);
             $suraName = $this->fullSura->Name;
             $verseObject->Sura = $suraName;
-            $verseObject->index = $index+1;
+            $verseObject->verseIndx = $index+1;
 
             $verseObject->verseText = $verseObject->verseString;
             $verseObject->verseText = $verseObject->verseString;

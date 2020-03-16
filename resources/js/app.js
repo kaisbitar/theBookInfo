@@ -21,7 +21,11 @@ window.Vue = require("vue");
 
 // Vue.use(BootstrapVue);
 Vue.use(Vuetify);
-
+Vue.use({
+  install() {
+    Vue.prototype.destroy = Vue.prototype.$destroy;
+  },
+});
 // Vue.use(FixedHeader)
 
 /**
@@ -51,10 +55,18 @@ Vue.component("suras-list", require("./components/old/SurasList.vue").default);
  */
 
 Vue.component("board", require("./components/board/board.vue").default);
+//list verses and suras
 Vue.component("quranIndex", require("./components/board/boardComponents/Quran/quranIndex.vue").default);
 Vue.component("sura", require("./components/board/boardComponents/Quran/sura.vue").default);
 Vue.component("verses", require("./components/board/boardComponents/Quran/verses.vue").default);
+//calculations 
 Vue.component("theNineteen", require("./components/board/boardComponents/calculations/theNineteen.vue").default);
+
+//calculations comp
+Vue.component("verseDetails", require("./components/board/boardComponents/calculations/calculationComp/verseDetails.vue").default);
+Vue.component("verseDetails", require("./components/board/boardComponents/calculations/calculationComp/valuesSum.vue").default);
+
+
 
 
 

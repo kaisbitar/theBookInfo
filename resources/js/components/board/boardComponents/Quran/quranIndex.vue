@@ -1,48 +1,47 @@
 <template>
-  <v-app>    
-    <div class="quranList mb-5">
-      <v-data-table
-        item-key="Name"
-        :dense="dense"
-        :loading="loading"
-        loading-text="جاري تحميل... الرجاء الانتظار"
-        :headers="headers"
-        fixed-header 
-        :items="quranIndex"
-        class="elevation-1 indexTable"
-        :headers-length="3"
-        :height=200
-        :search="search"
-        @click:row="activateSura"
-        hide-default-footer
-        disable-pagination
-      ><template v-slot:top>
-          <v-toolbar flat>
-            <v-toolbar-title>القائمة</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-text-field
-              mb-2
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="ابحث اسم او رقم سورة"
-              single-line
-              hide-details
-              class="mb-3  white--text"
-            ></v-text-field>
-            <v-spacer></v-spacer>
-            أو
-            <v-spacer></v-spacer>
-            <v-tooltip dark color="red" bottom>
-              <template v-slot:activator="{ on }">
-                <v-btn color="warning" small dark v-on="on" @click="activateQuran()">حمّل المصحف</v-btn>
-              </template>
-              <span> بحاجة انترنت سريع</span>
-            </v-tooltip>
-          </v-toolbar>
-        </template>  
-      </v-data-table>          
-    </div>
-  </v-app>
+  <v-card
+    height="400"
+    class="overflow-hidden"
+    >
+    <v-data-table
+      item-key="Name"
+      :loading="loading"
+      loading-text="جاري تحميل السور... الرجاء الانتظار"
+      :headers="headers"
+      fixed-header 
+      :items="quranIndex"
+      class="elevation-1"
+      :search="search"
+      @click:row="activateSura"
+      hide-default-footer
+      disable-pagination
+      height="300"
+    ><template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title>القائمة</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-text-field
+            mb-2
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="ابحث اسم او رقم سورة"
+            single-line
+            hide-details
+            class="mb-3  white--text"
+          ></v-text-field>
+          <v-spacer></v-spacer>
+          أو
+          <v-spacer></v-spacer>
+          <v-tooltip dark color="red" bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn color="warning" small dark v-on="on" @click="activateQuran()">حمّل المصحف</v-btn>
+            </template>
+            <span> بحاجة انترنت سريع</span>
+          </v-tooltip>
+        </v-toolbar>
+      </template>  
+    </v-data-table>          
+  </v-card>  
 </template>
 
 <script>
@@ -51,7 +50,6 @@
       return {   
         quranIndex: [],
         search:'',
-        panel: [0],
         headers: [
           { text: 'رقم السورة', value: 'suraIndex', class:"indigo lighten-5", width:120 },
           {
@@ -65,7 +63,6 @@
           { text: 'عدد الأحرف', value: 'NumberOfLetters',class:"indigo lighten-5" },
           {class:"indigo lighten-5", width:100}
         ],
-        dense:false,
         loading: true  
       }
     },
@@ -80,9 +77,9 @@
           alert(err);
         }).finally(() => (this.loading = false))
       },
-      activateSura(value){
+      activateSura(activateSura){
         //send sura to Board to play the sura in the Sura component
-        this.$emit('plySra', value)
+        this.$emit('plySra', activateSura)
       },
       activateQuran(){
         this.$emit('plySra', 'المصحف')
@@ -97,9 +94,4 @@
 
 <style lang="scss" scoped>  
 
-.indexTable.v-data-table-header{ 
-  background: #E1BEE7; 
-    // color: $blue;
-
-}
 </style> 

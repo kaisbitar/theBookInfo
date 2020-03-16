@@ -1,20 +1,24 @@
 <template>
-  <v-app>
     <div class="suraWrap card">
       <!-- <h1>السورة</h1> -->
     <v-data-table
-        :items-per-page="400"
+        :items-per-page="20"
         :loading="loading"
-        loading-text="جاري تحميل... الرجاء الانتظار"
+        loading-text="جاري تحميل الآيات ... الرجاء الانتظار"
         :items="suraMap"
         class="elevation-2 mt-0"
         :hesaders-length="4"
         :headers="headers"
         fixed-header 
-        :height=400
+        :height=550
+        item-key="bigIndex"
+        group-by="Sura"
         :search="search"
         @click:row="sndToCalBx"
       >
+      <template v-slot:group.header="item">
+        {{item.group}}
+      </template>
       <template v-slot:top>
         <v-toolbar flat>
             <v-toolbar-title>{{suraTitle}}</v-toolbar-title>
@@ -37,7 +41,6 @@
     </v-data-table>
       <!-- <v-data-footer></v-data-footer> -->
     </div>
-  </v-app>
 </template> 
 
 <script>
@@ -53,11 +56,11 @@ export default {
       search: '',
       model: null,
       inptLabl:'',
-      bigIndex:'d-none',
+      bigIndex:'d-none', 
       headers: [
         {class:"indigo lighten-5"},
         { text: 'السورة', value: 'Sura',class:"indigo lighten-5 pl-5" },
-        { text: 'ترتيب الآية', value: 'index',class:"indigo lighten-5 pl-5" },
+        { text: 'ترتيب الآية', value: 'verseIndx',class:"indigo lighten-5 pl-5" },
         { text: 'ترتيب في المصحف', value: 'bigIndex',class:"indigo lighten-5 pl-5", align: 'd-none' },
         { text: 'الآية', value: 'verseText',class:"indigo lighten-5" },
         { text: 'عدد الكلمات', value: 'NumberOfWords',class:"indigo lighten-5" },
@@ -120,8 +123,8 @@ export default {
     },
   },
   created(){
-    this.fileName = '001الفاتحة'
-    this.suraTitle = 'الفاتحة'
+    this.fileName = 'المصحف'
+    this.suraTitle = 'المصحف'
     this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle
     this.fetchVerses()
   },

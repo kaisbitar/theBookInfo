@@ -60,7 +60,29 @@ class ScoreController extends Controller
             file_put_contents(storage_path('scored_verses/' .$this->request->fileName.'_verses_score.json'), json_encode($scores, JSON_UNESCAPED_UNICODE));
         }
         $scores = file_get_contents(storage_path('scored_verses/' .$this->request->fileName. '_verses_score.json',JSON_UNESCAPED_UNICODE));
+
+        return ($scores);
+    }
+
+    public function singleVerseScore(){
+        $scores = [];
+        $resultFileName = $this->request->fileName . '_verses_score.json';
         if($this->request->verseIndex){
+            if (!file_exists(storage_path('scored_verses/' . $resultFileName))) {
+                foreach ($this->verses as $index => $verseArr) {
+                    if (is_numeric($index)) {
+                        $verse = ($this->verses[$index]["verseText"]);
+                        $stripped = preg_replace('/\s/', '', $verse);
+                        $scores[$index] = [
+                            // "verse" => $verse,
+                            "score" => $this->calculateScore($stripped)
+                        ];
+                    }
+                }
+                arsort($scores);       
+                file_put_contents(storage_path('scored_verses/' .$this->request->fileName.'_verses_score.json'), json_encode($scores, JSON_UNESCAPED_UNICODE));
+            }
+            $scores = file_get_contents(storage_path('scored_verses/' .$this->request->fileName. '_verses_score.json',JSON_UNESCAPED_UNICODE));
             $scores = json_decode($scores);
             $scores = collect($scores);
             $scores = $scores->filter(function ($value, $key) {
@@ -69,8 +91,6 @@ class ScoreController extends Controller
 
             return $scores;
         }
-
-        return ($scores);
     }
 
     public function calculateScore($phrase)
@@ -229,5 +249,26 @@ class ScoreController extends Controller
         }
 
         return $returnArray;
+    }
+
+    public function find19InSura(){
+        $resultFileName = 'المصحف';
+        $scores = file_get_contents(storage_path('scored_verses/' .$resultFileName. '_verses_score.json',JSON_UNESCAPED_UNICODE));
+        $scores = (json_decode($scores, true));
+        ksort($scores);
+        $result = [];
+        
+        for($i=1;$i<=sizeof($scores);$i++){
+            $sum = $scores[$i]["score"];
+            for ($j=$i+1;$j<=sizeof($scores);$j++) {
+                // dd($scores[$i]);
+                $sum = $sum + $scores[$j]["score"];
+                if ($sum % 19 == 0) {
+                    $result[] = [$i,$j];
+                }
+            }
+        }
+        dd($result);
+
     }
 }

@@ -25,11 +25,14 @@ Route::get('sura-map-f/{fileName}','ViewController@viewSuraMap');
 //Scores:
 Route::get('words-score/{fileName}', 'ScoreController@eachWordScore');
 Route::get('verses-score/{fileName}', 'ScoreController@eachVerseScore');
-Route::get('verse-score/{fileName}/{verseIndex}', 'ScoreController@eachVerseScore');
+Route::get('verse-score/{fileName}/{verseIndex}', 'ScoreController@singleVerseScore');
+
+Route::get('find/{fileName}', 'ScoreController@find19InSura');
 
 
 // Backend calculations
 Route::get('sura-map/{fileName}', 'CalculatorController@mapSura');
+Route::get('verses-map/{fileName}', 'CalculatorController@mapVerses');
 Route::get('letters-map/{fileName}', 'CalculatorController@mapLetters');
 Route::get('sanatize', 'SanatizerController@runSanatization');
 //send quraIndex

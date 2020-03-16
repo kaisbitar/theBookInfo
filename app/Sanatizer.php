@@ -93,6 +93,7 @@ class Sanatizer extends Model
             }
                         
         }
+        
         $tmpToClean = array_diff($tmpToClean, array('')) + array_intersect($tmpToClean, array(''));
         $tmpToClean = array_values($tmpToClean);
         $suraName = $tmpToClean[0];
@@ -109,7 +110,6 @@ class Sanatizer extends Model
         $cleanedSura = str_replace(', ', ',', $cleanedSura); 
         $cleanedSura = str_replace('الاالذين', 'الا الذين', $cleanedSura);  
         $cleanedSura = str_replace('البحربما ينفع الناس', 'البحر بما ينفع الناس', $cleanedSura); 
-        $cleanedSura = str_replace('ولامنينهمولامرنهم', 'ولامنينهم ولامرنهم', $cleanedSura);  //PHP can't find the sunstring, although it exist in the sting hmmmm
         $cleanedSura = str_replace('قومامسرفين', 'قوما مسرفين', $cleanedSura); 
         $cleanedSura = str_replace('فوقهافاما', 'فوقها فاما', $cleanedSura);   
         $cleanedSura = str_replace('تحصوهاإن', 'تحصوها إن', $cleanedSura);  
@@ -119,9 +119,79 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('تلبسونهاوترى', 'تلبسونها وترى', $cleanedSura); 
         $cleanedSura = str_replace('شىء', 'شئ', $cleanedSura); 
         $cleanedSura = str_replace('بريء', 'برئ', $cleanedSura);  
-        $cleanedSura = str_replace('الخبء', 'الخبئ', $cleanedSura);  
+        $cleanedSura = str_replace('الخبء', 'الخبئ', $cleanedSura);   
+        $cleanedSura = str_replace('قلبى', 'قلبي', $cleanedSura);    
+
+        $cleanedSura = str_replace('انى جاعل', 'اني جاعل', $cleanedSura);    
+        $cleanedSura = str_replace('انى اعلم', 'اني اعلم', $cleanedSura);    
+        $cleanedSura = str_replace('انى فضلتكم', 'اني فضلتكم', $cleanedSura);    
+        $cleanedSura = str_replace('الا امانى', 'الا اماني', $cleanedSura);    
+        $cleanedSura = str_replace('وانى فضلتكم', 'واني فضلتكم', $cleanedSura);    
+        $cleanedSura = str_replace('فانى قريب', 'فاني قريب', $cleanedSura);    
+        $cleanedSura = str_replace('انى جاعلك', 'اني جاعلك', $cleanedSura);   
+        $cleanedSura = str_replace('انى', 'اني', $cleanedSura); 
+        $cleanedSura = str_replace('عبادى عنى', 'عبادي عني', $cleanedSura); 
+        
+        // لى 
+        // بى 
+        $cleanedSura = str_replace('مثليها قلتم اني هذا', 'مثليها قلتم انى هذا', $cleanedSura);   
+        $cleanedSura = str_replace('اني يكون له ولد ولم', 'انى يكون له ولد ولم', $cleanedSura);   
+        $cleanedSura = str_replace('اني يكون له الملك', 'انى يكون له الملك', $cleanedSura);   
+        $cleanedSura = str_replace('يمريم اني لك هذا', 'يمريم انى لك هذا', $cleanedSura);   
+        $cleanedSura = str_replace('اني يكون لي ولد', 'انى يكون لي ولد', $cleanedSura);   
+        $cleanedSura = str_replace('حرثكم انى شيتم', 'حرثكم انى شيتم', $cleanedSura);   
+        $cleanedSura = str_replace('قال رب اني يكون لي غلم', 'قال رب انى يكون لي غلم', $cleanedSura);   
+
+        //important postion
+        $cleanedSura = str_replace('فى', 'في', $cleanedSura);   
         $cleanedSura = str_replace('دفء', 'دفئ', $cleanedSura);  
+        $cleanedSura = str_replace('وهى', 'وهي', $cleanedSura);         
+        $cleanedSura = str_replace('ءاتخذ', 'أاتخذ', $cleanedSura);         
+        $cleanedSura = str_replace('ءآلله', 'آالله', $cleanedSura);         
+        $cleanedSura = str_replace('ءالله', 'آالله', $cleanedSura);
+        $cleanedSura = str_replace('ءأنت', 'أانت', $cleanedSura);   
+        $cleanedSura = str_replace('ءأرباب', 'أارباب', $cleanedSura);   
+        $cleanedSura = str_replace('ءأسجد', 'أاسجد', $cleanedSura);   
+        $cleanedSura = str_replace('ءأشكر', 'أاشكر', $cleanedSura);       
+        $cleanedSura = str_replace('ءانذرتهم', 'أانذرتهم', $cleanedSura);         
+        $cleanedSura = str_replace('ء انذرتهم', 'أانذرتهم', $cleanedSura);         
+        $cleanedSura = str_replace('ء ال يعقوب', 'آل يعقوب', $cleanedSura);         
+        $cleanedSura = str_replace('وءاخرجني', 'واخرجني', $cleanedSura);         
+        $cleanedSura = str_replace('وءاخرجنا', 'واخرجنا', $cleanedSura);         
+        $cleanedSura = str_replace('ءاعجمي', 'أاعجمي', $cleanedSura);         
+        $cleanedSura = str_replace('ءانتم', 'أانتم', $cleanedSura); 
+        $cleanedSura = str_replace(',ءاشفقتم', ',ااشفقتم', $cleanedSura); 
+        $cleanedSura = str_replace(',ءأمنتم', ',اامنتم', $cleanedSura);
+        $cleanedSura = str_replace('ولقاىءالاخرة', 'ولقاء الاخرة', $cleanedSura); 
+        $cleanedSura = str_replace('ولءامنينهمولامرنهم', 'ولامنينهم ولامرنهم', $cleanedSura);  //PHP can't find the sunstring, although it exist in the sting hmmmm 
+        //important that this step comes after              
+        //  
+        $cleanedSura = str_replace(' ءا', ' ا', $cleanedSura);         
+        $cleanedSura = str_replace(',وءا', ',وا', $cleanedSura);        
+        $cleanedSura = str_replace(' وءا', ' وا', $cleanedSura);  
+        $cleanedSura = str_replace(',ءا', ',ا', $cleanedSura);        
+        $cleanedSura = str_replace('أ', 'ا', $cleanedSura);        
+        $cleanedSura = str_replace('آ', 'ا', $cleanedSura);        
+        $cleanedSura = str_replace('إ', 'ا', $cleanedSura);  
+        
+        //important position
         $cleanedSura = str_replace('ءا', 'ا', $cleanedSura); 
+
+        //important postion
+        $cleanedSura = str_replace(' را ', ' رءا ', $cleanedSura);
+        $cleanedSura = str_replace(' واخيه ان تبوا ', ' واخيه ان تبوءا ', $cleanedSura);
+        $cleanedSura = str_replace(' جزا ', ' جزءا ', $cleanedSura);
+        $cleanedSura = str_replace(' ورا ', ' ورءا ', $cleanedSura);
+        $cleanedSura = str_replace(' ترا ', ' ترءا ', $cleanedSura);
+        $cleanedSura = str_replace(' سوا ', ' سوءا ', $cleanedSura);
+        $cleanedSura = str_replace(' ردا ', ' ردءا ', $cleanedSura);
+
+        $cleanedSura = str_replace('منهن جزا', ' منهن جزءا', $cleanedSura);   
+        $cleanedSura = str_replace('له من عباده جزا', 'له من عباده جزءا', $cleanedSura);   
+        $cleanedSura = str_replace('ارنى', 'ارني', $cleanedSura);  
+        $cleanedSura = str_replace('ربى', 'ربي', $cleanedSura); 
+        $cleanedSura = str_replace('ياتى', 'ياتي', $cleanedSura); 
+        $cleanedSura = str_replace('تحى', 'تحي', $cleanedSura); 
         $cleanedSura = str_replace('شئ', 'شي', $cleanedSura); 
         $cleanedSura = str_replace('وتثبيتامن', 'وتثبيتا من', $cleanedSura); 
         $cleanedSura = str_replace('شيء', 'شي', $cleanedSura); 
@@ -129,7 +199,9 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('ابرهيملابيه', 'ابرهيم لابيه', $cleanedSura);  
         $cleanedSura = str_replace('بلقاىءربهم', 'بلقاء ربهم', $cleanedSura); 
         $cleanedSura = str_replace('مصلىوعهدنا', 'مصلى وعهدنا', $cleanedSura);  
-        $cleanedSura = str_replace('يحى', 'يحي', $cleanedSura); 
+        $cleanedSura = str_replace('يحى', 'يحي', $cleanedSura);  
+        $cleanedSura = str_replace('قال اني يحي هذه', 'قال انى يحي هذه', $cleanedSura);   
+        $cleanedSura = str_replace('آناى', 'انائ', $cleanedSura);  
         $cleanedSura = str_replace('لايخفى', 'لا يخفى', $cleanedSura); 
         $cleanedSura = mb_substr($cleanedSura, 0, -1);
         $cleanedSura = str_replace('عمران,', '', $cleanedSura); 
