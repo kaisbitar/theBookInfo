@@ -67,7 +67,7 @@ export default {
         { text: 'السورة', value: 'Sura',class:"indigo lighten-5 pl-5" },
         { text: 'الترتيب في السورة', value: 'verseIndx',class:"indigo lighten-5 pl-5"},
         { text: 'الترتيب في المصحف', value: 'bigIndex',class:"indigo lighten-5 pl-5"},
-        { text: 'الآية', value: 'verseText',class:"indigo lighten-5" },
+        { text: 'الآية', value: 'verseText',class:"indigo lighten-5 verseText" },
         { text: 'المجموع العددي', value: 'verseScore',class:"indigo lighten-5"},
       ]
     }

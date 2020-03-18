@@ -1,46 +1,69 @@
 <template>
-    <div class="suraWrap card">
+    <v-container class="suraWrap card">
       <!-- <h1>السورة</h1> -->
-    <v-data-table
-        :items-per-page="400"
-        :loading="loading"
-        loading-text="جاري تحميل الآيات ... الرجاء الانتظار"
-        :items="suraMap"
-        class="elevation-2 mt-0"
-        :hesaders-length="4"
-        :headers="headers"
-        fixed-header 
-        :height=550
-        item-key="bigIndex"
-        group-by="Sura"
-        :search="search"
-        @click:row="sndToCalBx"
-      >
-      <template v-slot:group.header="item">
-        {{item.group}}
-      </template>
-      <template v-slot:top>
-        <v-toolbar flat>
-            <v-toolbar-title>{{suraTitle}}</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-text-field
-              mb-2
-              v-model="search"
-              append-icon="mdi-magnify"
-              :label="inptLabl"
-              single-line
-              hide-details
-              class="mb-1 pt-0
-              rounded mt-0"
-              autofocus
-              background-color="lighten-5 mb-0"
-            ></v-text-field>
-        </v-toolbar>
-      </template>
-      
-    </v-data-table>
+    <v-card>
+      <v-data-table
+          :items-per-page="400"
+          :loading="loading"
+          loading-text="جاري تحميل الآيات ... الرجاء الانتظار"
+          :items="suraMap"
+          class="elevation-2 mt-0"
+          :hesaders-length="4"
+          :headers="headers"
+          fixed-header 
+          :height=550
+          item-key="bigIndex"
+          group-by="Sura"
+          :search="search"
+          @click:row="sndToCalBx"
+        >
+        <!-- group by customization -->
+        <template v-slot:group.header="item">
+          {{item.group}}
+        </template>
+        <!-- rows details -->
+        <template v-slot:item.verseText="item">
+          <div class="tableText">{{item.value}}</div>
+        </template>
+        <template v-slot:item.verseIndx="item">
+          <v-chip class="tableNumber lime lighten-5">{{item.value}}</v-chip>
+        </template>
+        <template v-slot:item.bigIndex="item">
+          <v-chip class="tableNumber light-green lighten-5">{{item.value}}</v-chip>
+        </template>
+        <template v-slot:item.NumberOfWords="item">
+          <v-chip class="tableNumber cyan lighten-5">{{item.value}}</v-chip>
+        </template>
+        <template v-slot:item.NumberOfLetters="item">
+          <v-chip class="tableNumber teal lighten-5">{{item.value}}</v-chip>
+        </template>
+
+        <!-- 
+          Only title and search bar down here
+        -->
+        <template v-slot:top>
+          <v-toolbar flat>
+              <v-toolbar-title>{{suraTitle}}</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-text-field
+                mb-2
+                v-model="search"
+                append-icon="mdi-magnify"
+                :label="inptLabl"
+                single-line
+                hide-details
+                class="mb-1 pt-0
+                rounded mt-0"
+                autofocus
+                background-color="lighten-5 mb-0"
+              ></v-text-field>
+          </v-toolbar>
+        </template>
+        
+      </v-data-table>
+    </v-card>
       <!-- <v-data-footer></v-data-footer> -->
-    </div>
+    </v-container>
 </template> 
 
 <script>
@@ -58,10 +81,10 @@ export default {
       inptLabl:'',
       bigIndex:'d-none', 
       headers: [
-        {class:"indigo lighten-5"},
+        // {class:"indigo lighten-5"},
         { text: 'السورة', value: 'Sura',class:"indigo lighten-5 pl-5" },
-        { text: 'ترتيب الآية', value: 'verseIndx',class:"indigo lighten-5 pl-5" },
-        { text: 'ترتيب في المصحف', value: 'bigIndex',class:"indigo lighten-5 pl-5", align: 'd-none' },
+        { text: 'ترتيب في السورة', value: 'verseIndx',class:"indigo lighten-5 pl-5" },
+        { text: 'ترتيب في المصحف', value: 'bigIndex',class:"indigo lighten-5 pl-5",},
         { text: 'الآية', value: 'verseText',class:"indigo lighten-5" },
         { text: 'عدد الكلمات', value: 'NumberOfWords',class:"indigo lighten-5" },
         { text: 'عدد الأحرف', value: 'NumberOfLetters',class:"indigo lighten-5" }
@@ -85,6 +108,7 @@ export default {
       this.fetchVerses()
     },
     fetchVerses(){
+      console.log(this.fileName);
       this.loading = true
       fetch("api/sura-map-f/" + this.fileName, { method: "GET" })
       .then(res => res.json())
@@ -93,7 +117,7 @@ export default {
           this.suraMap = res
         }
         else{
-          this.suraMap = res.versesMap;      
+          this.suraMap = res;      
         }
         //----
         //convert obejct to array and then mapping stuff..
@@ -104,8 +128,6 @@ export default {
         //---
         this.indsxSra()
         return
-      }).catch (function(err){
-          alert(err);
       }).finally(() => (this.loading = false));
     },
     indsxSra() {
@@ -137,4 +159,13 @@ export default {
 </script>
 
 <style>
+.tableText{
+  /* border-bottom: 1px solid #eaeaea !important; */
+  padding-bottom: 3%;
+  padding-top: 3%;
+}
+.tableNumber{
+    /* border-bottom: 1px solid #eaeaea !important; */
+
+}
 </style>

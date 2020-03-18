@@ -1,18 +1,18 @@
 <template>
   <v-app>
     <v-container class="grey lighten-5 d-flex" fluid>
-      <div class="quran-list">
-        <!-- <v-lazy> 
+      <!-- <div class="quran-list"> -->
+        <v-lazy> 
           <quranIndex v-on:plySra="plySra"></quranIndex>  
-        </v-lazy>   -->
+        </v-lazy>  
         <v-lazy>
             <sura ref="sura" @adVrsToCal="adVrsToCal19"></sura>  
           </v-lazy>
-      </div>
-      <div class="quran-list">
+      <!-- </div> -->
+      <!-- <div class="quran-list"> -->
           <theNineteen ref="theNineteen"></theNineteen>
           <!-- <verses ref="verses"></verses> -->
-      </div>
+      <!-- </div> -->
     </v-container>  
   </v-app>
 </template> 

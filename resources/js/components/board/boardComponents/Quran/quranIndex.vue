@@ -1,6 +1,5 @@
 <template>
   <v-card
-    height="400"
     class="overflow-hidden"
     >
     <v-data-table
@@ -15,29 +14,29 @@
       @click:row="activateSura"
       hide-default-footer
       disable-pagination
-      height="300"
+      height="445"
     ><template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>القائمة</v-toolbar-title>
+          <!-- <v-toolbar-title>القائمة</v-toolbar-title> -->
           <v-spacer></v-spacer>
           <v-text-field
             mb-2
             v-model="search"
             append-icon="mdi-magnify"
-            label="ابحث اسم او رقم سورة"
+            label="ابحث عن سورة أو رقم"
             single-line
             hide-details
             class="mb-3  white--text"
           ></v-text-field>
-          <v-spacer></v-spacer>
+          <!-- <v-spacer></v-spacer>
           أو
-          <v-spacer></v-spacer>
-          <v-tooltip dark color="red" bottom>
+          <v-spacer></v-spacer> -->
+          <!-- <v-tooltip dark color="red" bottom>
             <template v-slot:activator="{ on }">
               <v-btn color="warning" small dark v-on="on" @click="activateQuran()">حمّل المصحف</v-btn>
             </template>
             <span> بحاجة انترنت سريع</span>
-          </v-tooltip>
+          </v-tooltip> -->
         </v-toolbar>
       </template>  
     </v-data-table>          
@@ -51,17 +50,20 @@
         quranIndex: [],
         search:'',
         headers: [
-          { text: 'رقم السورة', value: 'suraIndex', class:"indigo lighten-5", width:120 },
+          { text: 'رقم السورة', value: 'suraIndex', class:"indigo lighten-5", 
+            // width:120 
+          },
           {
             text: 'اسم السورة',
             align: 'right',
             value: 'Name', 
-            class:"indigo lighten-5", width:200
+            class:"indigo lighten-5", 
+            // width:200
           }, 
-          { text: 'عدد الآيات', value: 'numberOfVerses',class:"indigo lighten-5" },
-          { text: 'عدد الكلمات', value: 'NumberOfWords',class:"indigo lighten-5" },
-          { text: 'عدد الأحرف', value: 'NumberOfLetters',class:"indigo lighten-5" },
-          {class:"indigo lighten-5", width:100}
+          { text: 'عدد الآيات', value: 'numberOfVerses',class:"indigo lighten-5" }
+          // { text: 'عدد الكلمات', value: 'NumberOfWords',class:"indigo lighten-5" },
+          // { text: 'عدد الأحرف', value: 'NumberOfLetters',class:"indigo lighten-5" },
+          // {class:"indigo lighten-5", width:100}
         ],
         loading: true  
       }
@@ -93,5 +95,4 @@
 
 
 <style lang="scss" scoped>  
-
 </style> 

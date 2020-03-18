@@ -54,11 +54,20 @@ Vue.component("suras-list", require("./components/old/SurasList.vue").default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+//app wrapper
+Vue.component("appWrap", require("./components/app/appWrap.vue").default);
+
+
 Vue.component("board", require("./components/board/board.vue").default);
 //list verses and suras
 Vue.component("quranIndex", require("./components/board/boardComponents/Quran/quranIndex.vue").default);
 Vue.component("sura", require("./components/board/boardComponents/Quran/sura.vue").default);
 Vue.component("verses", require("./components/board/boardComponents/Quran/verses.vue").default);
+
+//suraMap
+Vue.component("suraMap", require("./components/board/boardComponents/Quran/suraMap.vue").default);
+
+
 //calculations 
 Vue.component("theNineteen", require("./components/board/boardComponents/calculations/theNineteen.vue").default);
 

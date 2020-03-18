@@ -43,7 +43,9 @@
         <div id="app"> 
             <div class="container-fluid">
                 <!-- <suras-list></suras-list> -->
-                <board></board>
+                <!-- <board></board> -->
+                <!-- <app-wrap></app-wrap> -->
+                <sura-map></sura-map>
                 <!-- <calculate-box></calculate-box> -->
                 <!-- <suras-list></suras-list> -->
                 <!-- <vuetify></vuetify> -->
