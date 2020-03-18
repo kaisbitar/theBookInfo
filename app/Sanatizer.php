@@ -113,15 +113,21 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('قومامسرفين', 'قوما مسرفين', $cleanedSura); 
         $cleanedSura = str_replace('فوقهافاما', 'فوقها فاما', $cleanedSura);   
         $cleanedSura = str_replace('تحصوهاإن', 'تحصوها إن', $cleanedSura);  
-        $cleanedSura = str_replace('احى', 'أحي', $cleanedSura); 
+        $cleanedSura = str_replace(' احى ', ' أحي ', $cleanedSura); 
         $cleanedSura = str_replace('واوليك', 'واولئك', $cleanedSura); 
         $cleanedSura = str_replace('لايخفىعليه', 'لايخفى عليه', $cleanedSura);  
         $cleanedSura = str_replace('تلبسونهاوترى', 'تلبسونها وترى', $cleanedSura); 
-        $cleanedSura = str_replace('شىء', 'شئ', $cleanedSura); 
+        $cleanedSura = str_replace(' شىء ', ' شئ ', $cleanedSura); 
         $cleanedSura = str_replace('بريء', 'برئ', $cleanedSura);  
         $cleanedSura = str_replace('الخبء', 'الخبئ', $cleanedSura);   
-        $cleanedSura = str_replace('قلبى', 'قلبي', $cleanedSura);    
-
+        $cleanedSura = str_replace(' قلبى ', ' قلبي ', $cleanedSura);    
+        
+        $cleanedSura = str_replace(' من ولى ', ' من ولي ', $cleanedSura);    
+        $cleanedSura = str_replace(' وايى ', ' وايي ', $cleanedSura);    
+        $cleanedSura = str_replace(' بعهدى ', ' بعهدي ', $cleanedSura);    
+        $cleanedSura = str_replace(' بيتى ', ' بيتي ', $cleanedSura);    
+        $cleanedSura = str_replace(' عهدى ', ' عهدي ', $cleanedSura);    
+        $cleanedSura = str_replace(' ذريتى ', ' ذريتي ', $cleanedSura);    
         $cleanedSura = str_replace('انى جاعل', 'اني جاعل', $cleanedSura);    
         $cleanedSura = str_replace('انى اعلم', 'اني اعلم', $cleanedSura);    
         $cleanedSura = str_replace('انى فضلتكم', 'اني فضلتكم', $cleanedSura);    
@@ -141,11 +147,33 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('اني يكون لي ولد', 'انى يكون لي ولد', $cleanedSura);   
         $cleanedSura = str_replace('حرثكم انى شيتم', 'حرثكم انى شيتم', $cleanedSura);   
         $cleanedSura = str_replace('قال رب اني يكون لي غلم', 'قال رب انى يكون لي غلم', $cleanedSura);   
-
+        $cleanedSura = str_replace('فاني تؤفكون', 'فانى تؤفكون', $cleanedSura);   
+        $cleanedSura = str_replace('اني تؤفكون', 'انى تؤفكون', $cleanedSura);    
+        $cleanedSura = str_replace(' كفي ', ' كفى ', $cleanedSura);    
+        $cleanedSura = str_replace(' وكفي ', ' وكفى ', $cleanedSura);    
+         
+        
+         
+        
+              
         //important postion
-        $cleanedSura = str_replace('فى', 'في', $cleanedSura);   
+        $cleanedSura = str_replace('سيء', 'سئ', $cleanedSura);   
+        $cleanedSura = str_replace('فىابرهيم', 'في ابرهيم', $cleanedSura);   
+        $cleanedSura = str_replace('العلى العظيم', 'العلي العظيم', $cleanedSura);   
+        $cleanedSura = str_replace(' الحى ', ' الحي ', $cleanedSura);   
+        $cleanedSura = str_replace(' الغى ', ' الغي ', $cleanedSura);   
+        $cleanedSura = str_replace('الله ولى', 'الله ولي', $cleanedSura);   
+
+        $cleanedSura = str_replace(' وقضى الامر ', ' وقضي الامر ', $cleanedSura);   
+        $cleanedSura = str_replace(' بنى ', ' بني ', $cleanedSura);   
+        $cleanedSura = str_replace(' عفى ', ' عفي ', $cleanedSura);   
+        $cleanedSura = str_replace(' ياولى ', ' ياولي ', $cleanedSura);   
+        $cleanedSura = str_replace(' بشىء ', ' بشي ', $cleanedSura);   
+        $cleanedSura = str_replace(' لى ', ' لي ', $cleanedSura);   
+        $cleanedSura = str_replace(' فى ', ' في ', $cleanedSura);   
         $cleanedSura = str_replace('دفء', 'دفئ', $cleanedSura);  
-        $cleanedSura = str_replace('وهى', 'وهي', $cleanedSura);         
+        $cleanedSura = str_replace(' وهى ', ' وهي ', $cleanedSura);         
+        $cleanedSura = str_replace(' هى ', ' هي ', $cleanedSura);         
         $cleanedSura = str_replace('ءاتخذ', 'أاتخذ', $cleanedSura);         
         $cleanedSura = str_replace('ءآلله', 'آالله', $cleanedSura);         
         $cleanedSura = str_replace('ءالله', 'آالله', $cleanedSura);

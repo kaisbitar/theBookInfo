@@ -441,7 +441,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       suraMap: [],
       suraToPlay: [],
-      fileName: [],
+      fileName: "المصحف_fe",
       suraTitle: '',
       loading: true,
       search: '',
@@ -492,7 +492,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     playQuran: function playQuran() {
       this.suraToPlay = 'المصحف كاملا';
-      this.fileName = 'المصحف';
+      this.fileName = 'المصحف_fe';
       this.suraTitle = 'المصحف';
       this.inptLabl = 'ابحث عن كلمة أو رقم في المصحف';
       this.fetchVerses();
@@ -506,7 +506,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
-        if (_this.fileName == 'المصحف') {
+        if (_this.fileName == 'المصحف_fe') {
           _this.suraMap = res;
         } else {
           _this.suraMap = res.versesMap;
@@ -542,7 +542,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   created: function created() {
-    this.fileName = 'المصحف';
     this.suraTitle = 'المصحف';
     this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle;
     this.fetchVerses();
@@ -1041,14 +1040,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         text: 'الآية',
         value: 'tableIndex',
         "class": "indigo lighten-5",
-        align: 'start'
+        align: 'start',
+        width: '70'
       }, {
         text: 'السورة',
         value: 'Sura',
         "class": "indigo lighten-5 pl-5"
       }, {
-        text: 'رقم الآية',
+        text: 'الترتيب في السورة',
         value: 'verseIndx',
+        "class": "indigo lighten-5 pl-5"
+      }, {
+        text: 'الترتيب في المصحف',
+        value: 'bigIndex',
         "class": "indigo lighten-5 pl-5"
       }, {
         text: 'الآية',
@@ -4297,7 +4301,7 @@ var render = function() {
                 [
                   _c("sura", {
                     ref: "sura",
-                    on: { adVrsToCal: _vm.adVrsToTble }
+                    on: { adVrsToCal: _vm.adVrsToCal19 }
                   })
                 ],
                 1
@@ -4309,7 +4313,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "quran-list" },
-            [_c("verses", { ref: "verses" })],
+            [_c("theNineteen", { ref: "theNineteen" })],
             1
           )
         ]
@@ -4472,7 +4476,7 @@ var render = function() {
       _c("v-data-table", {
         staticClass: "elevation-2 mt-0",
         attrs: {
-          "items-per-page": 20,
+          "items-per-page": 400,
           loading: _vm.loading,
           "loading-text": "جاري تحميل الآيات ... الرجاء الانتظار",
           items: _vm.suraMap,

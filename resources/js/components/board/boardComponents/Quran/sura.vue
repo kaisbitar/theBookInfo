@@ -2,7 +2,7 @@
     <div class="suraWrap card">
       <!-- <h1>السورة</h1> -->
     <v-data-table
-        :items-per-page="20"
+        :items-per-page="400"
         :loading="loading"
         loading-text="جاري تحميل الآيات ... الرجاء الانتظار"
         :items="suraMap"
@@ -50,7 +50,7 @@ export default {
     return {
       suraMap:[],
       suraToPlay:[],
-      fileName: [],
+      fileName: "المصحف_fe",
       suraTitle: '',
       loading: true,
       search: '',
@@ -79,7 +79,7 @@ export default {
     },
     playQuran(){
       this.suraToPlay = 'المصحف كاملا'
-      this.fileName = 'المصحف'
+      this.fileName = 'المصحف_fe'
       this.suraTitle = 'المصحف'
       this.inptLabl = 'ابحث عن كلمة أو رقم في المصحف'
       this.fetchVerses()
@@ -89,7 +89,7 @@ export default {
       fetch("api/sura-map-f/" + this.fileName, { method: "GET" })
       .then(res => res.json())
       .then(res => {
-        if(this.fileName =='المصحف'){
+        if(this.fileName =='المصحف_fe'){
           this.suraMap = res
         }
         else{
@@ -123,7 +123,6 @@ export default {
     },
   },
   created(){
-    this.fileName = 'المصحف'
     this.suraTitle = 'المصحف'
     this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle
     this.fetchVerses()

@@ -63,9 +63,10 @@ export default {
       versesTocal:[],  
       headers: [
         {class:"indigo lighten-5"},
-        { text: 'الآية', value: 'tableIndex',class:"indigo lighten-5", align: 'start'},
+        { text: 'الآية', value: 'tableIndex',class:"indigo lighten-5", align: 'start', width:'70'},
         { text: 'السورة', value: 'Sura',class:"indigo lighten-5 pl-5" },
-        { text: 'رقم الآية', value: 'verseIndx',class:"indigo lighten-5 pl-5"},
+        { text: 'الترتيب في السورة', value: 'verseIndx',class:"indigo lighten-5 pl-5"},
+        { text: 'الترتيب في المصحف', value: 'bigIndex',class:"indigo lighten-5 pl-5"},
         { text: 'الآية', value: 'verseText',class:"indigo lighten-5" },
         { text: 'المجموع العددي', value: 'verseScore',class:"indigo lighten-5"},
       ]

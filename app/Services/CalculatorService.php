@@ -144,9 +144,24 @@ class CalculatorService
         return file_get_contents(storage_path('quranIndex')) ;
     } 
 
+    public function deleteDirctory($directory){
+        $files = scandir(storage_path($directory));
+        foreach($files as $file){ 
+            if (($file != '.')&&($file != '..')){
+                $fileContent = File::get(storage_path($directory).'/'.$file);
+                if(is_file((storage_path($directory).'/'.$file))){
+                    unlink(storage_path($directory).'/'.$file);
+                }
+            }
+        }
+    }
+
     // Run all the backend to create mapped suras and verses
     public function runBackend()
     {
+        self::deleteDirctory('decoded_suras');
+        self::deleteDirctory('decoded_verses');
+        self::deleteDirctory('scored_verses');
         $surasFiles = scandir(storage_path('SanatizedSuras'));
         foreach ($surasFiles as $suraFileName) {
             if (($suraFileName != '.')&&($suraFileName != '..')&&($suraFileName != 'المصحف')) {
@@ -156,9 +171,10 @@ class CalculatorService
                 $this->fullSura->Name = $suraFileName;
                 $this->mapSura();
                 $this->mapVerses();
-                $this->mapComplete();
             }
         }
+        $this->mapComplete();
+
         return;
     }
 
@@ -166,7 +182,7 @@ class CalculatorService
         $allSurasFiles = scandir(storage_path('decoded_suras'));
         $mappedQuran = [];
         $index = 1;
-        if(!file_exists(storage_path('decoded_suras/'.'المصحف'.'_sura_results.json'))){
+        if(!file_exists(storage_path('decoded_suras/'.'المصحف_fe'.'_sura_results.json'))){
             foreach ($allSurasFiles as $suraFile) {
                 if (($suraFile != '.')&&($suraFile != '..')) {
                     $suraInfo = File::get(storage_path('decoded_suras/'.$suraFile));
@@ -178,11 +194,11 @@ class CalculatorService
                 }                   
             }
             file_put_contents(
-                storage_path('decoded_suras/'.'المصحف'.'_sura_results.json'),
+                storage_path('decoded_suras/'.'المصحف_fe'.'_sura_results.json'),
                 json_encode($mappedQuran, JSON_UNESCAPED_UNICODE)
             );
         }
-        $mappedQuran = file_get_contents(storage_path('decoded_suras/'.'المصحف'.'_sura_results.json'));
+        $mappedQuran = file_get_contents(storage_path('decoded_suras/'.'المصحف_fe'.'_sura_results.json'));
         
         return $mappedQuran;
     }

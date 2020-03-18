@@ -21,7 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('verses-map-f/{fileName}', 'ViewController@viewVersesMap');
 Route::get('quran-map-f/{fileName}', 'ViewController@viewQuranMap');
 Route::get('quran/quranIndex','ViewController@viewQuranIndex');
-Route::get('sura-map-f/{fileName}','ViewController@viewSuraMap');
+Route::get('sura-map-f/{fileName}','ViewController@viewQuranSearchInfo');
+Route::get('quran-search-info/{fileName}','ViewController@viewQuranSearchInfo');
 //Scores:
 Route::get('words-score/{fileName}', 'ScoreController@eachWordScore');
 Route::get('verses-score/{fileName}', 'ScoreController@eachVerseScore');

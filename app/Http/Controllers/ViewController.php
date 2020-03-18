@@ -9,10 +9,26 @@ class ViewController extends Controller
 {
     public function viewQuranMap(Request $request)
     {   
-        $fileName = $request->fileName;
-        $mappedSura = file_get_contents(storage_path('decoded_suras/المصحف_sura_results.json'));
+        // $fileName = $request->fileName;
+        $mappedSura = file_get_contents(storage_path('decoded_suras/المصحف_fe_sura_results.json'));
 
         return ($mappedSura);
+    }        
+    public function viewQuranSearchInfo(Request $request)
+    {   
+        $mappedSura = file_get_contents(storage_path('decoded_suras/المصحف_fe_sura_results.json'));
+        $mappedSura = (json_decode($mappedSura, true));
+        $searchInfo = [];
+        for($i=1; $i<=count($mappedSura);$i++){
+            $searchInfo[$i]["Sura"] = $mappedSura[$i]["Sura"];
+            $searchInfo[$i]["verseIndx"] = $mappedSura[$i]["verseIndx"];
+            $searchInfo[$i]["verseText"] = $mappedSura[$i]["verseText"];
+            $searchInfo[$i]["NumberOfWords"] = $mappedSura[$i]["NumberOfWords"];
+            $searchInfo[$i]["NumberOfLetters"] = $mappedSura[$i]["NumberOfLetters"];
+            $searchInfo[$i]["bigIndex"] = $i;
+        }
+
+        return ($searchInfo);
     }
 
     public function viewSuraMap(Request $request)

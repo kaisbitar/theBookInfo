@@ -6,12 +6,12 @@
           <quranIndex v-on:plySra="plySra"></quranIndex>  
         </v-lazy>   -->
         <v-lazy>
-            <sura ref="sura" @adVrsToCal="adVrsToTble"></sura>  
+            <sura ref="sura" @adVrsToCal="adVrsToCal19"></sura>  
           </v-lazy>
       </div>
       <div class="quran-list">
-          <!-- <theNineteen ref="theNineteen"></theNineteen> -->
-          <verses ref="verses"></verses>
+          <theNineteen ref="theNineteen"></theNineteen>
+          <!-- <verses ref="verses"></verses> -->
       </div>
     </v-container>  
   </v-app>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+ini_set('memory_limit', '1G');
 
 use App\Counter;
 use App\FullSura;
@@ -258,17 +259,26 @@ class ScoreController extends Controller
         ksort($scores);
         $result = [];
         
-        for($i=1;$i<=sizeof($scores);$i++){
+        for($i=1;$i<=sizeof($scores)-1;$i++){
             $sum = $scores[$i]["score"];
-            for ($j=$i+1;$j<=sizeof($scores);$j++) {
+            for ($j=$i+1;$j<=sizeof($scores)-1;$j++) {
                 // dd($scores[$i]);
+                if($j > $i + 20){
+                    continue;
+                }
                 $sum = $sum + $scores[$j]["score"];
                 if ($sum % 19 == 0) {
-                    $result[] = [$i,$j];
+                    $index = count($result);
+                    $result[$index]['range'] = $i.' - '.$j;
+                    $result[$index]['result'] = $sum/19;
+                    if(($i)==6107 && $i<6125){
+                        dump($result[$index]);
+                    }
                 }
             }
+            
         }
-        dd($result);
+        // dd($result[50]);
 
     }
 }
