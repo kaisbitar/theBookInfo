@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/the-nineteen', function () {
+    return view('the-nineteen');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });

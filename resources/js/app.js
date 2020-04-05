@@ -4,29 +4,22 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-// require("./bootstrap");
 import Vue from "vue";
-// import BootstrapVue from "bootstrap-vue";
-// import "bootstrap/dist/css/bootstrap.css";
-// import "bootstrap-vue/dist/bootstrap-vue.css";
-import "vuetify/dist/vuetify.min.css";
-// import 'mdi/font/css/materialdesignicons.min.css';
-import '@mdi/font/css/materialdesignicons.css'
-// import 'vuetify/src/styles/styles.sass'
-// import "./sass/app.scss";
-import ar from 'vuetify/es5/locale/ar';
-
 import Vuetify from "vuetify";
+import ar from 'vuetify/es5/locale/ar';
+import "vuetify/dist/vuetify.min.css";
+import '@mdi/font/css/materialdesignicons.css'
+import { Laue } from 'laue';
+
 window.Vue = require("vue");
 
-// Vue.use(BootstrapVue);
+Vue.use(Laue);
 Vue.use(Vuetify);
 Vue.use({
   install() {
     Vue.prototype.destroy = Vue.prototype.$destroy;
   },
 });
-// Vue.use(FixedHeader)
 
 /**
  * The following block of code may be used to automatically register your
@@ -41,18 +34,13 @@ Vue.use({
 
 Vue.component("vuetify", require("./components/vutifyplay.vue").default);
 
-Vue.component("Sura", require("./components/old/Sura.vue").default);
+Vue.component("Sura", require("./components/z_old/Sura.vue").default);
 // Vue.component('verseInPlay', {  props: ['verseInPlay']}, require('./components/VersesList.vue').default);
 Vue.component(
     "calculate-box",
-    require("./components/old/CalculateBox.vue").default
+    require("./components/z_old/CalculateBox.vue").default
 );
-Vue.component("suras-list", require("./components/old/SurasList.vue").default);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component("suras-list", require("./components/z_old/SurasList.vue").default);
 
 //app wrapper
 Vue.component("appWrap", require("./components/app/appWrap.vue").default);
@@ -60,12 +48,24 @@ Vue.component("appWrap", require("./components/app/appWrap.vue").default);
 
 Vue.component("board", require("./components/board/board.vue").default);
 //list verses and suras
-Vue.component("quranIndex", require("./components/board/boardComponents/Quran/quranIndex.vue").default);
-Vue.component("sura", require("./components/board/boardComponents/Quran/sura.vue").default);
-Vue.component("verses", require("./components/board/boardComponents/Quran/verses.vue").default);
+Vue.component("quranIndex", require("./components/Quran/quranIndex.vue").default);
+Vue.component("sura", require("./components/Quran/sura.vue").default);
+Vue.component("verses", require("./components/Quran/verses.vue").default);
 
 //suraMap
-Vue.component("suraMap", require("./components/board/boardComponents/Quran/suraMap.vue").default);
+Vue.component("suraMap", require("./components/suraMap/suraMap.vue").default);
+Vue.component("test", require("./components/suraMap/test.vue").default);
+Vue.component("verseCountChart", require("./components/suraMap/comp/verseCountChart.vue").default);
+
+
+//indexes
+Vue.component("suraIndexes", require("./components/suraMap/comp/indexes/suraIndexes.vue").default);
+Vue.component("indexChart", require("./components/suraMap/comp/indexes/chart.vue").default);
+
+//Occurences
+Vue.component("suraOccurences", require("./components/suraMap/comp/occurences/suraOccurences.vue").default);
+Vue.component("occurenceChart", require("./components/suraMap/comp/occurences/chart.vue").default);
+Vue.component("occurenceTable", require("./components/suraMap/comp/occurences/table.vue").default);
 
 
 //calculations 
@@ -73,12 +73,17 @@ Vue.component("theNineteen", require("./components/board/boardComponents/calcula
 
 //calculations comp
 Vue.component("verseDetails", require("./components/board/boardComponents/calculations/calculationComp/verseDetails.vue").default);
-Vue.component("verseDetails", require("./components/board/boardComponents/calculations/calculationComp/valuesSum.vue").default);
+Vue.component("valuesSum", require("./components/board/boardComponents/calculations/calculationComp/valuesSum.vue").default);
 
 
 
 
 
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
 const app = new Vue({
     el: "#app",

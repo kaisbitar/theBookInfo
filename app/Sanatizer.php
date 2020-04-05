@@ -137,6 +137,12 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('انى جاعلك', 'اني جاعلك', $cleanedSura);   
         $cleanedSura = str_replace('انى', 'اني', $cleanedSura); 
         $cleanedSura = str_replace('عبادى عنى', 'عبادي عني', $cleanedSura); 
+        $cleanedSura = str_replace('والله غنى', 'والله غني', $cleanedSura); 
+        $cleanedSura = str_replace('وليؤمنوا بى', 'وليؤمنوا بي', $cleanedSura); 
+        $cleanedSura = str_replace('فهى', 'فهي', $cleanedSura); 
+        $cleanedSura = str_replace('ياتينكم منى هدى فمن تبع هداى', 'ياتينكم مني هدى فمن تبع هداي', $cleanedSura); 
+        
+        
         
         // لى 
         // بى 
@@ -145,18 +151,23 @@ class Sanatizer extends Model
         $cleanedSura = str_replace('اني يكون له الملك', 'انى يكون له الملك', $cleanedSura);   
         $cleanedSura = str_replace('يمريم اني لك هذا', 'يمريم انى لك هذا', $cleanedSura);   
         $cleanedSura = str_replace('اني يكون لي ولد', 'انى يكون لي ولد', $cleanedSura);   
-        $cleanedSura = str_replace('حرثكم انى شيتم', 'حرثكم انى شيتم', $cleanedSura);   
+        $cleanedSura = str_replace('حرثكم اني شيتم', 'حرثكم انى شيتم', $cleanedSura);   
         $cleanedSura = str_replace('قال رب اني يكون لي غلم', 'قال رب انى يكون لي غلم', $cleanedSura);   
         $cleanedSura = str_replace('فاني تؤفكون', 'فانى تؤفكون', $cleanedSura);   
         $cleanedSura = str_replace('اني تؤفكون', 'انى تؤفكون', $cleanedSura);    
         $cleanedSura = str_replace(' كفي ', ' كفى ', $cleanedSura);    
         $cleanedSura = str_replace(' وكفي ', ' وكفى ', $cleanedSura);    
+        $cleanedSura = str_replace(' فكفي بالله ', ' فكفى بالله ', $cleanedSura);    
          
+               
         
-         
-        
-              
         //important postion
+        $cleanedSura = str_replace('جاءوقال', 'جاءو قال', $cleanedSura);   
+        $cleanedSura = str_replace('وذى', 'وذي', $cleanedSura);   
+        $cleanedSura = str_replace('صم بكم عمى', 'صم بكم عمي', $cleanedSura);   
+        $cleanedSura = str_replace('الا اذىوان', 'الا اذى وان', $cleanedSura);   
+        $cleanedSura = str_replace('الجار ذي القربي', 'الجار ذي القربي', $cleanedSura);   
+        $cleanedSura = str_replace('خزى', 'خزي', $cleanedSura);   
         $cleanedSura = str_replace('سيء', 'سئ', $cleanedSura);   
         $cleanedSura = str_replace('فىابرهيم', 'في ابرهيم', $cleanedSura);   
         $cleanedSura = str_replace('العلى العظيم', 'العلي العظيم', $cleanedSura);   

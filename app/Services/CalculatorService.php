@@ -8,7 +8,8 @@ use App\Indexer;
 use App\Verse;
 use Illuminate\Support\Facades\File;
 use App\Controllers\CalculatorController;
-
+use App\Http\Controllers\ScoreController;
+use Illuminate\Http\Request;
 
 class CalculatorService
 {
@@ -40,7 +41,7 @@ class CalculatorService
             $this->fullSura->NumberOfWords = $this->fullSura->calculateNumberOfWords();
             $this->fullSura->NumberOfLetters = $this->fullSura->calculateNumberOfLetters();
             $verses = $this->processVerses($this->fullSura->verses);
-            $this->fullSura->SuraLettersCount = $this->counter->countLettersInString($this->fullSura->suraString);
+            // $this->fullSura->SuraLettersCount = $this->counter->countLettersInString($this->fullSura->suraString);
 
             $this->fullSura->versesMap = $verses;
 
@@ -50,7 +51,7 @@ class CalculatorService
             $this->fullSura->LetterIndexes = $this->indexer->indexLettersInString($this->fullSura->verses);
             
             
-            file_put_contents(storage_path('decoded_suras/' . $resultFileName), json_encode($this->fullSura, JSON_UNESCAPED_UNICODE));
+            file_put_contents(storage_path('decoded_suras/' . $resultFileName), json_encode($this->fullSura,true));
         }
         $mappedSura = file_get_contents(storage_path('decoded_suras/' . $this->fullSura->Name . '_sura_results.json'));
 
@@ -171,6 +172,10 @@ class CalculatorService
                 $this->fullSura->Name = $suraFileName;
                 $this->mapSura();
                 $this->mapVerses();
+                $fileToScore = new Request();
+                $fileToScore->fileName = $suraFileName;
+                $score = new ScoreController($fileToScore);
+                $score->eachVerseScore();
             }
         }
         $this->mapComplete();

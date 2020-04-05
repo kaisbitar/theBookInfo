@@ -1,44 +1,42 @@
 <template>
-    <v-container class="suraWrap card">
+    <v-container class="suraWrap card ">
       <!-- <h1>السورة</h1> -->
+      
     <v-card>
       <v-data-table
           :items-per-page="400"
           :loading="loading"
           loading-text="جاري تحميل الآيات ... الرجاء الانتظار"
           :items="suraMap"
-          class="elevation-2 mt-0"
+          class="elevation-2 mt-0 overflow-y-auto"
           :hesaders-length="4"
           :headers="headers"
           fixed-header 
-          :height=550
+          height="400"
           item-key="bigIndex"
           group-by="Sura"
           :search="search"
           @click:row="sndToCalBx"
-        >
+          dense
+        >    
         <!-- group by customization -->
-        <template v-slot:group.header="item">
-          {{item.group}}
-        </template>
+        <!-- <template v-slot:group.header="item">
+        </template> -->
+       
+       
         <!-- rows details -->
-        <template v-slot:item.verseText="item">
-          <div class="tableText">{{item.value}}</div>
-        </template>
-        <template v-slot:item.verseIndx="item">
-          <v-chip class="tableNumber lime lighten-5">{{item.value}}</v-chip>
-        </template>
-        <template v-slot:item.bigIndex="item">
-          <v-chip class="tableNumber light-green lighten-5">{{item.value}}</v-chip>
-        </template>
-        <template v-slot:item.NumberOfWords="item">
-          <v-chip class="tableNumber cyan lighten-5">{{item.value}}</v-chip>
-        </template>
-        <template v-slot:item.NumberOfLetters="item">
-          <v-chip class="tableNumber teal lighten-5">{{item.value}}</v-chip>
-        </template>
+        
+        <template v-slot:item="item">
+          <tr :class="{addedToCal:added === item.item.tableIndex}" @click="sndToCalBx(item.item)">
+            <td><div class="tableNumber">{{item.item.bigIndex}}</div></td>
+            <td><div class="tableNumber">{{item.item.verseIndx}}</div></td>
+            <td><div class="tableText">{{item.item.verseText}}</div></td>
+            <td><div class="tableNumber">{{item.item.NumberOfWords}}</div></td>
+            <td><div class="tableNumber">{{item.item.NumberOfLetters}}</div></td>
+          </tr>
+        </template> 
 
-        <!-- 
+               <!-- 
           Only title and search bar down here
         -->
         <template v-slot:top>
@@ -62,43 +60,40 @@
         
       </v-data-table>
     </v-card>
-      <!-- <v-data-footer></v-data-footer> -->
     </v-container>
 </template> 
 
 <script>
 export default {
-  props: [],
+  watch:{
+    fileName(){
+      this.playThisSura()
+    }
+  },
+  props: ['fileName'],
   data() {
     return {
       suraMap:[],
       suraToPlay:[],
-      fileName: "المصحف_fe",
       suraTitle: '',
       loading: true,
       search: '',
-      model: null,
       inptLabl:'',
-      bigIndex:'d-none', 
+      added:0,
       headers: [
-        // {class:"indigo lighten-5"},
         { text: 'السورة', value: 'Sura',class:"indigo lighten-5 pl-5" },
         { text: 'ترتيب في السورة', value: 'verseIndx',class:"indigo lighten-5 pl-5" },
         { text: 'ترتيب في المصحف', value: 'bigIndex',class:"indigo lighten-5 pl-5",},
         { text: 'الآية', value: 'verseText',class:"indigo lighten-5" },
         { text: 'عدد الكلمات', value: 'NumberOfWords',class:"indigo lighten-5" },
         { text: 'عدد الأحرف', value: 'NumberOfLetters',class:"indigo lighten-5" }
-      ],footer:{class:"indigo lighten-5"}
+      ]
     }
   },
   methods:{
     //methods running through plySra function in board component
-    playThisSura(suraToPlay){
-      this.suraToPlay = suraToPlay
-      this.fileName = this.suraToPlay.fileName
-      this.suraTitle = 'سورة ' + this.suraToPlay.Name 
-      this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle
-      this.fetchVerses(this.suraToPlay)
+    playThisSura(){
+      this.fetchVerses(this.fileName)
     },
     playQuran(){
       this.suraToPlay = 'المصحف كاملا'
@@ -108,29 +103,27 @@ export default {
       this.fetchVerses()
     },
     fetchVerses(){
-      console.log(this.fileName);
       this.loading = true
       fetch("api/sura-map-f/" + this.fileName, { method: "GET" })
       .then(res => res.json())
       .then(res => {
-        if(this.fileName =='المصحف_fe'){
-          this.suraMap = res
-        }
-        else{
-          this.suraMap = res;      
-        }
-        //----
-        //convert obejct to array and then mapping stuff..
-        this.suraMap = Object.entries(this.suraMap);
-        this.suraMap = this.suraMap.map(post => {
-          return post[1]
-        })
-        //---
-        this.indsxSra()
-        return
+        this.suraMap = res.versesMap;  
+        this.prepareData()        
       }).finally(() => (this.loading = false));
     },
-    indsxSra() {
+    prepareData(){
+      this.suraTitle = 'سورة ' + this.suraMap[1].Sura 
+      this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle
+      //convert obejct to array and then mapping stuff..
+      this.suraMap = Object.entries(this.suraMap);
+      this.suraMap = this.suraMap.map(post => {
+        return post[1]
+      })
+      //---
+      this.indexSura()
+      return
+    },
+    indexSura() {
      this.suraMap = this.suraMap.map(
         (items, index) => ({
           ...items,
@@ -143,17 +136,14 @@ export default {
       //run method in board to add verse to the calculation box
       this.$emit('adVrsToCal', verse)
     },
+    onScroll(value){
+    }
   },
   created(){
-    this.suraTitle = 'المصحف'
-    this.inptLabl = 'ابحث عن كلمة أو رقم في ' + this.suraTitle
-    this.fetchVerses()
+    this.playThisSura()
+
   },
-  computed: { 
-    computedHeaders () {
-      return this.headers.filter()  
-    }
-   },
+  computed: { },
 
 };
 </script>
@@ -164,8 +154,7 @@ export default {
   padding-bottom: 3%;
   padding-top: 3%;
 }
-.tableNumber{
-    /* border-bottom: 1px solid #eaeaea !important; */
-
+.addedToCal{
+  background: orange;
 }
 </style>

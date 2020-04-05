@@ -82,6 +82,7 @@
       activateSura(activateSura){
         //send sura to Board to play the sura in the Sura component
         this.$emit('plySra', activateSura)
+        this.$emit('playSura', activateSura)
       },
       activateQuran(){
         this.$emit('plySra', 'المصحف')

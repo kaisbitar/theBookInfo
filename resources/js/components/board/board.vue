@@ -7,6 +7,7 @@
         </v-lazy>  
         <v-lazy>
             <sura ref="sura" @adVrsToCal="adVrsToCal19"></sura>  
+            <!-- <sura ref="sura" @adVrsToCal="adVrsToTble"></sura>   -->
           </v-lazy>
       <!-- </div> -->
       <!-- <div class="quran-list"> -->
@@ -19,9 +20,9 @@
 
 
 <script>
-import quranIndex from './boardComponents/Quran/quranIndex.vue'
-import sura from './boardComponents/Quran/sura.vue'
-import verses from './boardComponents/Quran/verses.vue'
+import quranIndex from '../Quran/quranIndex.vue'
+import sura from '../Quran/sura.vue'
+import verses from '../Quran/verses.vue'
 import theNineteen from './boardComponents/calculations/theNineteen.vue'
 
 export default {
@@ -74,5 +75,12 @@ export default {
 .quran-list {
   width: 800px;
   margin: 10px;
+}
+.tableNumber{
+  text-align: center;
+  background: #F1F8E9;//light-green lighten-5
+}
+.tableText{
+  text-align: center;
 }
 </style> 

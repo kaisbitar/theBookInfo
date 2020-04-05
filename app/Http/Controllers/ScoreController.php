@@ -252,18 +252,19 @@ class ScoreController extends Controller
         return $returnArray;
     }
 
-    public function find19InSura(){
-        $resultFileName = 'المصحف';
+    public function find19InSura(Request $request){
+        $resultFileName = '074المدثر';
+        $resultFileName = $request->fileName;
+        // $resultFileName = '001الفاتحة';
         $scores = file_get_contents(storage_path('scored_verses/' .$resultFileName. '_verses_score.json',JSON_UNESCAPED_UNICODE));
         $scores = (json_decode($scores, true));
         ksort($scores);
         $result = [];
-        
         for($i=1;$i<=sizeof($scores)-1;$i++){
             $sum = $scores[$i]["score"];
-            for ($j=$i+1;$j<=sizeof($scores)-1;$j++) {
-                // dd($scores[$i]);
-                if($j > $i + 20){
+            for ($j=$i+1;$j<=sizeof($scores);$j++) {
+                // dump($scores[$j]);
+                if($j > $i + 7){
                     continue;
                 }
                 $sum = $sum + $scores[$j]["score"];
@@ -271,14 +272,14 @@ class ScoreController extends Controller
                     $index = count($result);
                     $result[$index]['range'] = $i.' - '.$j;
                     $result[$index]['result'] = $sum/19;
-                    if(($i)==6107 && $i<6125){
-                        dump($result[$index]);
-                    }
                 }
             }
             
+            
         }
-        // dd($result[50]);
+        file_put_contents(storage_path('divised_suras/' .$this->request->fileName.'_divised.json'), json_encode($result, JSON_UNESCAPED_UNICODE));
+
+        return $result;
 
     }
 }

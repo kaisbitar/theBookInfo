@@ -21,14 +21,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('verses-map-f/{fileName}', 'ViewController@viewVersesMap');
 Route::get('quran-map-f/{fileName}', 'ViewController@viewQuranMap');
 Route::get('quran/quranIndex','ViewController@viewQuranIndex');
-Route::get('sura-map-f/{fileName}','ViewController@viewQuranSearchInfo');
+Route::get('sura-map-f/{fileName}','ViewController@viewSuraMap');
 Route::get('quran-search-info/{fileName}','ViewController@viewQuranSearchInfo');
 //Scores:
 Route::get('words-score/{fileName}', 'ScoreController@eachWordScore');
 Route::get('verses-score/{fileName}', 'ScoreController@eachVerseScore');
 Route::get('verse-score/{fileName}/{verseIndex}', 'ScoreController@singleVerseScore');
 
-Route::get('find/{fileName}', 'ScoreController@find19InSura');
+
+//Sura details and charts
+Route::get('verses-number-of-words-f/{fileName}', 'ViewController@viewVersesNumberOfWords');
+Route::get('verses-number-of-letters-f/{fileName}', 'ViewController@viewVersesNumberOfLetters');
+Route::get('sura-words-indexes-f/{fileName}', 'ViewController@viewWordsIndexes');
+Route::get('sura-letters-indexes-f/{fileName}', 'ViewController@viewLettersIndexes');
+Route::get('sura-letters-occ-f/{fileName}', 'ViewController@viewLettersOcc');
+Route::get('sura-words-occ-f/{fileName}', 'ViewController@viewWordsOcc');
+
+
+
+Route::get('find-19-in-sura/{fileName}', 'ScoreController@find19InSura');
 
 
 // Backend calculations

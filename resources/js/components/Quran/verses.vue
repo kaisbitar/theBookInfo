@@ -73,7 +73,7 @@
 
 <script>
 
-import verseDetails from  '../calculations/calculationComp/verseDetails.vue'
+import verseDetails from  '../board/boardComponents/calculations/calculationComp/verseDetails.vue'
 export default {
   components:{
     verseDetails

@@ -18,9 +18,9 @@ class Counter extends Model
 
         $alphabetArray = explode(" ", $alphabet);
         foreach ($alphabetArray as $letter) {
-            if (!empty(substr_count($inputString, $letter))) {
+           //remove to return the missing letters too ;) // if (!empty(substr_count($inputString, $letter))) {
                 $lettersScore->$letter = substr_count($inputString, $letter);
-            }
+            // }
         }
 
         return $lettersScore;
