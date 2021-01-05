@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@mdi/font": "^4.9.95",
-        "axios": "^0.18",
+        "axios": "^0.21",
         "babel-plugin-transform-object-rest-spread": "^6.26.0",
         "babel-preset-es2015": "^6.24.1",
         "babel-preset-es2019": "^1.0.0",
