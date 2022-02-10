@@ -34,7 +34,7 @@
         "bootstrap-vue": "^2.0.4",
         "eslint": "^6.5.1",
         "laue": "^0.2.1",
-        "node-sass": "^4.13.1",
+        "node-sass": "^7.0.0",
         "vue-loader": "^15.9.0",
         "vuetify": "^2.2.15"
     }
